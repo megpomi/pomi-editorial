@@ -15,6 +15,7 @@ import CyclePatterns from "@/components/patterns/CyclePatterns";
 export default function CycleCalendar() {
   const [logs, setLogs] = useState([]);
   const [dailyLogs, setDailyLogs] = useState([]);
+  const [tracking, setTracking] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const loadAll = useCallback(
@@ -22,6 +23,7 @@ export default function CycleCalendar() {
       base44.auth
         .me()
         .then((me) => {
+          setTracking(me?.tracking_focus || []);
           const owner = { created_by_id: me?.id };
           return Promise.all([
             base44.entities.CycleLog.filter(owner, {
@@ -46,6 +48,9 @@ export default function CycleCalendar() {
     loadAll();
   }, [loadAll]);
 
+  // Everything about period days only makes sense while cycles are tracked.
+  const tracksCycles = tracking.includes("menstrual_cycles");
+
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-3xl pb-28">
@@ -61,6 +66,7 @@ export default function CycleCalendar() {
 
         <Rule className="my-6" />
 
+        {tracksCycles && (
         <div className="px-6">
           <Link
             to="/log-period"
@@ -79,6 +85,7 @@ export default function CycleCalendar() {
             <ChevronRight className="h-4 w-4 shrink-0 text-primary transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
         </div>
+        )}
 
         <div className="px-6 pt-6">
           {loading ? (
@@ -87,6 +94,7 @@ export default function CycleCalendar() {
             <CalendarPanel
               logs={logs}
               dailyLogs={dailyLogs}
+              showCycle={tracksCycles}
               onChanged={loadAll}
             />
           )}
@@ -94,11 +102,15 @@ export default function CycleCalendar() {
 
         {!loading && (
           <>
-            <Rule className="my-7" />
+            {tracksCycles && (
+              <>
+                <Rule className="my-7" />
 
-            <div className="px-6">
-              <CycleStats logs={logs} />
-            </div>
+                <div className="px-6">
+                  <CycleStats logs={logs} />
+                </div>
+              </>
+            )}
 
             <Rule className="my-7" />
 

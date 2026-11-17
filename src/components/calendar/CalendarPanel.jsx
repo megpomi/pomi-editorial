@@ -37,6 +37,7 @@ export default function CalendarPanel({
   dailyLogs = [],
   loading,
   showJournal = false,
+  showCycle = true,
   title,
   action,
   onChanged,
@@ -155,10 +156,12 @@ export default function CalendarPanel({
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-        <span className="flex items-center gap-2">
-          <span className="inline-block h-2.5 w-2.5 rounded-full bg-pomegranate-600" />
-          Period day
-        </span>
+        {showCycle && (
+          <span className="flex items-center gap-2">
+            <span className="inline-block h-2.5 w-2.5 rounded-full bg-pomegranate-600" />
+            Period day
+          </span>
+        )}
         <span className="flex items-center gap-2">
           <span className="inline-block h-2.5 w-2.5 rounded-full bg-symptom" />
           Symptoms
@@ -182,7 +185,7 @@ export default function CalendarPanel({
             journal={showJournal ? selectedDailyLog : null}
             cycleDay={cycleDay}
             isPeriodDay={Boolean(selectedLog)}
-            onTogglePeriod={togglePeriodDay}
+            onTogglePeriod={showCycle ? togglePeriodDay : undefined}
             periodSaving={saving}
             periodError={error}
           />

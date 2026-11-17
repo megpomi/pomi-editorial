@@ -136,18 +136,20 @@ export default function LoggedDayDetails({
         >
           Add or edit symptoms
         </Link>
-        <button
-          type="button"
-          onClick={onTogglePeriod}
-          disabled={periodSaving}
-          className="font-heading text-[13px] italic text-muted-foreground underline underline-offset-4 transition-colors hover:text-primary disabled:opacity-50"
-        >
-          {periodSaving
-            ? "Saving…"
-            : isPeriodDay
-            ? "Remove as period day"
-            : "Add as period day"}
-        </button>
+        {onTogglePeriod && (
+          <button
+            type="button"
+            onClick={onTogglePeriod}
+            disabled={periodSaving}
+            className="font-heading text-[13px] italic text-muted-foreground underline underline-offset-4 transition-colors hover:text-primary disabled:opacity-50"
+          >
+            {periodSaving
+              ? "Saving…"
+              : isPeriodDay
+              ? "Remove as period day"
+              : "Add as period day"}
+          </button>
+        )}
       </div>
 
       {periodError && (
