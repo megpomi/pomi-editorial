@@ -142,18 +142,18 @@ export default function Home() {
   }
 
   const options = [];
-  if (showCycle) {
     options.push({
-      title: "Period & symptoms",
-      desc: "Period day, flow, cramps and how your body feels.",
-      to: "/log-today",
-    });
-  }
-  options.push({
     title: "Mood & lifestyle",
     desc: "Mood, exercise, alcohol and caffeine.",
     to: "/log-today",
   });
+  if (showCycle) {
+    options.push({
+      title: "Menstrual symptoms",
+      desc: "Period day, flow, symptoms and how your body feels.",
+      to: "/log-today",
+    });
+  }
   if (tracksWellbeing) {
     options.push({
       title: "Journal",
