@@ -8,7 +8,7 @@
   "theme_color": "#7d2638",
   "icons": [
     {
-      "src": "/pomi-icon.png",
+      "src": "/pomi-icon-tab.png",
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any"
