@@ -30,13 +30,13 @@ export default function Donations() {
         <h1 className="sr-only">Your donations</h1>
 
         <div className="px-6">
-          <DonationTracker user={user} />
+          <CharityImpact />
         </div>
 
         <Rule className="my-7" />
 
         <div className="px-6">
-          <CharityImpact />
+          <DonationTracker user={user} />
         </div>
 
         <p className="px-6 pt-8 text-center text-[12px] leading-relaxed text-muted-foreground">
