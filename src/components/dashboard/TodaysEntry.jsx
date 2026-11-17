@@ -10,11 +10,20 @@ export default function TodaysEntry({ options, logged }) {
     <section className="px-6">
       <Eyebrow>Today's entry</Eyebrow>
 
-      <p className="mt-3 text-[13.5px] leading-relaxed text-muted-foreground">
-        {logged.length
-          ? `Logged today: ${logged.join(" · ")}.`
-          : "Nothing logged yet today. A half-filled page still tells you something."}
-      </p>
+      {logged.length ? (
+        <p className="mt-3 text-[13.5px] leading-relaxed text-muted-foreground">
+          {`Logged today: ${logged.join(" · ")}.`}
+        </p>
+      ) : (
+        <Link
+          to="/log-today"
+          className="mt-3 block text-[13.5px] leading-relaxed text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary"
+        >
+          Nothing logged yet today. Make today's entry here - a half-filled page
+          still tells you something. Alternatively make an entry for a specific
+          area by clicking below.
+        </Link>
+      )}
 
       <div className="mt-4 divide-y divide-border border-y border-border">
         {options.map((option) => (

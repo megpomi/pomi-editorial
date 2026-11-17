@@ -111,10 +111,18 @@ export default function Home() {
   const overdue =
     status.dayOfCycle != null && status.dayOfCycle > status.avgCycle;
 
+  // The cycle line greets the user by name when Pomi knows it.
+  const firstName = (user?.preferred_name || user?.full_name || "")
+    .trim()
+    .split(/\s+/)[0];
+  const cycleKicker = firstName
+    ? `Today in ${firstName}${firstName.endsWith("s") ? "’" : "’s"} cycle`
+    : "Today, in your cycle";
+
   let block;
   if (showCycle && hasCycle) {
     block = {
-      kicker: "Today, in your cycle",
+      kicker: cycleKicker,
       title: `Day ${status.dayOfCycle}`,
       subtitle: overdue
         ? "days since your last logged period"
@@ -125,7 +133,7 @@ export default function Home() {
     };
   } else if (showCycle) {
     block = {
-      kicker: "Today, in your cycle",
+      kicker: cycleKicker,
       title: "Log data",
       logHref: "/log-today",
       subtitle: "Add your period days and Pomi will write a note here each day.",
@@ -142,23 +150,23 @@ export default function Home() {
   }
 
   const options = [];
-    options.push({
+  options.push({
     title: "Mood & lifestyle",
     desc: "Mood, exercise, alcohol and caffeine.",
-    to: "/log-today",
+    to: "/log-today?section=mood",
   });
   if (showCycle) {
     options.push({
       title: "Menstrual symptoms",
       desc: "Period day, flow, symptoms and how your body feels.",
-      to: "/log-today",
+      to: "/log-today?section=cycle",
     });
   }
   if (tracksWellbeing) {
     options.push({
       title: "Journal",
       desc: "Today's note, in your own words.",
-      to: "/log-today",
+      to: "/log-today?section=journal",
     });
   }
 

@@ -48,6 +48,9 @@ export default function LogToday() {
   const requestedDate = new URLSearchParams(window.location.search).get("date");
   const date = requestedDate || today;
   const isToday = date === today;
+  const requestedSection = new URLSearchParams(window.location.search).get(
+    "section"
+  );
   const [form, setForm] = useState(EMPTY);
   const [entryId, setEntryId] = useState(null);
   const [periodLogs, setPeriodLogs] = useState([]);
@@ -197,6 +200,21 @@ export default function LogToday() {
   const showCycle =
     (tracking || []).includes("menstrual_cycles") || !tracksWellbeing;
 
+  // A dashboard option opens this page for that one area only; without a
+  // section the whole day is shown, the way the entry page has always worked.
+  const AREAS = {
+    mood: "Mood & lifestyle",
+    cycle: "Menstrual symptoms",
+    journal: "Journal",
+  };
+  const section =
+    requestedSection === "mood" ||
+    (requestedSection === "cycle" && showCycle) ||
+    (requestedSection === "journal" && tracksWellbeing)
+      ? requestedSection
+      : null;
+  const shows = (area) => !section || section === area;
+
   const week = Array.from({ length: 7 }, (_, i) => subDays(new Date(), 6 - i));
 
   return (
@@ -206,7 +224,11 @@ export default function LogToday() {
 
         <div className="px-6">
           <h1 className="font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">
-            {isToday ? "How are you today?" : "Edit this day"}
+            {section
+              ? AREAS[section]
+              : isToday
+              ? "How are you today?"
+              : "Edit this day"}
           </h1>
           <p className="mt-2 text-[13.5px] text-muted-foreground">
             It's the {format(new Date(`${date}T00:00:00`), "EEEE d MMMM")}
@@ -219,7 +241,9 @@ export default function LogToday() {
               return (
                 <Link
                   key={key}
-                  to={`/log-today?date=${key}`}
+                  to={`/log-today?date=${key}${
+                    section ? `&section=${section}` : ""
+                  }`}
                   className="flex flex-1 flex-col items-center gap-1"
                 >
                   <span className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
@@ -248,6 +272,7 @@ export default function LogToday() {
           </div>
         ) : (
           <>
+            {shows("mood") && (
             <section className="border-b border-border px-6 py-6">
               <p className="text-[13.5px] leading-relaxed text-muted-foreground">
                 Log your mood and lifestyle choices for today
@@ -311,8 +336,9 @@ export default function LogToday() {
                 </div>
               </div>
             </section>
+            )}
 
-            {showCycle && (
+            {showCycle && shows("cycle") && (
               <section className="border-b border-border px-6 py-6">
                 <h2 className="font-heading text-[19px] leading-snug">
                   Menstrual cycles
@@ -356,7 +382,7 @@ export default function LogToday() {
               </section>
             )}
 
-            {tracksWellbeing && (
+            {tracksWellbeing && shows("journal") && (
               <section className="border-b border-border px-6 py-6">
                 <h2 className="font-heading text-[19px] leading-snug">
                   General wellbeing
