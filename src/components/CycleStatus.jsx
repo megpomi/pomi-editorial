@@ -1,27 +1,27 @@
 import React from "react";
 import { getCurrentPhase, phaseLabel } from "@/lib/cycle";
-import { Eyebrow, Rule } from "@/components/alm/Primitives";
+import { Eyebrow } from "@/components/alm/Primitives";
 
 const PHASE_COPY = {
   period: {
     title: "On your period",
-    note: "Your period is likely underway. Rest is not a reward you have to earn: warmth, water and an earlier night tend to help more than pushing through.",
+    sub: "Be gentle with yourself today.",
   },
   follicular: {
     title: "Follicular phase",
-    note: "Energy often lifts in the days after a period. If yours does, it can be a good stretch for focused work. If it doesn't, that is ordinary too.",
+    sub: "Energy returning — a good week to start things.",
   },
   ovulation: {
-    title: "Ovulatory phase",
-    note: "You may be near ovulation. Some people notice more energy or a mild one-sided ache; many notice nothing at all. Both are normal.",
+    title: "Ovulation",
+    sub: "Peak energy and focus.",
   },
   luteal: {
     title: "Luteal phase",
-    note: "In the second half of the cycle, sleep and mood can feel more sensitive. Noting how you feel now helps Pomi show you clearer patterns later.",
+    sub: "Wind down — rest and reflect.",
   },
   unknown: {
-    title: "A blank first page",
-    note: "Record the first day of your last period and Pomi will begin to keep the count: where you are, what may come next, and what your own notes add up to.",
+    title: "Welcome to Pomi",
+    sub: "Log your first period above to start tracking.",
   },
 };
 
@@ -36,70 +36,62 @@ export default function CycleStatus({ logs }) {
 
   const fmtDate = (d) =>
     d
-      ? new Date(d).toLocaleDateString("en-GB", {
-          day: "numeric",
+      ? new Date(d).toLocaleDateString(undefined, {
           month: "short",
+          day: "numeric",
         })
       : "—";
 
   return (
-    <>
-      <section className="px-6 pt-6">
-        <Eyebrow>
-          {status.dayOfCycle != null ? phaseLabel(status.phase) : "The first page"}
-        </Eyebrow>
-        {status.dayOfCycle != null ? (
-          <>
-            <h1 className="mt-3 font-heading text-[64px] leading-[0.95] tracking-tight">
-              Day {status.dayOfCycle}
-            </h1>
-            <p className="mt-2 font-heading text-[18px] italic text-muted-foreground">
-              of {status.avgCycle}, in the {phaseLabel(status.phase).toLowerCase()} phase
-            </p>
-          </>
-        ) : (
-          <h1 className="mt-3 font-heading text-[40px] leading-[1.02] tracking-tight">
-            Welcome to <span className="italic text-primary">Pomi.</span>
-          </h1>
-        )}
+    <section className="px-6">
+      <Eyebrow>{phaseLabel(status.phase)}</Eyebrow>
 
-        {status.dayOfCycle != null && (
-          <div className="mt-6">
-            <div className="relative h-[2px] w-full bg-border">
-              <span
-                className="absolute left-0 top-0 h-[2px] bg-primary transition-all duration-700 ease-out"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-            <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 text-[12.5px]">
-              <span className="text-muted-foreground">
-                Next period{" "}
-                <span className="font-heading text-[15px] italic text-foreground">
-                  {status.daysUntilNext <= 0
-                    ? "any day now"
-                    : `in ${status.daysUntilNext} days`}
-                </span>{" "}
-                <span className="text-muted-foreground/80">
-                  ({fmtDate(status.nextStart)})
-                </span>
-              </span>
-              <span className="text-muted-foreground">
-                Average cycle{" "}
-                <span className="font-heading text-[15px] italic text-foreground">
-                  {status.avgCycle} days
-                </span>
-              </span>
-            </div>
+      <h2 className="mt-3 font-heading text-[30px] leading-tight tracking-tight">
+        {meta.title}
+      </h2>
+      <p className="mt-2 max-w-sm text-[14.5px] leading-relaxed text-muted-foreground">
+        {meta.sub}
+      </p>
+
+      {status.phase !== "unknown" && (
+        <>
+          <div className="mt-6 flex items-end gap-3">
+            <span className="font-heading text-[58px] leading-[0.85] tracking-tight">
+              {status.dayOfCycle}
+            </span>
+            <span className="mb-1 text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+              day of cycle
+            </span>
           </div>
-        )}
-      </section>
 
-      <Rule className="my-6" />
+          <div className="relative mt-5 h-[2px] w-full bg-border">
+            <span
+              className="absolute left-0 top-0 h-[2px] bg-primary transition-all duration-700 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
 
-      <section className="px-6">
-        <Eyebrow className="mb-3">The day's note</Eyebrow>
-        <p className="alm-dropcap text-[15px] leading-[1.65]">{meta.note}</p>
-      </section>
-    </>
+          <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 text-[12.5px]">
+            <span className="text-muted-foreground">
+              Cycle day{" "}
+              <span className="font-heading text-[15px] text-foreground">
+                {status.dayOfCycle}
+              </span>
+            </span>
+            <span className="text-muted-foreground">
+              Next period{" "}
+              <span className="font-heading text-[15px] text-foreground">
+                {status.daysUntilNext <= 0
+                  ? "Any day"
+                  : `in ${status.daysUntilNext}d`}
+              </span>{" "}
+              <span className="text-muted-foreground/70">
+                {fmtDate(status.nextStart)}
+              </span>
+            </span>
+          </div>
+        </>
+      )}
+    </section>
   );
 }

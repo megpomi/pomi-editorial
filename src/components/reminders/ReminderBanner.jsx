@@ -18,8 +18,7 @@ export default function ReminderBanner({
   return (
     <div className={cn("flex items-start gap-4 border-l-2 pl-4", tone)}>
       <div className="flex-1">
-        <p className="eyebrow text-primary">A note for you</p>
-        <p className="mt-2 font-heading text-[17px] leading-snug">
+        <p className="font-heading text-[17px] leading-snug">
           {reminder.title}
         </p>
         <p className="mt-1 text-[13.5px] leading-relaxed text-muted-foreground">

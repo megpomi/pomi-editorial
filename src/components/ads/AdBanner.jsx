@@ -28,7 +28,7 @@ export default function AdBanner({ className = "" }) {
       <div
         className={`hidden h-[34px] w-full min-w-0 items-center justify-center border border-dashed border-border bg-secondary/40 px-3 text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:flex ${className}`}
       >
-        Sponsor space
+        Google ad space
       </div>
     );
   }

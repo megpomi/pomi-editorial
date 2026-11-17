@@ -4,7 +4,7 @@ import { base44 } from "@/api/base44Client";
 import { useToast } from "@/components/ui/use-toast";
 import Masthead from "@/components/alm/Masthead";
 import AlmTabs from "@/components/alm/AlmTabs";
-import { AlmButton, Eyebrow, Rule } from "@/components/alm/Primitives";
+import { AlmButton, Rule } from "@/components/alm/Primitives";
 import TrackingPreferences from "@/components/profile/TrackingPreferences";
 import ProfileNameForm from "@/components/profile/ProfileNameForm";
 import EmailBox from "@/components/profile/EmailBox";
@@ -108,20 +108,15 @@ export default function Profile() {
               to="/"
               className="font-heading text-[12.5px] italic text-primary underline underline-offset-4"
             >
-              Today
+              Back to my dashboard
             </Link>
           }
         />
 
         <section className="px-6 pb-2">
-          <Eyebrow>Your record</Eyebrow>
-          <h1 className="mt-3 font-heading text-[34px] leading-[1.05] tracking-tight">
-            Your record, <span className="italic text-primary">on your terms.</span>
+          <h1 className="font-heading text-[34px] leading-[1.05] tracking-tight">
+            Your profile
           </h1>
-          <p className="mt-3 max-w-md text-[14px] leading-relaxed text-muted-foreground">
-            What Pomi follows, who your donations support, and how it reaches
-            you. Everything here can change as often as you do.
-          </p>
         </section>
 
         <Rule className="my-6" />
@@ -147,11 +142,11 @@ export default function Profile() {
 
         <div className="px-6 pt-2">
           <AlmButton onClick={handleSave} disabled={!canSave}>
-            {saving ? "Saving…" : "Keep these preferences"}
+            {saving ? "Saving…" : "Save preferences"}
           </AlmButton>
           {!canSave && !saving && (
             <p className="mt-3 text-center font-heading text-[12.5px] italic text-muted-foreground">
-              Choose at least one tracking area and one cause to keep.
+              Choose at least one tracking area and one cause to save.
             </p>
           )}
 

@@ -48,7 +48,7 @@ export default function CyclePatterns({ logs, dailyLogs = [] }) {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="max-w-xs text-[14px] leading-relaxed text-muted-foreground">
-          How you felt and what you recorded, month by month.
+          How you felt and what you logged, month by month.
         </p>
         <MonthStepper month={month} onChange={move} canGoForward={!isThisMonth} />
       </div>
@@ -56,8 +56,8 @@ export default function CyclePatterns({ logs, dailyLogs = [] }) {
       {series.length === 0 ? (
         <p className="mt-5 border-l-2 border-primary pl-4 font-heading text-[15px] italic leading-relaxed text-muted-foreground">
           {isThisMonth
-            ? "Nothing recorded yet this month. Your trends appear here as you check in."
-            : `Nothing recorded in ${formatMonth(month)}.`}
+            ? "Nothing logged yet this month — your trends appear here as you check in."
+            : `Nothing logged in ${formatMonth(month)}.`}
         </p>
       ) : (
         <>

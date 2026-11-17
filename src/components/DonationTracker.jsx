@@ -23,8 +23,8 @@ export default function DonationTracker({ user }) {
     <section>
       <Eyebrow>Your donations</Eyebrow>
       <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
-        The growth of your donation pot. Revenue from your engagement is split
-        equally between your chosen causes.
+        Track the growth of your donation pot. Revenue is earned from your
+        engagement and is split equally between your chosen causes.
       </p>
 
       <div className="mt-5 grid grid-cols-2 divide-x divide-border border-y border-border">
@@ -52,7 +52,7 @@ export default function DonationTracker({ user }) {
 
       {!subscribed && (
         <p className="mt-4 text-[11.5px] italic text-muted-foreground">
-          {`${money(AD_REVENUE_PER_VISIT)} of ad revenue per visit. Going ad-free donates more.`}
+          {`${money(AD_REVENUE_PER_VISIT)} of ad revenue per visit — go ad-free to donate more`}
         </p>
       )}
     </section>

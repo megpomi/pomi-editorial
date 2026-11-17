@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import PublicHeader from "@/components/PublicHeader";
 import PublicFooter from "@/components/PublicFooter";
 import Pomegranate from "@/components/alm/Pomegranate";
-import { AlmButton, Eyebrow, Rule } from "@/components/alm/Primitives";
+import { AlmButton } from "@/components/alm/Primitives";
 
 export default function IntroStep({ onStart }) {
   const [revealed, setRevealed] = useState(false);
@@ -15,9 +14,9 @@ export default function IntroStep({ onStart }) {
   }, []);
 
   const points = [
-    "Kept for you, and never sold",
-    "Your record powers your own insights",
-    "Every entry helps fund causes you choose",
+    "Our purpose is built on the simple idea that every cycle is powerful and should be used for further good.",
+    "Your data powers personalised health insights.",
+    "Your account generates trackable donations made to charitable causes important to you.",
   ];
 
   return (
@@ -38,15 +37,12 @@ export default function IntroStep({ onStart }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.15 }}
             >
-              <Eyebrow className="mt-6">Est. for your own record</Eyebrow>
-              <h1 className="mt-3 font-heading text-[38px] leading-[1.05] tracking-tight sm:text-[44px]">
-                A quiet record
-                <br />
-                <span className="italic text-primary">of your cycle.</span>
+              <h1 className="mt-6 font-heading text-[38px] leading-[1.05] tracking-tight sm:text-[44px]">
+                Welcome to Pomi
               </h1>
               <p className="mt-4 max-w-md text-[15px] leading-relaxed text-muted-foreground">
-                Pomi helps you notice your own rhythm: gently, privately, and in
-                your own words.
+                As in the pomegranate - Symbolic of health, abundance and
+                natural cycles.
               </p>
             </motion.div>
           )}
@@ -57,30 +53,18 @@ export default function IntroStep({ onStart }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <ul className="mt-7 space-y-2.5 text-[14px]">
+              <ul className="mt-7 space-y-3 text-[14px] leading-relaxed">
                 {points.map((t) => (
                   <li key={t} className="flex items-baseline gap-3">
                     <span className="h-px w-4 shrink-0 bg-primary" />
-                    {t}
+                    <span>{t}</span>
                   </li>
                 ))}
               </ul>
 
               <div className="mt-8">
-                <AlmButton onClick={onStart}>Begin</AlmButton>
+                <AlmButton onClick={onStart}>Start with Pomi</AlmButton>
               </div>
-
-              <Rule className="my-6" />
-
-              <p className="text-center text-[13px] text-muted-foreground">
-                Already keep a record with Pomi?{" "}
-                <Link
-                  to="/login"
-                  className="font-heading italic text-primary underline underline-offset-4"
-                >
-                  Sign in
-                </Link>
-              </p>
             </motion.div>
           )}
         </div>

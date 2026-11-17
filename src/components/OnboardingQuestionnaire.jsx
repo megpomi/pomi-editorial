@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, Sparkles } from "lucide-react";
-import { Image } from "@/components/ui/image";
-import pomiLogo from "@/assets/pomi-logo.png";
+import { Sparkles } from "lucide-react";
 import { CHARITY_OPTIONS } from "@/lib/charities";
 import { TRACKING_OPTIONS } from "@/lib/tracking";
 import {

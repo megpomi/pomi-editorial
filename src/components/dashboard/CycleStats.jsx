@@ -37,7 +37,7 @@ export default function CycleStats({ logs }) {
       <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
         {stats.hasHistory
           ? "How your recent cycles compare."
-          : "Record a couple of periods and your figures will fill in."}
+          : "Log a couple of periods and your stats will fill in."}
       </p>
 
       <div className="mt-5 grid grid-cols-3 divide-x divide-border border-y border-border">

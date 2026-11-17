@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Eyebrow } from "@/components/alm/Primitives";
 
 // Header for the public (non signed-in) pages: the wordmark in italic
 // Playfair, the plain links a visitor or reviewer needs, and the way in.
@@ -12,7 +11,6 @@ export default function PublicHeader() {
           <span className="font-heading text-[24px] italic leading-none text-primary">
             Pomi
           </span>
-          <Eyebrow className="hidden sm:block">Cycle almanac</Eyebrow>
         </Link>
         <nav className="flex items-baseline gap-4 text-[13px] sm:gap-6">
           <Link
@@ -37,7 +35,7 @@ export default function PublicHeader() {
             to="/"
             className="rounded-[3px] bg-primary px-4 py-2 font-heading text-[13px] text-primary-foreground transition-colors hover:bg-pomegranate-700"
           >
-            Start
+            Start with Pomi
           </Link>
         </nav>
       </div>

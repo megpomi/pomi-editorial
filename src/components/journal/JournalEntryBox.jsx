@@ -20,7 +20,7 @@ export default function JournalEntryBox({
     <div className="space-y-6">
       <div className="border-l-2 border-primary pl-4">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <Eyebrow>Today's prompt</Eyebrow>
+          <Eyebrow>Today's journal prompt</Eyebrow>
           <span className="font-heading text-[12px] italic text-primary">
             {theme.label}
           </span>

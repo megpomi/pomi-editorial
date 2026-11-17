@@ -10,8 +10,8 @@ export default function DonationCauses({ user, pot }) {
   if (!shares.length) {
     return (
       <p className="mt-5 font-heading text-[14px] italic leading-relaxed text-muted-foreground">
-        You haven't chosen any causes yet. Your pot is split equally between the
-        causes you pick.
+        You haven't chosen any causes yet — your pot is split equally between
+        the causes you pick.
       </p>
     );
   }

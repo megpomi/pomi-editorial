@@ -1,5 +1,4 @@
 import React from "react";
-import { Eyebrow } from "@/components/alm/Primitives";
 import Pomegranate from "@/components/alm/Pomegranate";
 
 export default function AuthLayout({ title, subtitle, footer, children }) {
@@ -11,7 +10,6 @@ export default function AuthLayout({ title, subtitle, footer, children }) {
             <span className="font-heading text-[24px] italic leading-none text-primary">
               Pomi
             </span>
-            <Eyebrow>Your record</Eyebrow>
           </div>
           <div className="mt-3 h-[4px] border-y border-foreground" />
           <div className="mt-8 flex justify-center">

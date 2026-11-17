@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Check, Loader2, Pencil, Plus, X } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { SYMPTOM_OPTIONS } from "@/lib/dailyLog";
+import { Label } from "@/components/ui/label";
 
 const BUBBLE =
   "rounded-[3px] border px-3 py-1.5 text-[13px] capitalize transition-colors";
@@ -126,6 +127,7 @@ export default function SymptomPicker({ value, onChange }) {
 
   return (
     <div className="space-y-2">
+      <Label className="eyebrow text-muted-foreground">Symptoms</Label>
       <div className="flex flex-wrap items-center gap-2">
         {SYMPTOM_OPTIONS.map((symptom) => (
           <button

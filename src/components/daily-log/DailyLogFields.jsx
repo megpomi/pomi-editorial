@@ -2,6 +2,7 @@ import React from "react";
 import MoodFace from "@/components/icons/MoodFace";
 import { FLOW_OPTIONS, MOOD_OPTIONS } from "@/lib/dailyLog";
 import { AlmChip } from "@/components/alm/Primitives";
+import { Label } from "@/components/ui/label";
 
 // A square chip that reads as pressed when it's on — the shared look of every
 // lifestyle toggle.
@@ -22,7 +23,8 @@ export function TogglePill({ label, checked, onChange, disabled }) {
 export function FlowPicker({ value, onChange, disabled }) {
   return (
     <div className={disabled ? "opacity-50" : ""}>
-      <div className="flex flex-wrap gap-x-6 gap-y-2">
+      <Label className="eyebrow text-muted-foreground">Flow</Label>
+      <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
         {FLOW_OPTIONS.map((option) => {
           const on = value === option.value;
           return (
@@ -44,7 +46,7 @@ export function FlowPicker({ value, onChange, disabled }) {
       </div>
       {disabled && (
         <p className="mt-2 font-heading text-[12px] italic text-muted-foreground">
-          Flow is only recorded on period days.
+          Flow is only logged on period days.
         </p>
       )}
     </div>
@@ -53,7 +55,9 @@ export function FlowPicker({ value, onChange, disabled }) {
 
 export function MoodPicker({ value, onChange }) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div>
+      <Label className="eyebrow text-muted-foreground">Mood</Label>
+      <div className="mt-3 flex flex-wrap gap-2">
       {MOOD_OPTIONS.map((option) => {
         const on = value === option.value;
         return (
@@ -77,6 +81,7 @@ export function MoodPicker({ value, onChange }) {
           </button>
         );
       })}
+      </div>
     </div>
   );
 }

@@ -75,7 +75,7 @@ export default function LoggedDayDetails({
 
       {!log && !dailyLog ? (
         <p className="mt-3 font-heading text-[15px] italic text-muted-foreground">
-          Nothing recorded for this day.
+          Nothing logged for this day.
         </p>
       ) : (
         <div className="mt-3 border-t border-border">
@@ -107,23 +107,24 @@ export default function LoggedDayDetails({
           )}
           {dailyLog?.had_sex && <Row label="Intimacy">Yes</Row>}
           {notes && (
-            <Row label="Notes">
-              <span className="font-heading text-[15px] italic leading-relaxed text-muted-foreground">
-                {notes}
-              </span>
-            </Row>
+            <p className="mt-3 border-t border-border pt-3 font-heading text-[15px] italic leading-relaxed text-muted-foreground">
+              {notes}
+            </p>
           )}
           {hasJournal && (
-            <Row label="Journal">
-              <button
-                type="button"
-                onClick={() => setJournalOpen(true)}
-                className="font-heading text-[15px] italic text-primary underline underline-offset-4"
-              >
-                Read the entry
+            <button
+              type="button"
+              onClick={() => setJournalOpen(true)}
+              className="mt-3 flex w-full items-baseline justify-between gap-3 border-t border-border pt-3 text-left font-heading text-[15px] italic text-primary underline underline-offset-4"
+            >
+              <span>
+                Journal entry saved
                 {journalVoice ? " (with a voice note)" : ""}
-              </button>
-            </Row>
+              </span>
+              <span className="shrink-0 text-[10px] uppercase not-italic tracking-[0.18em] text-muted-foreground">
+                Read
+              </span>
+            </button>
           )}
         </div>
       )}

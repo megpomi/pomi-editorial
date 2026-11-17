@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { format } from "date-fns";
+import { Link, useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useToast } from "@/components/ui/use-toast";
-import { Link, useNavigate } from "react-router-dom";
 import Masthead from "@/components/alm/Masthead";
 import AlmTabs from "@/components/alm/AlmTabs";
-import { AlmButton, Eyebrow, Rule } from "@/components/alm/Primitives";
+import { AlmButton, Rule } from "@/components/alm/Primitives";
 import CycleStatus from "@/components/CycleStatus";
 import CycleStats from "@/components/dashboard/CycleStats";
 import CalendarPanel from "@/components/calendar/CalendarPanel";
@@ -105,7 +105,7 @@ export default function Home() {
   if (checkingProfile) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-background">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-secondary border-t-primary" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-pomegranate-100 border-t-pomegranate-600" />
       </div>
     );
   }
@@ -124,37 +124,42 @@ export default function Home() {
           }
         />
 
-        <section className="px-6 pb-1">
-          <Eyebrow>Your day</Eyebrow>
-          <p className="mt-2 font-heading text-[20px] italic leading-snug text-muted-foreground">
+        <section className="px-6">
+          <h1 className="font-heading text-[32px] leading-[1.08] tracking-tight sm:text-[38px]">
+            Hello{firstName ? `, ${firstName}` : logs.length ? "" : ", welcome"}
+          </h1>
+          <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-muted-foreground">
             {tracksWellbeing && !tracksCycles
-              ? "A quiet moment to check in with yourself."
+              ? "Here's your space to check in with yourself today."
               : logs.length
-              ? `Hello${firstName ? `, ${firstName}` : ""}. Here is where you are in your cycle today.`
-              : `Hello${
-                  firstName ? `, ${firstName}` : ""
-                }. Let's begin your record, and give back with it.`}
+              ? "Here's where you are in your cycle today."
+              : "Let's start tracking your cycle — and giving back."}
           </p>
-        </section>
 
-        <CycleStatus logs={logs} />
-
-        <div className="px-6 pt-7">
-          <AlmButton onClick={openLogger}>
-            {hasHistory ? "Write today's entry" : "Log your period"}
-          </AlmButton>
-          <div className="mt-3 text-center">
+          <div className="mt-4 flex flex-wrap items-baseline gap-x-6 gap-y-2">
+            <Link
+              to="/profile"
+              className="font-heading text-[13px] italic text-primary underline underline-offset-4"
+            >
+              Your profile
+            </Link>
             <Link
               to="/upgrade"
               className="font-heading text-[13px] italic text-primary underline underline-offset-4"
             >
-              Go ad-free, and give more
+              Go ad-free
             </Link>
           </div>
-        </div>
+
+          <div className="mt-6">
+            <AlmButton onClick={openLogger}>
+              {hasHistory ? "Log today" : "Log period"}
+            </AlmButton>
+          </div>
+        </section>
 
         {reminders.length > 0 && (
-          <div className="px-6 pt-7">
+          <div className="px-6 pt-6">
             <ReminderBanner
               reminder={reminders[0]}
               onDismiss={dismiss}
@@ -164,10 +169,14 @@ export default function Home() {
         )}
 
         {tracksWellbeing && (
-          <div className="px-6 pt-7">
+          <div className="px-6 pt-6">
             <JournalPrompt dateKey={format(new Date(), "yyyy-MM-dd")} />
           </div>
         )}
+
+        <Rule className="my-7" />
+
+        <CycleStatus logs={logs} />
 
         <Rule className="my-7" />
 
@@ -178,65 +187,50 @@ export default function Home() {
         <Rule className="my-7" />
 
         <section className="px-6">
-          <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <div>
-              <Eyebrow>The month</Eyebrow>
-              <h2 className="mt-2 font-heading text-[26px] leading-none">
-                Your calendar
-              </h2>
-            </div>
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="font-heading text-[20px] leading-none">
+              Your calendar
+            </h2>
             {tracksCycles && (
               <Link
                 to="/calendar?log=1"
-                className="font-heading text-[13px] italic text-primary underline underline-offset-4"
+                className="font-heading text-[12.5px] italic text-primary underline underline-offset-4"
               >
-                Log past days
+                Log historical menstrual days
               </Link>
             )}
           </div>
-        </section>
-        <div className="px-6 pt-5">
-          <CalendarPanel
-            logs={logs}
-            dailyLogs={dailyLogs}
-            loading={loading}
-            showJournal={tracksWellbeing}
-            onChanged={loadLogs}
-          />
-        </div>
-
-        <Rule className="my-7" />
-
-        <section className="px-6">
-          <Eyebrow>Review</Eyebrow>
-          <h2 className="mt-2 font-heading text-[26px] leading-none">
-            Your patterns
-          </h2>
           <div className="mt-5">
-            <CyclePatterns logs={logs} dailyLogs={dailyLogs} />
+            <CalendarPanel
+              logs={logs}
+              dailyLogs={dailyLogs}
+              loading={loading}
+              showJournal={tracksWellbeing}
+              onChanged={loadLogs}
+            />
           </div>
         </section>
 
         <Rule className="my-7" />
 
         <section className="px-6">
-          <Eyebrow>Give</Eyebrow>
-          <h2 className="mt-2 font-heading text-[26px] leading-none">
-            What your record supports
-          </h2>
+          <CyclePatterns logs={logs} dailyLogs={dailyLogs} />
         </section>
-        <div className="px-6 pt-5">
+
+        <div className="px-6 pt-7">
           <CharityImpact />
         </div>
-        <div className="px-6 pt-6">
+
+        <div className="px-6 pt-7">
           <DonationTracker user={user} />
         </div>
 
-        <p className="px-6 pt-10 text-center text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          Pomi is not a medical device. For health concerns, consult a
+        <p className="px-6 pt-8 text-center text-[11.5px] leading-relaxed text-muted-foreground">
+          Pomi is not a medical device. For health concerns, please consult a
           healthcare professional.
         </p>
       </div>
+
       <AlmTabs />
     </div>
   );

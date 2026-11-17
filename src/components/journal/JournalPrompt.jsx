@@ -24,7 +24,7 @@ export default function JournalPrompt({ dateKey }) {
           to="/log-today"
           className="font-heading text-[13px] italic text-primary underline underline-offset-4"
         >
-          Write it in today's entry
+          Write it in today's log
         </Link>
         <span className="text-[11.5px] text-muted-foreground">
           A new prompt every day.

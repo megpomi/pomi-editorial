@@ -149,7 +149,7 @@ export default function SymptomHistoryStep({ trackingFocus, onComplete, onBack }
             disabled={saving}
             className="flex-1 rounded-[3px] bg-primary py-6 font-heading text-[16px] hover:bg-pomegranate-700"
           >
-            {saving ? "Saving…" : "Open my record"}
+            {saving ? "Saving…" : "Finish"}
             {!saving && <ArrowRight className="ml-2 h-4 w-4" />}
           </Button>
         </div>

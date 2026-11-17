@@ -1,5 +1,6 @@
 import React from "react";
 import { DISCHARGE_OPTIONS, prettySymptom } from "@/lib/dailyLog";
+import { Label } from "@/components/ui/label";
 
 // The kinds of discharge a user can note — only active once Discharge is on.
 export default function DischargePicker({ value, onChange, disabled }) {
@@ -12,7 +13,8 @@ export default function DischargePicker({ value, onChange, disabled }) {
 
   return (
     <div className={`transition ${disabled ? "opacity-50" : ""}`}>
-      <div className="flex flex-wrap gap-2">
+      <Label className="eyebrow text-muted-foreground">Discharge</Label>
+      <div className="mt-3 flex flex-wrap gap-2">
         {DISCHARGE_OPTIONS.map((type) => {
           const active = value.includes(type);
           return (

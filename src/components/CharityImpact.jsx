@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { featuredCauses } from "@/lib/charities";
 import ContributionDays from "@/components/ContributionDays";
-import { Eyebrow } from "@/components/alm/Primitives";
 
 export default function CharityImpact() {
   const featured = featuredCauses();
@@ -16,7 +15,7 @@ export default function CharityImpact() {
       </Link>
 
       <h3 className="mt-4 font-heading text-[24px] leading-snug sm:text-[28px]">
-        Every day you record helps fund{" "}
+        Every day you track helps fund{" "}
         <span className="italic text-pomegranate-100">important causes.</span>
       </h3>
       <p className="mt-3 max-w-md text-[14px] leading-relaxed text-pomegranate-100/85">
@@ -66,7 +65,7 @@ export default function CharityImpact() {
           Our mission &amp; how we donate
         </Link>
         <p className="mt-3 text-[11px] leading-relaxed text-pomegranate-100/60">
-          New partners featured daily. Donation distributions are made by Pomi
+          New partners featured daily — donation distributions are made by Pomi
           periodically.
         </p>
       </div>
