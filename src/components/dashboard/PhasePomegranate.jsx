@@ -33,9 +33,17 @@ const IMAGES = {
   },
 };
 
+// Before any history exists there is no phase to draw, so the plain whole-fruit
+// outline stands in and keeps the corner of the page from feeling empty.
+const FALLBACK = {
+  src: "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/ac76784d0_pomegranate-outline.png",
+  width: "100%",
+  left: "0%",
+  top: "0%",
+};
+
 export default function PhasePomegranate({ phase, className = "" }) {
-  const image = IMAGES[phase];
-  if (!image) return null;
+  const image = IMAGES[phase] || FALLBACK;
 
   return (
     <div
