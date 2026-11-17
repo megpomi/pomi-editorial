@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Eyebrow, Rule } from "@/components/alm/Primitives";
+import TodayStatus from "@/components/dashboard/TodayStatus";
 
 // The top of the dashboard, set the way the Almanac prints its front page:
 // a small caps label, the day of the cycle as the headline, the phase in
@@ -11,6 +12,7 @@ export default function TodayCycleBlock({
   subtitle,
   note,
   logHref,
+  status,
 }) {
   const Heading = (
     <span className="font-heading text-[46px] leading-[0.95] tracking-tight sm:text-[64px]">
@@ -38,6 +40,11 @@ export default function TodayCycleBlock({
           <p className="mt-2 font-heading text-[17px] italic leading-snug text-muted-foreground">
             {subtitle}
           </p>
+        ) : null}
+        {status ? (
+          <div className="mt-5">
+            <TodayStatus status={status} />
+          </div>
         ) : null}
       </section>
 

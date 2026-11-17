@@ -69,7 +69,7 @@ export default function HeaderReminderBell() {
 
   const handleLogPeriod = (reminder) =>
     navigate(
-      PERIOD_REMINDERS.includes(reminder?.id) ? "/calendar?log=1" : "/log-today"
+      PERIOD_REMINDERS.includes(reminder?.id) ? "/log-period" : "/log-today"
     );
 
   return (

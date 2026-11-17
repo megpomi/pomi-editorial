@@ -40,9 +40,7 @@ export default function Home() {
 
   const openFromReminder = (reminder) =>
     navigate(
-      PERIOD_REMINDERS.includes(reminder?.id)
-        ? "/calendar?log=1"
-        : "/log-today"
+      PERIOD_REMINDERS.includes(reminder?.id) ? "/log-period" : "/log-today"
     );
 
   const load = useCallback(async () => {
@@ -196,7 +194,10 @@ export default function Home() {
       <div className="mx-auto max-w-3xl pb-28">
         <Masthead />
 
-        <TodayCycleBlock {...block} />
+        <TodayCycleBlock
+          {...block}
+          status={showCycle && hasCycle ? status : null}
+        />
 
         <TodaysEntry options={options} logged={logged} />
 

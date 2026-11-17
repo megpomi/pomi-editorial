@@ -17,18 +17,18 @@ export default function HistoricalDaysPrompt() {
             Add the period days you've already had
           </h2>
           <p className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground">
-            Open the calendar to mark past days, or import a screenshot from
+            Open the period log to mark past days, or import a screenshot from
             another tracking app and we'll transfer them for you.
           </p>
           <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
             <Link
-              to="/calendar?log=1"
+              to="/log-period"
               className="inline-flex h-11 items-center justify-center rounded-[3px] bg-primary px-5 font-heading text-[15px] text-primary-foreground transition-colors hover:bg-pomegranate-700"
             >
-              Open calendar
+              Log period
             </Link>
             <Link
-              to="/calendar?import=1"
+              to="/log-period?import=1"
               className="inline-flex h-11 items-center justify-center rounded-[3px] border border-foreground/25 px-5 font-heading text-[15px] transition-colors hover:bg-secondary"
             >
               Import a screenshot

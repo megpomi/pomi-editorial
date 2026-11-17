@@ -14,6 +14,7 @@ import ResetPassword from '@/pages/ResetPassword';
 import Start from '@/pages/Start';
 import Upgrade from '@/pages/Upgrade';
 import CycleCalendar from '@/pages/CycleCalendar';
+import LogPeriod from '@/pages/LogPeriod';
 import CauseDetail from '@/pages/CauseDetail';
 import Profile from '@/pages/Profile';
 import ThankYou from '@/pages/ThankYou';
@@ -61,6 +62,7 @@ const AuthenticatedApp = () => {
       <Route path="/contact" element={<Contact />} />
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
         <Route path="/calendar" element={<CycleCalendar />} />
+        <Route path="/log-period" element={<LogPeriod />} />
         <Route path="/log-today" element={<LogToday />} />
         <Route path="/causes/:causeValue" element={<CauseDetail />} />
         <Route path="/profile" element={<Profile />} />
