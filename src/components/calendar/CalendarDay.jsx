@@ -24,7 +24,7 @@ export default function CalendarDay({ date, activeModifiers }) {
         <span className="absolute inset-x-1.5 inset-y-1.5 rounded-[2px] bg-sky-300/20" />
       )}
       {ringed && (
-        <span className="absolute inset-x-1.5 inset-y-1.5 rounded-[2px] border border-sky-500/80" />
+        <span className="absolute inset-x-1.5 inset-y-1.5 rounded-[2px] border-2 border-sky-500/40" />
       )}
       <span
         className={`relative ${

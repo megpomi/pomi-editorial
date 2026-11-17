@@ -211,7 +211,7 @@ export default function CalendarPanel({
               Fertile window
             </span>
             <span className="flex items-center gap-2">
-              <span className="inline-block h-2.5 w-2.5 rounded-[1px] border border-sky-500/80" />
+              <span className="inline-block h-2.5 w-2.5 rounded-[1px] border-2 border-sky-500/40" />
               Ovulation
             </span>
           </>
