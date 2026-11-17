@@ -73,7 +73,7 @@ export default function CycleCalendar() {
             className="group flex items-center justify-between gap-4 border-y border-border py-4"
           >
             <span className="min-w-0">
-              <Eyebrow className="text-primary">Log historical periods</Eyebrow>
+              <Eyebrow>Log historical periods</Eyebrow>
               <span className="mt-1.5 block font-heading text-[16.5px] leading-snug">
                 Click here to build your history
               </span>
