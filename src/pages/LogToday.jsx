@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import Masthead from "@/components/alm/Masthead";
 import AlmTabs from "@/components/alm/AlmTabs";
+import BackLink from "@/components/alm/BackLink";
 import { AlmButton, Rule } from "@/components/alm/Primitives";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -223,7 +224,8 @@ export default function LogToday() {
         <Masthead />
 
         <div className="px-6">
-          <h1 className="font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">
+          <BackLink to="/">Back to Today</BackLink>
+          <h1 className="mt-4 font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">
             {section
               ? AREAS[section]
               : isToday

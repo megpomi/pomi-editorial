@@ -50,10 +50,7 @@ export default function TodayCycleBlock({
         </div>
       </section>
 
-      <Rule className="my-6" />
-
-      <section className="px-6">
-        <Eyebrow className="mb-3">The day's note</Eyebrow>
+      <section className="mt-6 px-6">
         <p className="alm-dropcap text-[15px] leading-[1.65]">{note}</p>
       </section>
 

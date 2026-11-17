@@ -2,6 +2,7 @@ import React from "react";
 import { ArrowUpRight, Heart } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
 import AlmTabs from "@/components/alm/AlmTabs";
+import BackLink from "@/components/alm/BackLink";
 import { CHARITY_OPTIONS } from "@/lib/charities";
 import { DONATION_SHARE } from "@/lib/donations";
 
@@ -28,6 +29,9 @@ export default function Mission() {
       <AppHeader maxWidth="max-w-4xl" />
 
       <main className="mx-auto max-w-4xl px-5 pb-28 pt-8 sm:px-8 sm:pt-12">
+        <BackLink to="/" className="mb-6">
+          Back to Today
+        </BackLink>
         <div className="border border-pomegranate-100 bg-pomegranate-800 p-8 text-pomegranate-50 sm:p-10">
           <div className="mb-4 flex items-center gap-2">
             <Heart className="h-4 w-4 fill-white/80" />

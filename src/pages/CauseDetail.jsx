@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, Heart } from "lucide-react";
+import { ArrowUpRight, Heart } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import AppHeader from "@/components/AppHeader";
+import BackLink from "@/components/alm/BackLink";
 import { charityByValue } from "@/lib/charities";
 import { donationTotals, splitByCause } from "@/lib/donations";
 import { currencyOf, formatMoney } from "@/lib/currency";
@@ -31,7 +32,7 @@ export default function CauseDetail() {
           to="/"
           className="text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
         >
-          Back to my dashboard
+          Back to Today
         </Link>
       </div>
     );
@@ -50,13 +51,10 @@ export default function CauseDetail() {
       <AppHeader maxWidth="max-w-3xl" />
 
       <main className="mx-auto max-w-3xl px-5 py-8 sm:px-8 sm:py-12">
-        <Link
-          to="/"
-          className="mb-6 inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-primary"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          Back to my dashboard
-        </Link>
+        <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2">
+          <BackLink to="/">Back to Today</BackLink>
+          <BackLink to="/mission">Back to Our mission</BackLink>
+        </div>
         <div className="flex items-start gap-4">
           <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-pomegranate-100 text-pomegranate-600">
             <Icon className="h-7 w-7" />

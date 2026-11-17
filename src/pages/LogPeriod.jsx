@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import Masthead from "@/components/alm/Masthead";
 import AlmTabs from "@/components/alm/AlmTabs";
+import BackLink from "@/components/alm/BackLink";
 import { Rule } from "@/components/alm/Primitives";
 import { useToast } from "@/components/ui/use-toast";
 import PeriodHistoryCalendar from "@/components/calendar/PeriodHistoryCalendar";
@@ -43,13 +44,11 @@ export default function LogPeriod() {
         <Masthead />
 
         <section className="px-6">
-          <Link
-            to="/calendar"
-            className="font-heading text-[13px] italic text-primary underline decoration-1 underline-offset-4"
-          >
-            Back to my calendar
-          </Link>
-          <h1 className="mt-3 font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            <BackLink to="/">Back to Today</BackLink>
+            <BackLink to="/calendar">Back to my calendar</BackLink>
+          </div>
+          <h1 className="mt-4 font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">
             Log period
           </h1>
           <p className="mt-3 max-w-md text-[14px] leading-relaxed text-muted-foreground">
