@@ -141,6 +141,13 @@ export default function Profile() {
           )}
 
           <div className="mt-8 border-t border-border pt-5">
+            <Link
+              to="/privacy"
+              className="mb-3 flex items-center justify-between border-b border-border pb-3 text-[13px] text-foreground transition-colors hover:text-primary"
+            >
+              <span className="font-heading">How we protect your data</span>
+              <span className="text-muted-foreground">→</span>
+            </Link>
             <button
               type="button"
               onClick={handleLogout}

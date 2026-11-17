@@ -17,6 +17,7 @@ import CycleCalendar from '@/pages/CycleCalendar';
 import LogPeriod from '@/pages/LogPeriod';
 import CauseDetail from '@/pages/CauseDetail';
 import Profile from '@/pages/Profile';
+import Privacy from '@/pages/Privacy';
 import ThankYou from '@/pages/ThankYou';
 import Mission from '@/pages/Mission';
 import Donations from '@/pages/Donations';
@@ -66,6 +67,7 @@ const AuthenticatedApp = () => {
         <Route path="/log-today" element={<LogToday />} />
         <Route path="/causes/:causeValue" element={<CauseDetail />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/privacy" element={<Privacy />} />
         <Route path="/delete-account" element={<DeleteAccount />} />
         <Route path="/upgrade" element={<Upgrade />} />
         <Route path="/mission" element={<Mission />} />
