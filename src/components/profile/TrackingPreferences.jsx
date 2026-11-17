@@ -8,7 +8,13 @@ export default function TrackingPreferences({ selected, onChange }) {
 
   const toggle = (value) => {
     if (!selected.includes(value)) {
-      onChange([...selected, value]);
+      // Fertile windows and ovulation predictions are read off the cycle, so
+      // trying for a baby brings cycle tracking along with it.
+      const next =
+        value === "trying_to_conceive" && !selected.includes("menstrual_cycles")
+          ? [...selected, value, "menstrual_cycles"]
+          : [...selected, value];
+      onChange(next);
       return;
     }
     // Turning an area off changes what the app asks for, so it's confirmed first.
