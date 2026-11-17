@@ -93,6 +93,9 @@ export default function Home() {
 
   const status = getCurrentPhase(logs);
   const hasCycle = status.phase !== "unknown";
+  // Before any history exists the "Start your history" box is the way in, so
+  // the first-log reminder would only repeat it.
+  const showBanner = hasCycle && reminders.length > 0;
 
   // Which parts of the day to offer comes from the tracking areas chosen during
   // onboarding or in the profile.
@@ -192,7 +195,7 @@ export default function Home() {
           phase={showCycle && hasCycle ? status.phase : null}
         />
 
-        {reminders.length > 0 && (
+        {showBanner && (
           <div className="px-6">
             <ReminderBanner
               reminder={reminders[0]}
@@ -203,14 +206,12 @@ export default function Home() {
         )}
 
         {showCycle && !hasCycle && (
-          <div className={reminders.length > 0 ? "mt-7 px-6" : "px-6"}>
+          <div className={showBanner ? "mt-7 px-6" : "px-6"}>
             <HistoricalDaysPrompt />
           </div>
         )}
 
-        {(reminders.length > 0 || (showCycle && !hasCycle)) && (
-          <Rule className="my-7" />
-        )}
+        {(showBanner || (showCycle && !hasCycle)) && <Rule className="my-7" />}
 
         <TodaysEntry options={options} logged={logged} />
 
