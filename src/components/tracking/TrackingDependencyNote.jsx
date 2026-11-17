@@ -10,9 +10,9 @@ export default function TrackingDependencyNote({ className = "" }) {
     >
       <Info className="mt-[2px] h-3.5 w-3.5 shrink-0 text-primary/60" />
       <span>
-        Choosing Trying for a baby brings Menstrual cycles with it. You can
-        track Menstrual cycles on its own, without the ovulation and fertile
-        window insights that Trying for a baby adds.
+        Menstrual cycles is a prerequisite for some other tracking options -
+        selecting these automatically brings Menstrual cycle functionality with
+        it.
       </span>
     </p>
   );
