@@ -9,7 +9,7 @@ export default function FeaturedCauses() {
   return (
     <section className="bg-pomegranate-800 px-6 py-7 text-pomegranate-50 sm:px-8">
       <p className="eyebrow mb-2 text-pomegranate-100/70">
-        Today's featured causes we support
+        Today's featured causes
       </p>
       <div className="border-t border-pomegranate-100/25">
         {featured.map((c) => (
