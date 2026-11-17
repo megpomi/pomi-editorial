@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, Heart } from "lucide-react";
+import { ArrowUpRight, Heart } from "lucide-react";
 import AppHeader from "@/components/AppHeader";
 import AlmTabs from "@/components/alm/AlmTabs";
 import { CHARITY_OPTIONS } from "@/lib/charities";
@@ -26,15 +25,7 @@ const STEPS = [
 export default function Mission() {
   return (
     <div className="min-h-screen bg-background">
-      <AppHeader maxWidth="max-w-4xl">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to my dashboard
-        </Link>
-      </AppHeader>
+      <AppHeader maxWidth="max-w-4xl" />
 
       <main className="mx-auto max-w-4xl px-5 pb-28 pt-8 sm:px-8 sm:pt-12">
         <div className="border border-pomegranate-100 bg-pomegranate-800 p-8 text-pomegranate-50 sm:p-10">

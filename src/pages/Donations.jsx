@@ -25,7 +25,7 @@ export default function Donations() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-3xl pb-28">
-        <Masthead kicker="Your donations" />
+        <Masthead />
 
         <h1 className="sr-only">Your donations</h1>
 

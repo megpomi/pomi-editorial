@@ -17,11 +17,11 @@ export default function ReminderBell({ reminders, onDismiss, onLogPeriod }) {
           variant="ghost"
           size="icon"
           aria-label="Reminders"
-          className="relative rounded-full text-primary hover:bg-secondary"
+          className="relative h-8 w-8 shrink-0 rounded-[3px] border border-foreground/20 text-foreground hover:border-primary/50 hover:bg-transparent hover:text-primary"
         >
-          <Bell className="h-5 w-5" />
+          <Bell className="h-4 w-4" strokeWidth={1.6} />
           {count > 0 && (
-            <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-pomegranate-600 px-1 text-[10px] font-semibold text-white">
+            <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-pomegranate-600 px-1 text-[10px] font-semibold leading-none text-white">
               {count}
             </span>
           )}

@@ -54,7 +54,7 @@ export default function CycleCalendar() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-3xl pb-28">
-        <Masthead kicker="Calendar" />
+        <Masthead />
 
         <section className="px-6">
           <h1 className="font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">

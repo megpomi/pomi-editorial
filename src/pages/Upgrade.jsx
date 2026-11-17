@@ -41,17 +41,16 @@ export default function Upgrade() {
 
   return (
     <div className="min-h-screen bg-background">
-      <AppHeader>
-        <Link
-          to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to my dashboard
-        </Link>
-      </AppHeader>
+      <AppHeader />
 
       <main className="mx-auto max-w-5xl px-5 py-8 sm:px-8 sm:py-12">
+        <Link
+          to="/"
+          className="mb-6 inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-primary"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" />
+          Back to my dashboard
+        </Link>
         <div className="max-w-2xl">
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-pomegranate-400">
             Pomi ad-free

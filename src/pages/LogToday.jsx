@@ -202,17 +202,7 @@ export default function LogToday() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-3xl pb-28">
-        <Masthead
-          kicker="Entry"
-          actions={
-            <Link
-              to="/"
-              className="font-heading text-[12.5px] italic text-primary underline underline-offset-4"
-            >
-              Back to my dashboard
-            </Link>
-          }
-        />
+        <Masthead />
 
         <div className="px-6">
           <h1 className="font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">

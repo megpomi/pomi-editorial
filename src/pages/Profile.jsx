@@ -101,17 +101,7 @@ export default function Profile() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-3xl pb-28">
-        <Masthead
-          kicker="Record"
-          actions={
-            <Link
-              to="/"
-              className="font-heading text-[12.5px] italic text-primary underline underline-offset-4"
-            >
-              Back to my dashboard
-            </Link>
-          }
-        />
+        <Masthead />
 
         <section className="px-6 pb-2">
           <h1 className="font-heading text-[30px] leading-[1.08] tracking-tight sm:text-[34px] sm:leading-[1.05]">

@@ -10,7 +10,6 @@ import TodayCycleBlock from "@/components/dashboard/TodayCycleBlock";
 import TodaysEntry from "@/components/dashboard/TodaysEntry";
 import HistoricalDaysPrompt from "@/components/dashboard/HistoricalDaysPrompt";
 import ReminderBanner from "@/components/reminders/ReminderBanner";
-import ReminderBell from "@/components/reminders/ReminderBell";
 import { useReminders } from "@/hooks/use-reminders";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
 import { getCurrentPhase, phaseLabel } from "@/lib/cycle";
@@ -187,16 +186,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-3xl pb-28">
-        <Masthead
-          kicker={format(new Date(), "EEEE d MMMM")}
-          actions={
-            <ReminderBell
-              reminders={reminders}
-              onDismiss={dismiss}
-              onLogPeriod={openFromReminder}
-            />
-          }
-        />
+        <Masthead />
 
         <TodayCycleBlock {...block} />
 
