@@ -35,12 +35,12 @@ export default function ContributionDays() {
   return (
     <div className="mt-3 flex items-start justify-center gap-12 text-center">
       <div>
-        <p className="font-heading text-4xl font-semibold">{allTime}</p>
-        <p className="mt-1 text-xs text-white/80">days tracked all time</p>
-      </div>
-      <div>
         <p className="font-heading text-4xl font-semibold">{thisMonth}</p>
         <p className="mt-1 text-xs text-white/80">days tracked this month</p>
+      </div>
+      <div>
+        <p className="font-heading text-4xl font-semibold">{allTime}</p>
+        <p className="mt-1 text-xs text-white/80">days tracked all time</p>
       </div>
     </div>
   );
