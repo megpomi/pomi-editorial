@@ -11,7 +11,6 @@ import { AlmButton } from "@/components/alm/Primitives";
 import ChoiceCard from "@/components/onboarding/ChoiceCard";
 import IntroStep from "@/components/onboarding/IntroStep";
 import AccountStep from "@/components/onboarding/AccountStep";
-import SymptomHistoryStep from "@/components/onboarding/SymptomHistoryStep";
 
 export default function OnboardingQuestionnaire({ draft, onComplete }) {
   const [step, setStep] = useState(0);
@@ -36,11 +35,8 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
       .then(() => {
         clearOnboardingDraft();
         setRestoring(false);
-        if (draft.tracking_focus.includes("menstrual_cycles")) {
-          setStep(4);
-        } else {
-          onComplete(draft.tracking_focus);
-        }
+        // The account is made, so the dashboard takes over from here.
+        onComplete(draft.tracking_focus);
       })
       .catch(() => {
         clearOnboardingDraft();
@@ -98,16 +94,6 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
   if (step === 3) {
     return (
       <AccountStep onBack={() => setStep(2)} onContinue={handleAccountReady} />
-    );
-  }
-
-  if (step === 4) {
-    return (
-      <SymptomHistoryStep
-        trackingFocus={trackingFocus}
-        onComplete={onComplete}
-        onBack={() => setStep(2)}
-      />
     );
   }
 

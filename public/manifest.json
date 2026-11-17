@@ -1,0 +1,17 @@
+{
+  "name": "Pomi",
+  "short_name": "Pomi",
+  "description": "Period tracking that gives back.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf6ef",
+  "theme_color": "#7d2638",
+  "icons": [
+    {
+      "src": "/pomi-logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -215,7 +215,7 @@ export default function LogToday() {
         />
 
         <div className="px-6">
-          <h1 className="font-heading text-[30px] leading-tight tracking-tight">
+          <h1 className="font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">
             {isToday ? "How are you today?" : "Edit this day"}
           </h1>
           <p className="mt-2 text-[13.5px] text-muted-foreground">
@@ -230,9 +230,9 @@ export default function LogToday() {
                 <Link
                   key={key}
                   to={`/log-today?date=${key}`}
-                  className="flex w-10 flex-col items-center gap-1"
+                  className="flex flex-1 flex-col items-center gap-1"
                 >
-                  <span className="text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
+                  <span className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
                     {format(d, "EE")}
                   </span>
                   <span

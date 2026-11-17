@@ -23,7 +23,11 @@ const expandLog = (log) => {
   return days;
 };
 
-export default function PeriodHistoryCalendar({ logs, onSaved }) {
+export default function PeriodHistoryCalendar({
+  logs,
+  onSaved,
+  autoImport = false,
+}) {
   const [days, setDays] = useState([]);
   // Days already logged that this save removes — tapped on the calendar.
   const [removals, setRemovals] = useState([]);
@@ -110,7 +114,7 @@ export default function PeriodHistoryCalendar({ logs, onSaved }) {
 
   return (
     <div className="space-y-4">
-      <ImportFromScreenshot onImported={mergeImported} />
+      <ImportFromScreenshot onImported={mergeImported} autoOpen={autoImport} />
 
       <div className="border-y border-border py-2">
         <div

@@ -27,7 +27,7 @@ export default function CharityImpact() {
       <div className="mt-6 border-t border-pomegranate-100/25 pt-4">
         <p className="eyebrow text-pomegranate-100/70">Your contribution</p>
         <ContributionDays />
-        <p className="mt-3 text-[11.5px] leading-relaxed text-pomegranate-100/70">
+        <p className="mt-3 text-[12px] leading-relaxed text-pomegranate-100/80">
           Consistent tracking powers the community that makes these donations
           possible.
         </p>
@@ -64,7 +64,7 @@ export default function CharityImpact() {
         >
           Our mission &amp; how we donate
         </Link>
-        <p className="mt-3 text-[11px] leading-relaxed text-pomegranate-100/60">
+        <p className="mt-3 text-[12px] leading-relaxed text-pomegranate-100/75">
           New partners featured daily — donation distributions are made by Pomi
           periodically.
         </p>

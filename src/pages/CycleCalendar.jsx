@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import Masthead from "@/components/alm/Masthead";
 import AlmTabs from "@/components/alm/AlmTabs";
@@ -11,6 +11,9 @@ export default function CycleCalendar() {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  // Arriving from the dashboard prompt to import a screenshot.
+  const [searchParams] = useSearchParams();
+  const autoImport = searchParams.get("import") === "1";
 
   const loadLogs = useCallback(
     () =>
@@ -47,7 +50,7 @@ export default function CycleCalendar() {
         />
 
         <section className="px-6">
-          <h1 className="font-heading text-[30px] leading-tight tracking-tight">
+          <h1 className="font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">
             Log historical menstrual days
           </h1>
           <p className="mt-3 max-w-md text-[14px] leading-relaxed text-muted-foreground">
@@ -64,6 +67,7 @@ export default function CycleCalendar() {
           ) : (
             <PeriodHistoryCalendar
               logs={logs}
+              autoImport={autoImport}
               onSaved={() => {
                 loadLogs();
                 toast({

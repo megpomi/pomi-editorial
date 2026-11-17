@@ -42,18 +42,20 @@ export default function CycleStats({ logs }) {
 
       <div className="mt-5 grid grid-cols-3 divide-x divide-border border-y border-border">
         {cards.map((card) => (
-          <div key={card.label} className="px-3 py-4 first:pl-0">
-            <p className="eyebrow text-muted-foreground">{card.label}</p>
-            <p className="mt-2 font-heading text-[28px] leading-none">
+          <div key={card.label} className="px-2.5 py-4 first:pl-0 sm:px-3">
+            <p className="eyebrow leading-tight text-muted-foreground">
+              {card.label}
+            </p>
+            <p className="mt-2 font-heading text-[24px] leading-none sm:text-[28px]">
               {card.value == null ? "—" : card.value}
               {card.value != null && (
-                <span className="ml-1 font-heading text-[13px] italic text-muted-foreground">
+                <span className="ml-1 block font-heading text-[12px] italic leading-snug text-muted-foreground sm:inline sm:text-[13px]">
                   days
                 </span>
               )}
             </p>
             {card.hint && (
-              <p className="mt-2 text-[11.5px] leading-snug text-muted-foreground">
+              <p className="mt-2 text-[12px] leading-snug text-muted-foreground">
                 {card.hint}
               </p>
             )}

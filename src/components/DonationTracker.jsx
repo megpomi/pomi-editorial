@@ -33,7 +33,7 @@ export default function DonationTracker({ user }) {
           <p className="mt-2 font-heading text-[30px] leading-none text-primary">
             {money(totals.thisMonth)}
           </p>
-          <p className="mt-2 text-[11.5px] leading-snug text-muted-foreground">
+          <p className="mt-2 text-[12px] leading-snug text-muted-foreground">
             {fromLabel(totals.thisMonthRevenue, totals.thisMonthCount)}
           </p>
         </div>
@@ -42,7 +42,7 @@ export default function DonationTracker({ user }) {
           <p className="mt-2 font-heading text-[30px] leading-none">
             {money(totals.allTime)}
           </p>
-          <p className="mt-2 text-[11.5px] leading-snug text-muted-foreground">
+          <p className="mt-2 text-[12px] leading-snug text-muted-foreground">
             {fromLabel(totals.allTimeRevenue, totals.allTimeCount)}
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function DonationTracker({ user }) {
       <DonationCauses user={user} pot={totals.allTime} />
 
       {!subscribed && (
-        <p className="mt-4 text-[11.5px] italic text-muted-foreground">
+        <p className="mt-4 text-[12px] italic leading-relaxed text-muted-foreground">
           {`${money(AD_REVENUE_PER_VISIT)} of ad revenue per visit — go ad-free to donate more`}
         </p>
       )}

@@ -63,11 +63,11 @@ export default function CyclePatterns({ logs, dailyLogs = [] }) {
         <>
           <div className="mt-5 grid grid-cols-3 divide-x divide-border border-y border-border">
             {tiles.map((tile) => (
-              <div key={tile.label} className="px-3 py-4 first:pl-0">
-                <p className="font-heading text-[24px] leading-none">
+              <div key={tile.label} className="px-2.5 py-4 first:pl-0 sm:px-3">
+                <p className="break-words font-heading text-[20px] leading-tight sm:text-[24px] sm:leading-none">
                   {tile.value}
                 </p>
-                <p className="eyebrow mt-2 text-muted-foreground">
+                <p className="eyebrow mt-2 leading-tight text-muted-foreground">
                   {tile.label}
                 </p>
               </div>

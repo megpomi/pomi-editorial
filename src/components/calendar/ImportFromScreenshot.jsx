@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,7 +26,7 @@ const toBase64 = (file) =>
     reader.readAsDataURL(file);
   });
 
-export default function ImportFromScreenshot({ onImported }) {
+export default function ImportFromScreenshot({ onImported, autoOpen = false }) {
   const albumRef = useRef(null);
   const fileRef = useRef(null);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -35,6 +35,11 @@ export default function ImportFromScreenshot({ onImported }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [readCount, setReadCount] = useState(0);
+
+  // Coming from the dashboard prompt, the picker opens straight away.
+  useEffect(() => {
+    if (autoOpen) setPickerOpen(true);
+  }, [autoOpen]);
 
   const handleFiles = async (files) => {
     const list = Array.from(files || []);

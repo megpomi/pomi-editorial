@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Eyebrow } from "@/components/alm/Primitives";
+import Pomegranate from "@/components/alm/Pomegranate";
 import AdBanner from "@/components/ads/AdBanner";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
 
@@ -11,15 +12,17 @@ export default function Masthead({ kicker, actions, to = "/" }) {
 
   return (
     <header className="px-6 pt-5 pb-4">
-      <div className="flex items-baseline justify-between gap-4">
-        <Link
-          to={to}
-          className="font-heading text-[24px] italic leading-none text-primary"
-        >
-          Pomi
+      <div className="flex items-center justify-between gap-3">
+        <Link to={to} className="flex items-center gap-2">
+          <Pomegranate size={26} />
+          <span className="font-heading text-[24px] italic leading-none text-primary">
+            Pomi
+          </span>
         </Link>
-        <div className="flex items-baseline gap-4">
-          {kicker ? <Eyebrow className="text-right">{kicker}</Eyebrow> : null}
+        <div className="flex items-center gap-3">
+          {kicker ? (
+            <Eyebrow className="text-right leading-tight">{kicker}</Eyebrow>
+          ) : null}
           {actions}
         </div>
       </div>

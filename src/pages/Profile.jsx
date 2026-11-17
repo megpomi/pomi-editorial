@@ -114,7 +114,7 @@ export default function Profile() {
         />
 
         <section className="px-6 pb-2">
-          <h1 className="font-heading text-[34px] leading-[1.05] tracking-tight">
+          <h1 className="font-heading text-[30px] leading-[1.08] tracking-tight sm:text-[34px] sm:leading-[1.05]">
             Your profile
           </h1>
         </section>

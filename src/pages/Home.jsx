@@ -8,6 +8,7 @@ import AlmTabs from "@/components/alm/AlmTabs";
 import { AlmButton, Rule } from "@/components/alm/Primitives";
 import CycleStatus from "@/components/CycleStatus";
 import CycleStats from "@/components/dashboard/CycleStats";
+import HistoricalDaysPrompt from "@/components/dashboard/HistoricalDaysPrompt";
 import CalendarPanel from "@/components/calendar/CalendarPanel";
 import CharityImpact from "@/components/CharityImpact";
 import CyclePatterns from "@/components/patterns/CyclePatterns";
@@ -125,7 +126,7 @@ export default function Home() {
         />
 
         <section className="px-6">
-          <h1 className="font-heading text-[32px] leading-[1.08] tracking-tight sm:text-[38px]">
+          <h1 className="font-heading text-[28px] leading-[1.1] tracking-tight sm:text-[38px] sm:leading-[1.08]">
             Hello{firstName ? `, ${firstName}` : logs.length ? "" : ", welcome"}
           </h1>
           <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-muted-foreground">
@@ -165,6 +166,12 @@ export default function Home() {
               onDismiss={dismiss}
               onLogPeriod={openFromReminder}
             />
+          </div>
+        )}
+
+        {tracksCycles && !hasHistory && (
+          <div className="px-6 pt-6">
+            <HistoricalDaysPrompt />
           </div>
         )}
 
@@ -225,7 +232,7 @@ export default function Home() {
           <DonationTracker user={user} />
         </div>
 
-        <p className="px-6 pt-8 text-center text-[11.5px] leading-relaxed text-muted-foreground">
+        <p className="px-6 pt-8 text-center text-[12px] leading-relaxed text-muted-foreground">
           Pomi is not a medical device. For health concerns, please consult a
           healthcare professional.
         </p>
