@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.54';
+import { callerIdentity, withinLimit } from '../../shared/rateLimit.ts';
 
 // Public contact form: anyone (including visitors without an account) can send a
 // message. Messages are stored admin-only; only the shape is validated here.
@@ -38,6 +39,21 @@ export default async function (req: Request): Promise<Response> {
       return Response.json(
         { error: 'That message is a little too long. Please shorten it.' },
         { status: 400 }
+      );
+    }
+
+    // A handful of messages per visitor per hour: enough for a real question,
+    // nowhere near enough to fill the inbox with a script.
+    const { allowed } = await withinLimit(base44, {
+      kind: 'contact',
+      identity: callerIdentity(req, null),
+      limit: 5,
+      windowMinutes: 60,
+    });
+    if (!allowed) {
+      return Response.json(
+        { error: 'You have already sent us a few messages. Please try again in an hour.' },
+        { status: 429 }
       );
     }
 

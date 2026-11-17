@@ -32,7 +32,10 @@ export default function Upgrade() {
     } catch (e) {
       toast({
         title: "Couldn't start checkout",
-        description: e?.message || "Please try again in a moment.",
+        description:
+          e?.response?.data?.error ||
+          e?.message ||
+          "Please try again in a moment.",
         variant: "destructive",
       });
       setStarting(false);

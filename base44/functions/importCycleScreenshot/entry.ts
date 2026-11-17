@@ -1,4 +1,5 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.54';
+import { callerIdentity, withinLimit } from '../../shared/rateLimit.ts';
 
 const isoDay = (date) => {
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -24,6 +25,21 @@ export default async function (req) {
     const base44 = createClientFromRequest(req);
     const user = await base44.auth.me();
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
+
+    // Each read spends AI credits, so cap how many one account can run in a day —
+    // well above a real import of a year's history, far below a runaway loop.
+    const { allowed } = await withinLimit(base44, {
+      kind: 'screenshot-import',
+      identity: callerIdentity(req, user),
+      limit: 40,
+      windowMinutes: 24 * 60,
+    });
+    if (!allowed) {
+      return Response.json(
+        { error: "You have imported a lot of screenshots today. Please try again tomorrow." },
+        { status: 429 }
+      );
+    }
 
     const body = await req.json().catch(() => ({}));
     const imageBase64 =

@@ -15,6 +15,7 @@
 // (order.checkoutId === checkoutSession.id). Skipping this write makes fulfillment impossible.
 
 import { createClientFromRequest } from "npm:@base44/sdk";
+import { callerIdentity, withinLimit } from "../../shared/rateLimit.ts";
 
 const CONSTRUCT_URL = "https://www.wixapis.com/payments/platform/v1/checkout-sessions/construct";
 
@@ -67,6 +68,21 @@ Deno.serve(async (req: Request) => {
     }
 
     const body = await req.json().catch(() => ({}));
+
+    // A few checkout starts per visitor per hour: a real buyer needs one, a script
+    // could otherwise fill the purchase table and hammer Wix without limit.
+    const { allowed } = await withinLimit(base44, {
+      kind: "checkout",
+      identity: callerIdentity(req, appUser),
+      limit: 10,
+      windowMinutes: 60,
+    });
+    if (!allowed) {
+      return new Response(
+        JSON.stringify({ error: "Too many checkout attempts. Please try again in an hour." }),
+        { status: 429, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
     // ===== APP-SPECIFIC =====
     // Resolve what is being bought AND its price SERVER-SIDE. NEVER trust a price sent by the

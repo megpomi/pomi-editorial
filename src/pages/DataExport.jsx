@@ -78,7 +78,11 @@ export default function DataExport() {
       if (response?.data?.error) throw new Error(response.data.error);
       setSent(true);
     } catch (e) {
-      setError(e?.message || "We couldn't send your request. Please try again.");
+      setError(
+        e?.response?.data?.error ||
+          e?.message ||
+          "We couldn't send your request. Please try again."
+      );
     }
     setSending(false);
   };

@@ -76,6 +76,11 @@ export default function ImportFromScreenshot({ onImported, autoOpen = false }) {
         imported += onImported(days);
       } catch (e) {
         failed += 1;
+        // Stopped by the daily import cap: say so and don't keep trying.
+        if (e?.response?.status === 429 && e?.response?.data?.error) {
+          setError(e.response.data.error);
+          break;
+        }
       }
     }
 
