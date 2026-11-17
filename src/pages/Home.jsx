@@ -124,9 +124,9 @@ export default function Home() {
   } else if (showCycle) {
     block = {
       kicker: cycleKicker,
-      title: "Log data",
+      title: "Day 0",
       logHref: "/log-today",
-      subtitle: "Add your period days and Pomi will write a note here each day.",
+      subtitle: "Log your first period and Pomi will write a note here each day.",
       note: NO_DATA_NOTE,
     };
   } else {

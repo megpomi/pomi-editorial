@@ -13,4 +13,4 @@ export const PHASE_NOTES = {
 
 // Shown until there is enough history for a phase to be worked out.
 export const NO_DATA_NOTE =
-  "Once you log a period day, Pomi works out where you are in your cycle and writes a note here each day about what you might notice. Nothing is shared with anyone else.";
+  "Pomi learns your cycle from what you log. One entry is enough to start predicting what's next. Once you log a period day, Pomi works out where you are in your cycle and writes about what you might notice today. Nothing is shared with anyone else.";
