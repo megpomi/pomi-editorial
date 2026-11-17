@@ -1,6 +1,26 @@
 import { Droplet, Egg, Flame, HeartPulse, Sprout } from "lucide-react";
 import LotusIcon from "@/components/icons/LotusIcon";
 
+export const CYCLE_FOCUS = "menstrual_cycles";
+export const CONCEPTION_FOCUS = "trying_to_conceive";
+
+// Ovulation and the fertile window are read off the cycle, so the two areas
+// travel together: conception brings cycle tracking with it, and dropping the
+// cycle drops conception too.
+export function addFocus(list, value) {
+  if (value === CONCEPTION_FOCUS && !list.includes(CYCLE_FOCUS)) {
+    return [...list, value, CYCLE_FOCUS];
+  }
+  return [...list, value];
+}
+
+export function removeFocus(list, value) {
+  const next = list.filter((v) => v !== value);
+  return value === CYCLE_FOCUS
+    ? next.filter((v) => v !== CONCEPTION_FOCUS)
+    : next;
+}
+
 // The areas a user can choose to track — shared by onboarding and the profile page.
 export const TRACKING_OPTIONS = [
   {

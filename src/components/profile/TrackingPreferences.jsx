@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TRACKING_OPTIONS } from "@/lib/tracking";
+import { TRACKING_OPTIONS, addFocus, removeFocus } from "@/lib/tracking";
 import ChoiceCard from "@/components/onboarding/ChoiceCard";
 import RemoveTrackingDialog from "@/components/profile/RemoveTrackingDialog";
 
@@ -8,13 +8,7 @@ export default function TrackingPreferences({ selected, onChange }) {
 
   const toggle = (value) => {
     if (!selected.includes(value)) {
-      // Fertile windows and ovulation predictions are read off the cycle, so
-      // trying for a baby brings cycle tracking along with it.
-      const next =
-        value === "trying_to_conceive" && !selected.includes("menstrual_cycles")
-          ? [...selected, value, "menstrual_cycles"]
-          : [...selected, value];
-      onChange(next);
+      onChange(addFocus(selected, value));
       return;
     }
     // Turning an area off changes what the app asks for, so it's confirmed first.
@@ -22,7 +16,7 @@ export default function TrackingPreferences({ selected, onChange }) {
   };
 
   const confirmRemoval = () => {
-    onChange(selected.filter((v) => v !== pending?.value));
+    onChange(removeFocus(selected, pending?.value));
     setPending(null);
   };
 

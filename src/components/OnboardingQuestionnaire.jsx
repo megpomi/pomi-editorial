@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { Sparkles } from "lucide-react";
 import { CHARITY_OPTIONS } from "@/lib/charities";
-import { TRACKING_OPTIONS } from "@/lib/tracking";
+import {
+  TRACKING_OPTIONS,
+  CYCLE_FOCUS,
+  addFocus,
+  removeFocus,
+} from "@/lib/tracking";
 import {
   clearOnboardingDraft,
   writeOnboardingDraft,
@@ -12,9 +17,9 @@ import ChoiceCard from "@/components/onboarding/ChoiceCard";
 import IntroStep from "@/components/onboarding/IntroStep";
 import AccountStep from "@/components/onboarding/AccountStep";
 
-// Menstrual cycles is always on for a new account: Pomi is a cycle tracker
-// first, so the questionnaire only lets the extra areas be added around it.
-const ALWAYS_TRACKED = "menstrual_cycles";
+// Cycle tracking starts switched on — Pomi is a cycle tracker first — and can be
+// turned off again. Conception tracking always travels with it.
+const ALWAYS_TRACKED = CYCLE_FOCUS;
 
 export default function OnboardingQuestionnaire({ draft, onComplete }) {
   const [step, setStep] = useState(0);
@@ -85,8 +90,13 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
   const options = isFirst ? TRACKING_OPTIONS : CHARITY_OPTIONS;
   const selected = isFirst ? trackingFocus : charityInterests;
   const toggleCurrent = (value) => {
-    if (isFirst && value === ALWAYS_TRACKED) return;
-    toggle(isFirst ? setTrackingFocus : setCharityInterests)(value);
+    if (!isFirst) {
+      toggle(setCharityInterests)(value);
+      return;
+    }
+    setTrackingFocus((prev) =>
+      prev.includes(value) ? removeFocus(prev, value) : addFocus(prev, value)
+    );
   };
 
   if (restoring) {
@@ -141,7 +151,6 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
               desc={opt.desc}
               active={selected.includes(opt.value)}
               comingSoon={opt.comingSoon}
-              locked={isFirst && opt.value === ALWAYS_TRACKED}
               onClick={() => toggleCurrent(opt.value)}
             />
           ))}
