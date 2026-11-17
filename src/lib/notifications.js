@@ -27,6 +27,12 @@ export const NOTIFICATION_TOPICS = [
     tracks: "menstrual_cycles",
   },
   {
+    key: "ovulation",
+    label: "Ovulation & fertile window",
+    desc: "A heads-up when your fertile window opens and ovulation is near.",
+    tracks: "trying_to_conceive",
+  },
+  {
     key: "impact",
     label: "Donation & impact updates",
     desc: "Your giving summary and news from your chosen causes.",
