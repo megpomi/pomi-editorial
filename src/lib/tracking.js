@@ -48,7 +48,7 @@ export const TRACKING_OPTIONS = [
   {
     value: "general_wellbeing",
     label: "General wellbeing",
-    desc: "Daily journaling prompts to track your thoughts and feelings.",
+    desc: "Track your thoughts and feelings with daily journalling prompts andvoice recordings.",
     icon: LotusIcon,
     removal: {
       title: "Stop tracking general wellbeing?",
