@@ -17,7 +17,7 @@ export default function CalendarDay({ date, activeModifiers }) {
   return (
     <div className="relative flex h-full w-full items-center justify-center">
       {shaded && (
-        <span className="absolute inset-x-1.5 inset-y-1.5 rounded-[2px] bg-pomegranate-600/15" />
+        <span className="absolute inset-x-1.5 inset-y-1.5 rounded-[2px] bg-sky-300/40" />
       )}
       {ringed && (
         <span className="absolute inset-x-1.5 inset-y-1.5 rounded-[2px] border border-pomegranate-600/60" />

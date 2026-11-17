@@ -208,7 +208,7 @@ export default function CalendarPanel({
         {showFertility && fertility && (
           <>
             <span className="flex items-center gap-2">
-              <span className="inline-block h-2.5 w-2.5 rounded-[1px] bg-pomegranate-600/15 ring-1 ring-inset ring-pomegranate-600/40" />
+              <span className="inline-block h-2.5 w-2.5 rounded-[1px] bg-sky-300/40 ring-1 ring-inset ring-sky-500/40" />
               Fertile window
             </span>
             <span className="flex items-center gap-2">
