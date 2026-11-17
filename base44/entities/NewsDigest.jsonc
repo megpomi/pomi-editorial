@@ -1,0 +1,68 @@
+{
+  "name": "NewsDigest",
+  "type": "object",
+  "properties": {
+    "cache_key": {
+      "type": "string",
+      "title": "Cache key",
+      "description": "Digest day plus the causes it covers."
+    },
+    "digest_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Digest date"
+    },
+    "causes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "title": "Causes covered"
+    },
+    "stories": {
+      "type": "array",
+      "title": "Stories",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "cause": {
+            "type": "string"
+          },
+          "published_date": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "cache_key"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

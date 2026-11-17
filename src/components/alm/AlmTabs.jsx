@@ -1,12 +1,14 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Newspaper } from "lucide-react";
 
 // Almanac's section tabs, kept at the foot of the page the way a printed
-// almanac keeps its index: today, the calendar, the mission, the donations.
-// `short` keeps the foot of the page on one line on a phone.
+// almanac keeps its index: today, the calendar, the news, the mission, the
+// donations. `short` keeps the foot of the page on one line on a phone.
 const TABS = [
   { label: "Today", short: "Today", to: "/" },
   { label: "Calendar", short: "Calendar", to: "/calendar" },
+  { label: "In the News", short: "News", to: "/news", icon: Newspaper },
   { label: "Our Mission", short: "Mission", to: "/mission" },
   { label: "Your donations", short: "Donations", to: "/donations" },
 ];
@@ -29,10 +31,22 @@ export default function AlmTabs() {
               to={tab.to}
               className="flex flex-1 flex-col items-center gap-1.5 py-1"
             >
-              <span
-                className="h-1 w-1 rounded-full bg-primary transition-opacity"
-                style={{ opacity: active ? 1 : 0 }}
-              />
+              <span className="flex h-3.5 items-center justify-center">
+                {tab.icon ? (
+                  <tab.icon
+                    strokeWidth={1.25}
+                    aria-hidden="true"
+                    className={`h-3.5 w-3.5 transition-colors ${
+                      active ? "text-primary" : "text-muted-foreground"
+                    }`}
+                  />
+                ) : (
+                  <span
+                    className="h-1 w-1 rounded-full bg-primary transition-opacity"
+                    style={{ opacity: active ? 1 : 0 }}
+                  />
+                )}
+              </span>
               <span
                 className={`text-[10px] uppercase tracking-[0.12em] transition-colors sm:text-[11px] sm:tracking-[0.16em] ${
                   active
