@@ -53,6 +53,27 @@
     "canceledAt": {
       "type": "string",
       "format": "date-time"
+    },
+    "recurringAmount": {
+      "type": "string",
+      "description": "Recurring subscription total in major units, separate from the initial amount due."
+    },
+    "freeTrial": {
+      "type": "boolean",
+      "description": "Trial configured by the server-owned catalog; requires an active Wix subscription before fulfillment."
+    },
+    "lastCycleNumber": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Last fulfilled Wix billing cycle; trial is cycle zero. Updated only after the grant succeeds."
+    },
+    "cancelAtPeriodEnd": {
+      "type": "boolean",
+      "default": false
+    },
+    "cancelRequestedAt": {
+      "type": "string",
+      "format": "date-time"
     }
   },
   "required": [
