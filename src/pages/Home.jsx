@@ -192,29 +192,27 @@ export default function Home() {
           phase={showCycle && hasCycle ? status.phase : null}
         />
 
-        <TodaysEntry options={options} logged={logged} />
-
         {reminders.length > 0 && (
-          <>
-            <Rule className="my-7" />
-            <div className="px-6">
-              <ReminderBanner
-                reminder={reminders[0]}
-                onDismiss={dismiss}
-                onLogPeriod={openFromReminder}
-              />
-            </div>
-          </>
+          <div className="px-6">
+            <ReminderBanner
+              reminder={reminders[0]}
+              onDismiss={dismiss}
+              onLogPeriod={openFromReminder}
+            />
+          </div>
         )}
 
         {showCycle && !hasCycle && (
-          <>
-            <Rule className="my-7" />
-            <div className="px-6">
-              <HistoricalDaysPrompt />
-            </div>
-          </>
+          <div className={reminders.length > 0 ? "mt-7 px-6" : "px-6"}>
+            <HistoricalDaysPrompt />
+          </div>
         )}
+
+        {(reminders.length > 0 || (showCycle && !hasCycle)) && (
+          <Rule className="my-7" />
+        )}
+
+        <TodaysEntry options={options} logged={logged} />
 
         <div className="mt-8">
           <FeaturedCauses />
