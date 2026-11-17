@@ -12,7 +12,7 @@ import HistoricalDaysPrompt from "@/components/dashboard/HistoricalDaysPrompt";
 import ReminderBanner from "@/components/reminders/ReminderBanner";
 import { useReminders } from "@/hooks/use-reminders";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
-import { getCurrentPhase, phaseLabel } from "@/lib/cycle";
+import { getCurrentPhase } from "@/lib/cycle";
 import { NO_DATA_NOTE, PHASE_NOTES } from "@/lib/phaseNotes";
 import { MOOD_OPTIONS, prettySymptom } from "@/lib/dailyLog";
 import { promptForDate } from "@/lib/journalPrompts";
@@ -104,11 +104,7 @@ export default function Home() {
   )?.label;
 
   // The Almanac front page: where the user is in their cycle as the headline,
-  // or an invitation to log. Past the expected length it stops being "day N of
-  // the cycle" and becomes the gap since the last logged period.
-  const overdue =
-    status.dayOfCycle != null && status.dayOfCycle > status.avgCycle;
-
+  // or an invitation to log.
   // The cycle line greets the user by name when Pomi knows it.
   const firstName = (user?.preferred_name || user?.full_name || "")
     .trim()
@@ -122,11 +118,6 @@ export default function Home() {
     block = {
       kicker: cycleKicker,
       title: `Day ${status.dayOfCycle}`,
-      subtitle: overdue
-        ? "days since your last logged period"
-        : `of ${status.avgCycle} days, in the ${phaseLabel(
-            status.phase
-          ).toLowerCase()} phase`,
       note: PHASE_NOTES[status.phase] || NO_DATA_NOTE,
     };
   } else if (showCycle) {

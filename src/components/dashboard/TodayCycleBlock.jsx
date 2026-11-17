@@ -41,11 +41,6 @@ export default function TodayCycleBlock({
             {subtitle}
           </p>
         ) : null}
-        {status ? (
-          <div className="mt-5">
-            <TodayStatus status={status} />
-          </div>
-        ) : null}
       </section>
 
       <Rule className="my-6" />
@@ -54,6 +49,15 @@ export default function TodayCycleBlock({
         <Eyebrow className="mb-3">The day's note</Eyebrow>
         <p className="alm-dropcap text-[15px] leading-[1.65]">{note}</p>
       </section>
+
+      {status ? (
+        <>
+          <Rule className="my-6" />
+          <section className="px-6">
+            <TodayStatus status={status} />
+          </section>
+        </>
+      ) : null}
 
       <Rule className="my-6" />
     </>

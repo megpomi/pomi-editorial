@@ -13,11 +13,19 @@ export default function TodayStatus({ status }) {
     return null;
   }
 
+  // How far through the expected cycle today sits, drawn as a rose rule under
+  // the phase so the line lengthens a little every day.
+  const progress = Math.min(
+    100,
+    Math.max(2, Math.round((status.dayOfCycle / (status.avgCycle || 28)) * 100))
+  );
+
   const cells = [
     {
       label: "Phase",
       value: phaseLabel(status.phase),
       note: null,
+      progress,
     },
     {
       label: "Day of cycle",
@@ -42,6 +50,14 @@ export default function TodayStatus({ status }) {
           <p className="mt-1.5 font-heading text-[17px] leading-tight sm:text-[19px]">
             {cell.value}
           </p>
+          {cell.progress != null ? (
+            <div className="mt-2.5 h-[3px] w-full rounded-full bg-foreground/10">
+              <div
+                className="h-full rounded-full bg-primary transition-[width] duration-700 ease-out"
+                style={{ width: `${cell.progress}%` }}
+              />
+            </div>
+          ) : null}
           {cell.note ? (
             <p className="mt-0.5 text-[11.5px] text-muted-foreground">
               {cell.note}
