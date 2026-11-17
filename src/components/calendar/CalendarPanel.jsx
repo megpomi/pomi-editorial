@@ -184,8 +184,7 @@ export default function CalendarPanel({
             row: "flex w-full",
             cell: "relative flex-1 p-0 text-center text-sm",
             day: "inline-flex h-11 w-full items-center justify-center rounded-full p-0 font-heading text-[15px] font-normal hover:bg-secondary focus-visible:outline-none aria-selected:opacity-100",
-            day_logged:
-              "bg-pomegranate-600/10 font-medium text-pomegranate-700 hover:bg-pomegranate-600/15",
+            day_logged: "font-medium",
             day_selected:
               "bg-transparent text-foreground ring-1 ring-inset ring-muted-foreground/60 hover:bg-secondary focus:bg-transparent",
             day_today: "font-semibold underline underline-offset-4",
@@ -196,7 +195,7 @@ export default function CalendarPanel({
 
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
         <span className="flex items-center gap-2">
-          <span className="inline-block h-2.5 w-2.5 rounded-full bg-pomegranate-600" />
+          <span className="inline-block h-2.5 w-2.5 rounded-[1px] bg-pomegranate-600" />
           {showCycle ? "Period day" : "Logged day"}
         </span>
         {showCycle && (
