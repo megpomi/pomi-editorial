@@ -9,7 +9,7 @@ export default function CalendarDay({ date, activeModifiers }) {
   const dotColor = (color) => (filled ? "bg-background/80" : color);
 
   const dots = [];
-  if (activeModifiers.symptom) dots.push("bg-symptom");
+  if (activeModifiers.symptom) dots.push("bg-muted-foreground/60");
   if (activeModifiers.journal) dots.push("bg-purple-800");
 
   const shaded = activeModifiers.fertile && !activeModifiers.selected;
