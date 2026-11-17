@@ -52,13 +52,11 @@ export default function CycleCalendar() {
         <Masthead />
 
         <section className="px-6">
+          <Eyebrow className="mb-3 text-primary">Your calendar</Eyebrow>
           <h1 className="font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">
-            Your calendar
-          </h1>
-          <p className="mt-3 max-w-md text-[14px] leading-relaxed text-muted-foreground">
             Tap any date to see what you logged that day, and add or edit the
             entry from there.
-          </p>
+          </h1>
         </section>
 
         <Rule className="my-6" />
