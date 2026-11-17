@@ -189,6 +189,7 @@ export default function Home() {
         <TodayCycleBlock
           {...block}
           status={showCycle && hasCycle ? status : null}
+          phase={showCycle && hasCycle ? status.phase : null}
         />
 
         <TodaysEntry options={options} logged={logged} />
