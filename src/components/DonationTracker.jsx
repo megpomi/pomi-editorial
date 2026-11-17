@@ -21,7 +21,7 @@ export default function DonationTracker({ user }) {
 
   return (
     <section>
-      <Eyebrow>Your donations</Eyebrow>
+      <Eyebrow>Your contribution</Eyebrow>
       <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
         Track the growth of your donation pot. Revenue is earned from your
         engagement and is split equally between your chosen causes.

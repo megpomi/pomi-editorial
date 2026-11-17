@@ -27,7 +27,7 @@ export default function Donations() {
       <div className="mx-auto max-w-3xl pb-28">
         <Masthead />
 
-        <h1 className="sr-only">Your donations</h1>
+        <h1 className="eyebrow mb-4 px-6 text-primary">Your donations</h1>
 
         <div className="px-6">
           <CharityImpact />

@@ -15,7 +15,7 @@ export default function CharityImpact() {
       </p>
 
       <div className="mt-6 border-t border-pomegranate-100/25 pt-4">
-        <p className="eyebrow text-pomegranate-100/70">Your contribution</p>
+        <p className="eyebrow text-pomegranate-100/70">Your tracking</p>
         <ContributionDays />
         <p className="mt-3 text-[12px] leading-relaxed text-pomegranate-100/80">
           Consistent tracking powers the community that makes these donations
