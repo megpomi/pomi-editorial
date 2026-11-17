@@ -55,14 +55,8 @@ export default function AlmTabs() {
               key={tab.to}
               to={tab.to}
               aria-label={tab.label}
-              className="flex flex-1 flex-col items-center justify-center gap-1.5 py-1"
+              className="flex flex-1 items-center justify-center py-1"
             >
-              <span className="flex h-3.5 items-center justify-center">
-                <span
-                  className="h-1 w-1 rounded-full bg-primary transition-opacity"
-                  style={{ opacity: active ? 1 : 0 }}
-                />
-              </span>
               <span
                 className={`text-[10px] uppercase tracking-[0.12em] transition-colors sm:text-[11px] sm:tracking-[0.16em] ${
                   active
