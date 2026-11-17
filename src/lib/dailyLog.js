@@ -12,8 +12,8 @@ export const MOOD_OPTIONS = [
   { value: "good", label: "Good" },
   { value: "okay", label: "Okay" },
   { value: "low", label: "Low" },
-  { value: "devastated", label: "Devastated" },
   { value: "anxious", label: "Anxious" },
+  { value: "devastated", label: "Devastated" },
 ];
 
 export const SYMPTOM_OPTIONS = [
