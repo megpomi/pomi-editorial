@@ -187,7 +187,7 @@ export default function CalendarPanel({
             day_logged:
               "bg-pomegranate-600/10 font-medium text-pomegranate-700 hover:bg-pomegranate-600/15",
             day_selected:
-              "bg-primary text-primary-foreground hover:bg-primary focus:bg-primary",
+              "bg-transparent text-foreground ring-1 ring-inset ring-muted-foreground/60 hover:bg-secondary focus:bg-transparent",
             day_today: "font-semibold underline underline-offset-4",
           }}
           className="w-full p-2"

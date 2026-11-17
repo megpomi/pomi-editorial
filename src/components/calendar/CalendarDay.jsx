@@ -28,9 +28,7 @@ export default function CalendarDay({ date, activeModifiers }) {
           {dots.map((color) => (
             <span
               key={color}
-              className={`h-[3px] w-[3px] rounded-full ${
-                activeModifiers.selected ? "bg-primary-foreground" : color
-              }`}
+              className={`h-[3px] w-[3px] rounded-full ${color}`}
             />
           ))}
         </span>
