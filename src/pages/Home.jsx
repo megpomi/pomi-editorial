@@ -9,6 +9,7 @@ import { Rule } from "@/components/alm/Primitives";
 import TodayCycleBlock from "@/components/dashboard/TodayCycleBlock";
 import TodaysEntry from "@/components/dashboard/TodaysEntry";
 import HistoricalDaysPrompt from "@/components/dashboard/HistoricalDaysPrompt";
+import FertileWindow from "@/components/dashboard/FertileWindow";
 import ReminderBanner from "@/components/reminders/ReminderBanner";
 import FeaturedCauses from "@/components/donations/FeaturedCauses";
 import { useReminders } from "@/hooks/use-reminders";
@@ -101,6 +102,7 @@ export default function Home() {
   // onboarding or in the profile.
   const tracking = user?.tracking_focus || [];
   const tracksWellbeing = tracking.includes("general_wellbeing");
+  const tracksConception = tracking.includes("trying_to_conceive");
   const showCycle = tracking.includes("menstrual_cycles") || !tracksWellbeing;
 
   const moodLabel = MOOD_OPTIONS.find(
@@ -195,6 +197,15 @@ export default function Home() {
           status={showCycle && hasCycle ? status : null}
           phase={showCycle && hasCycle ? status.phase : null}
         />
+
+        {tracksConception && showCycle && hasCycle && (
+          <>
+            <div className="px-6">
+              <FertileWindow logs={logs} />
+            </div>
+            <Rule className="my-7" />
+          </>
+        )}
 
         {showBanner && (
           <div className="px-6">

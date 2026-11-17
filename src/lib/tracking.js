@@ -29,7 +29,13 @@ export const TRACKING_OPTIONS = [
     label: "Trying for a baby",
     desc: "Watch for ovulation and your fertile window with the intention of conception.",
     icon: Egg,
-    comingSoon: true,
+    removal: {
+      title: "Stop tracking trying for a baby?",
+      items: [
+        "Your fertile window and ovulation prediction on the dashboard",
+        "The conception note on your cycle",
+      ],
+    },
   },
   {
     value: "pregnancy",
