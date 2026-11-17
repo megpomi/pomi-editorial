@@ -45,16 +45,14 @@ export default function LogPeriod() {
 
         <section className="px-6">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <BackLink to="/">Back to Today</BackLink>
             <BackLink to="/calendar">Back to my calendar</BackLink>
           </div>
           <h1 className="mt-4 font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">
-            Log period
+            Log historical periods
           </h1>
           <p className="mt-3 max-w-md text-[14px] leading-relaxed text-muted-foreground">
-            Tap days you were menstruating to add them, or tap a logged day to
-            remove it. You can also import a screenshot from another tracking
-            app.
+            Tap days you were menstruating to add them, or tap a previously logged day to
+            remove it. You can also import screenshots from another tracking app.
           </p>
         </section>
 
