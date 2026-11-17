@@ -9,7 +9,7 @@ export default function Pomegranate({ size = 96, className = "" }) {
       alt=""
       width={size}
       height={size}
-      style={{ width: size, height: size }}
+      style={{ width: size, height: "auto" }}
       className={`shrink-0 object-contain ${className}`}
       aria-hidden="true"
     />

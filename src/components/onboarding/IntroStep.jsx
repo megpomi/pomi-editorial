@@ -27,7 +27,9 @@ export default function IntroStep({ onStart }) {
         <div className="w-full max-w-xl">
           <motion.div layout className="flex flex-col items-start">
             <motion.div layout transition={{ duration: 0.6, ease: "easeInOut" }}>
-              <Pomegranate size={revealed ? 96 : 140} />
+              <Pomegranate
+                size={revealed ? "min(34vh, 100%)" : "min(46vh, 100%)"}
+              />
             </motion.div>
           </motion.div>
 
