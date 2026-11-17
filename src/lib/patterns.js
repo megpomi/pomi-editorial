@@ -13,7 +13,7 @@ export const MOOD_SCORE = {
   great: 5,
 };
 export const MOOD_WORD = {
-  1: "Bad",
+  1: "Anxious",
   2: "Low",
   3: "Okay",
   4: "Good",
