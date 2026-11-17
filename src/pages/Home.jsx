@@ -133,9 +133,10 @@ export default function Home() {
       note: NO_DATA_NOTE,
     };
   } else {
+    // Without cycles there is no cycle day to headline, so the date takes its place.
     block = {
       kicker: "Today",
-      title: moodLabel || "Log data",
+      title: moodLabel || format(new Date(), "d MMMM"),
       logHref: moodLabel ? undefined : "/log-today",
       subtitle: "Your day, in your own words.",
       note: promptForDate(todayKey).prompt,
