@@ -26,6 +26,7 @@ import LogToday from '@/pages/LogToday';
 import DeleteAccount from '@/pages/DeleteAccount';
 import About from '@/pages/About';
 import Contact from '@/pages/Contact';
+import Unsubscribe from '@/pages/Unsubscribe';
 // Add page imports here
 
 const AuthenticatedApp = () => {
@@ -62,6 +63,7 @@ const AuthenticatedApp = () => {
       <Route path="/" element={<Start />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/unsubscribe" element={<Unsubscribe />} />
       <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
         <Route path="/calendar" element={<CycleCalendar />} />
         <Route path="/log-period" element={<LogPeriod />} />
