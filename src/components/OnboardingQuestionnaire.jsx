@@ -12,11 +12,18 @@ import ChoiceCard from "@/components/onboarding/ChoiceCard";
 import IntroStep from "@/components/onboarding/IntroStep";
 import AccountStep from "@/components/onboarding/AccountStep";
 
+// Menstrual cycles is always on for a new account: Pomi is a cycle tracker
+// first, so the questionnaire only lets the extra areas be added around it.
+const ALWAYS_TRACKED = "menstrual_cycles";
+
 export default function OnboardingQuestionnaire({ draft, onComplete }) {
   const [step, setStep] = useState(0);
-  const [trackingFocus, setTrackingFocus] = useState(
-    draft?.tracking_focus || []
-  );
+  const [trackingFocus, setTrackingFocus] = useState(() => {
+    const saved = draft?.tracking_focus || [];
+    return saved.includes(ALWAYS_TRACKED)
+      ? saved
+      : [ALWAYS_TRACKED, ...saved];
+  });
   const [charityInterests, setCharityInterests] = useState(
     draft?.charity_interests || []
   );
@@ -77,7 +84,10 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
   const isFirst = step === 1;
   const options = isFirst ? TRACKING_OPTIONS : CHARITY_OPTIONS;
   const selected = isFirst ? trackingFocus : charityInterests;
-  const toggleCurrent = toggle(isFirst ? setTrackingFocus : setCharityInterests);
+  const toggleCurrent = (value) => {
+    if (isFirst && value === ALWAYS_TRACKED) return;
+    toggle(isFirst ? setTrackingFocus : setCharityInterests)(value);
+  };
 
   if (restoring) {
     return (
@@ -131,6 +141,7 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
               desc={opt.desc}
               active={selected.includes(opt.value)}
               comingSoon={opt.comingSoon}
+              locked={isFirst && opt.value === ALWAYS_TRACKED}
               onClick={() => toggleCurrent(opt.value)}
             />
           ))}

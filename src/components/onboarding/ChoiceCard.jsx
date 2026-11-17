@@ -3,12 +3,23 @@ import { Check } from "lucide-react";
 
 // A numbered choice row in Almanac's hand: hairline border, serif label,
 // crimson ink when chosen.
-export default function ChoiceCard({ icon: Icon, label, desc, active, onClick, comingSoon }) {
+export default function ChoiceCard({
+  icon: Icon,
+  label,
+  desc,
+  active,
+  onClick,
+  comingSoon,
+  locked,
+}) {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={locked}
       className={`flex w-full items-center gap-4 rounded-[3px] border p-4 text-left transition-colors ${
+        locked ? "cursor-default" : ""
+      } ${
         active
           ? "border-primary bg-accent"
           : "border-border bg-card hover:border-primary/40"
