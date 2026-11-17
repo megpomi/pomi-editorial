@@ -5,15 +5,34 @@
 // connection address the platform forwards. Only the server reads or writes
 // these counters (the RateLimit entity allows no client access).
 
+// A bare address from a header value: drops a port, brackets and whitespace, so the
+// same visitor keeps one identity even though every connection uses a new port.
+function bareAddress(value) {
+  if (!value) return '';
+  const trimmed = String(value).trim().replace(/^\[|\]$/g, '');
+  const withPort = trimmed.match(/^(\d{1,3}(?:\.\d{1,3}){3}):\d+$/);
+  return withPort ? withPort[1] : trimmed;
+}
+
 // Who is asking: their account id when signed in, else their connection address.
+// Only server-set values count. The FIRST entry of x-forwarded-for is whatever the
+// client sent, so it is ignored: a caller could otherwise rotate it and get a fresh
+// allowance on every request. Prefer the CDN/edge address, then the address the last
+// proxy appended, and never a value the caller chose.
 export function callerIdentity(req, user) {
   if (user && user.id) return `user:${user.id}`;
-  const forwarded = req.headers.get('x-forwarded-for') || '';
+
+  const forwarded = (req.headers.get('x-forwarded-for') || '')
+    .split(',')
+    .map(bareAddress)
+    .filter(Boolean);
+
   const address =
-    forwarded.split(',')[0].trim() ||
-    req.headers.get('cf-connecting-ip') ||
-    req.headers.get('x-real-ip') ||
+    bareAddress(req.headers.get('cf-connecting-ip')) ||
+    bareAddress(req.headers.get('x-real-ip')) ||
+    forwarded[forwarded.length - 1] ||
     'unknown';
+
   return `ip:${address}`;
 }
 
