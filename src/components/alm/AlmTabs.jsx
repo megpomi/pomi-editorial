@@ -2,13 +2,13 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 // Almanac's section tabs, kept at the foot of the page the way a printed
-// almanac keeps its index: Today, Month, Entry, Give, Record.
+// almanac keeps its index: today, the calendar, the mission, the donations.
+// `short` keeps the foot of the page on one line on a phone.
 const TABS = [
-  { label: "Today", to: "/" },
-  { label: "Month", to: "/calendar" },
-  { label: "Entry", to: "/log-today" },
-  { label: "Give", to: "/mission" },
-  { label: "Record", to: "/profile" },
+  { label: "Today", short: "Today", to: "/" },
+  { label: "Calendar", short: "Calendar", to: "/calendar" },
+  { label: "Our Mission", short: "Mission", to: "/mission" },
+  { label: "Your donations", short: "Donations", to: "/donations" },
 ];
 
 export default function AlmTabs() {
@@ -34,13 +34,14 @@ export default function AlmTabs() {
                 style={{ opacity: active ? 1 : 0 }}
               />
               <span
-                className={`text-[10px] uppercase tracking-[0.14em] transition-colors sm:text-[11px] sm:tracking-[0.18em] ${
+                className={`text-[10px] uppercase tracking-[0.12em] transition-colors sm:text-[11px] sm:tracking-[0.16em] ${
                   active
                     ? "font-semibold text-primary"
                     : "text-muted-foreground"
                 }`}
               >
-                {tab.label}
+                <span className="sm:hidden">{tab.short}</span>
+                <span className="hidden sm:inline">{tab.label}</span>
               </span>
             </Link>
           );

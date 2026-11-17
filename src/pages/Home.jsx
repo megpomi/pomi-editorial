@@ -1,54 +1,56 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { format } from "date-fns";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useToast } from "@/components/ui/use-toast";
 import Masthead from "@/components/alm/Masthead";
 import AlmTabs from "@/components/alm/AlmTabs";
-import { AlmButton, Rule } from "@/components/alm/Primitives";
-import CycleStatus from "@/components/CycleStatus";
-import CycleStats from "@/components/dashboard/CycleStats";
+import { Rule } from "@/components/alm/Primitives";
+import TodayCycleBlock from "@/components/dashboard/TodayCycleBlock";
+import TodaysEntry from "@/components/dashboard/TodaysEntry";
 import HistoricalDaysPrompt from "@/components/dashboard/HistoricalDaysPrompt";
-import CalendarPanel from "@/components/calendar/CalendarPanel";
-import CharityImpact from "@/components/CharityImpact";
-import CyclePatterns from "@/components/patterns/CyclePatterns";
-import DonationTracker from "@/components/DonationTracker";
-import { recordAdVisit } from "@/lib/donations";
 import ReminderBanner from "@/components/reminders/ReminderBanner";
-import JournalPrompt from "@/components/journal/JournalPrompt";
 import ReminderBell from "@/components/reminders/ReminderBell";
 import { useReminders } from "@/hooks/use-reminders";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
+import { getCurrentPhase, phaseLabel } from "@/lib/cycle";
+import { NO_DATA_NOTE, PHASE_NOTES } from "@/lib/phaseNotes";
+import { MOOD_OPTIONS, prettySymptom } from "@/lib/dailyLog";
+import { promptForDate } from "@/lib/journalPrompts";
+import { recordAdVisit } from "@/lib/donations";
 
 // Reminders that are about logging a period still open the calendar.
 const PERIOD_REMINDERS = ["first_log", "period_due"];
+const FLOW_LABELS = { light: "Light flow", medium: "Medium flow", heavy: "Heavy flow" };
 
 export default function Home() {
+  const todayKey = format(new Date(), "yyyy-MM-dd");
   const [logs, setLogs] = useState([]);
-  const [dailyLogs, setDailyLogs] = useState([]);
+  const [todayEntry, setTodayEntry] = useState(null);
   const [loading, setLoading] = useState(true);
   const [checkingProfile, setCheckingProfile] = useState(true);
   const [user, setUser] = useState(null);
   const { toast } = useToast();
-  const { reminders, dismiss } = useReminders(logs, dailyLogs);
   const navigate = useNavigate();
-  const goToLogPeriod = () => navigate("/calendar?log=1");
-  const hasHistory = logs.length > 0;
 
-  // Until there's any history, logging starts the historical entry flow. Once
-  // history exists it opens the daily check-in for today, and the historical
-  // entry page is reached from the calendar instead.
-  const openLogger = () =>
-    navigate(hasHistory ? "/log-today" : "/calendar?log=1");
+  const dailyLogs = useMemo(
+    () => (todayEntry ? [todayEntry] : []),
+    [todayEntry]
+  );
+  const { reminders, dismiss } = useReminders(logs, dailyLogs);
 
   const openFromReminder = (reminder) =>
-    PERIOD_REMINDERS.includes(reminder?.id) ? goToLogPeriod() : openLogger();
+    navigate(
+      PERIOD_REMINDERS.includes(reminder?.id)
+        ? "/calendar?log=1"
+        : "/log-today"
+    );
 
-  const loadLogs = useCallback(async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
-      // Only the signed-in person's own logs: admins can read every user's
-      // records, and another account's entry would skew the stats.
+      // Only the signed-in person's own records: admins can read every user's,
+      // and another account's entry would put the wrong day at the top.
       const me = await base44.auth.me();
       const owner = { created_by_id: me?.id };
       const [cycles, dailies] = await Promise.all([
@@ -56,27 +58,27 @@ export default function Home() {
           sort: "-start_date",
           limit: 100,
         }),
-        base44.entities.DailyLog.filter(owner, {
-          sort: "-date",
-          limit: 200,
-        }),
+        base44.entities.DailyLog.filter(
+          { ...owner, date: todayKey },
+          { limit: 1 }
+        ),
       ]);
       setLogs(cycles.items);
-      setDailyLogs(dailies.items);
+      setTodayEntry(dailies.items[0] || null);
     } catch (e) {
       toast({
-        title: "Couldn't load your cycles",
+        title: "Couldn't load today",
         description: e?.message || "Please try again shortly.",
         variant: "destructive",
       });
     } finally {
       setLoading(false);
     }
-  }, [toast]);
+  }, [toast, todayKey]);
 
   useEffect(() => {
-    loadLogs();
-  }, [loadLogs]);
+    load();
+  }, [load]);
 
   const subscriber = useIsSubscriber();
 
@@ -91,19 +93,90 @@ export default function Home() {
       .finally(() => setCheckingProfile(false));
   }, [subscriber]);
 
-  // The name given during onboarding greets them here; accounts made another way
-  // fall back to the first word of their account name.
-  const firstName = (user?.preferred_name || user?.full_name || "")
-    .trim()
-    .split(/\s+/)[0];
+  const status = getCurrentPhase(logs);
+  const hasCycle = status.phase !== "unknown";
 
-  // People tracking general wellbeing get a daily journalling prompt instead of
-  // cycle-only framing at the top of their dashboard.
+  // Which parts of the day to offer comes from the tracking areas chosen during
+  // onboarding or in the profile.
   const tracking = user?.tracking_focus || [];
   const tracksWellbeing = tracking.includes("general_wellbeing");
-  const tracksCycles = tracking.includes("menstrual_cycles");
+  const showCycle = tracking.includes("menstrual_cycles") || !tracksWellbeing;
 
-  if (checkingProfile) {
+  const moodLabel = MOOD_OPTIONS.find(
+    (option) => option.value === todayEntry?.mood
+  )?.label;
+
+  // The Almanac front page: where the user is in their cycle as the headline,
+  // or an invitation to log. Past the expected length it stops being "day N of
+  // the cycle" and becomes the gap since the last logged period.
+  const overdue =
+    status.dayOfCycle != null && status.dayOfCycle > status.avgCycle;
+
+  let block;
+  if (showCycle && hasCycle) {
+    block = {
+      kicker: "Today, in your cycle",
+      title: `Day ${status.dayOfCycle}`,
+      subtitle: overdue
+        ? "days since your last logged period"
+        : `of ${status.avgCycle} days, in the ${phaseLabel(
+            status.phase
+          ).toLowerCase()} phase`,
+      note: PHASE_NOTES[status.phase] || NO_DATA_NOTE,
+    };
+  } else if (showCycle) {
+    block = {
+      kicker: "Today, in your cycle",
+      title: "Log data",
+      logHref: "/log-today",
+      subtitle: "Add your period days and Pomi will write a note here each day.",
+      note: NO_DATA_NOTE,
+    };
+  } else {
+    block = {
+      kicker: "Today",
+      title: moodLabel || "Log data",
+      logHref: moodLabel ? undefined : "/log-today",
+      subtitle: "Your day, in your own words.",
+      note: promptForDate(todayKey).prompt,
+    };
+  }
+
+  const options = [];
+  if (showCycle) {
+    options.push({
+      title: "Period & symptoms",
+      desc: "Period day, flow, cramps and how your body feels.",
+      to: "/log-today",
+    });
+  }
+  options.push({
+    title: "Mood & lifestyle",
+    desc: "Mood, exercise, alcohol and caffeine.",
+    to: "/log-today",
+  });
+  if (tracksWellbeing) {
+    options.push({
+      title: "Journal",
+      desc: "Today's note, in your own words.",
+      to: "/log-today",
+    });
+  }
+
+  const logged = [];
+  if (todayEntry) {
+    if (FLOW_LABELS[todayEntry.flow_intensity]) {
+      logged.push(FLOW_LABELS[todayEntry.flow_intensity]);
+    }
+    if (moodLabel) logged.push(moodLabel);
+    (todayEntry.symptoms || []).forEach((symptom) => {
+      const label = prettySymptom(symptom);
+      logged.push(label.charAt(0).toUpperCase() + label.slice(1));
+    });
+    if (todayEntry.journal_response) logged.push("Journal");
+  }
+
+  if (checkingProfile || loading) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-background">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-pomegranate-100 border-t-pomegranate-600" />
@@ -125,112 +198,31 @@ export default function Home() {
           }
         />
 
-        <section className="px-6">
-          <h1 className="font-heading text-[28px] leading-[1.1] tracking-tight sm:text-[38px] sm:leading-[1.08]">
-            Hello{firstName ? `, ${firstName}` : logs.length ? "" : ", welcome"}
-          </h1>
-          <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-muted-foreground">
-            {tracksWellbeing && !tracksCycles
-              ? "Here's your space to check in with yourself today."
-              : logs.length
-              ? "Here's where you are in your cycle today."
-              : "Let's start tracking your cycle — and giving back."}
-          </p>
+        <TodayCycleBlock {...block} />
 
-          <div className="mt-4 flex flex-wrap items-baseline gap-x-6 gap-y-2">
-            <Link
-              to="/profile"
-              className="font-heading text-[13px] italic text-primary underline underline-offset-4"
-            >
-              Your profile
-            </Link>
-            <Link
-              to="/upgrade"
-              className="font-heading text-[13px] italic text-primary underline underline-offset-4"
-            >
-              Go ad-free
-            </Link>
-          </div>
-
-          <div className="mt-6">
-            <AlmButton onClick={openLogger}>
-              {hasHistory ? "Log today" : "Log period"}
-            </AlmButton>
-          </div>
-        </section>
+        <TodaysEntry options={options} logged={logged} />
 
         {reminders.length > 0 && (
-          <div className="px-6 pt-6">
-            <ReminderBanner
-              reminder={reminders[0]}
-              onDismiss={dismiss}
-              onLogPeriod={openFromReminder}
-            />
-          </div>
+          <>
+            <Rule className="my-7" />
+            <div className="px-6">
+              <ReminderBanner
+                reminder={reminders[0]}
+                onDismiss={dismiss}
+                onLogPeriod={openFromReminder}
+              />
+            </div>
+          </>
         )}
 
-        {tracksCycles && !hasHistory && (
-          <div className="px-6 pt-6">
-            <HistoricalDaysPrompt />
-          </div>
+        {showCycle && !hasCycle && (
+          <>
+            <Rule className="my-7" />
+            <div className="px-6">
+              <HistoricalDaysPrompt />
+            </div>
+          </>
         )}
-
-        {tracksWellbeing && (
-          <div className="px-6 pt-6">
-            <JournalPrompt dateKey={format(new Date(), "yyyy-MM-dd")} />
-          </div>
-        )}
-
-        <Rule className="my-7" />
-
-        <CycleStatus logs={logs} />
-
-        <Rule className="my-7" />
-
-        <div className="px-6">
-          <CycleStats logs={logs} />
-        </div>
-
-        <Rule className="my-7" />
-
-        <section className="px-6">
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <h2 className="font-heading text-[20px] leading-none">
-              Your calendar
-            </h2>
-            {tracksCycles && (
-              <Link
-                to="/calendar?log=1"
-                className="font-heading text-[12.5px] italic text-primary underline underline-offset-4"
-              >
-                Log historical menstrual days
-              </Link>
-            )}
-          </div>
-          <div className="mt-5">
-            <CalendarPanel
-              logs={logs}
-              dailyLogs={dailyLogs}
-              loading={loading}
-              showJournal={tracksWellbeing}
-              onChanged={loadLogs}
-            />
-          </div>
-        </section>
-
-        <Rule className="my-7" />
-
-        <section className="px-6">
-          <CyclePatterns logs={logs} dailyLogs={dailyLogs} />
-        </section>
-
-        <div className="px-6 pt-7">
-          <CharityImpact />
-        </div>
-
-        <div className="px-6 pt-7">
-          <DonationTracker user={user} />
-        </div>
 
         <p className="px-6 pt-8 text-center text-[12px] leading-relaxed text-muted-foreground">
           Pomi is not a medical device. For health concerns, please consult a

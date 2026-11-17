@@ -18,6 +18,7 @@ import CauseDetail from '@/pages/CauseDetail';
 import Profile from '@/pages/Profile';
 import ThankYou from '@/pages/ThankYou';
 import Mission from '@/pages/Mission';
+import Donations from '@/pages/Donations';
 import LogToday from '@/pages/LogToday';
 import DeleteAccount from '@/pages/DeleteAccount';
 import About from '@/pages/About';
@@ -66,6 +67,7 @@ const AuthenticatedApp = () => {
         <Route path="/delete-account" element={<DeleteAccount />} />
         <Route path="/upgrade" element={<Upgrade />} />
         <Route path="/mission" element={<Mission />} />
+        <Route path="/donations" element={<Donations />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

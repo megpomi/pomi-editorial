@@ -2,14 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Eyebrow } from "@/components/alm/Primitives";
 import Pomegranate from "@/components/alm/Pomegranate";
-import AdBanner from "@/components/ads/AdBanner";
-import useIsSubscriber from "@/hooks/use-is-subscriber";
+import HeaderActions from "@/components/alm/HeaderActions";
 
 // Almanac's masthead: the wordmark in italic Playfair, the day or the section
-// on the right, and the heavy double rule beneath.
+// beneath it, and the heavy double rule closing it off.
 export default function Masthead({ kicker, actions, to = "/" }) {
-  const subscriber = useIsSubscriber();
-
   return (
     <header className="px-6 pt-5 pb-4">
       <div className="flex items-center justify-between gap-3">
@@ -19,15 +16,13 @@ export default function Masthead({ kicker, actions, to = "/" }) {
             Pomi
           </span>
         </Link>
-        <div className="flex items-center gap-3">
-          {kicker ? (
-            <Eyebrow className="text-right leading-tight">{kicker}</Eyebrow>
-          ) : null}
-          {actions}
-        </div>
+        <HeaderActions />
       </div>
-      <div className="mt-3 h-[4px] border-y border-foreground" />
-      {!subscriber && <AdBanner className="mt-3" />}
+      <div className="mt-3 flex items-center justify-between gap-3">
+        {kicker ? <Eyebrow className="leading-tight">{kicker}</Eyebrow> : <span />}
+        {actions}
+      </div>
+      <div className="mt-2 h-[4px] border-y border-foreground" />
     </header>
   );
 }
