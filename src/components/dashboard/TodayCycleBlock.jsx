@@ -51,7 +51,7 @@ export default function TodayCycleBlock({
       </section>
 
       <section className="mt-6 px-6">
-        <p className="alm-dropcap text-[15px] leading-[1.65]">{note}</p>
+        <p className="alm-dropcap pb-3 text-[15px] leading-[1.65]">{note}</p>
       </section>
 
       {status ? (

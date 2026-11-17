@@ -136,7 +136,7 @@ export default function Home() {
     // Without cycles there is no cycle day to headline, so the date takes its place.
     block = {
       kicker: "Today",
-      title: moodLabel || format(new Date(), "d MMMM"),
+      title: moodLabel || format(new Date(), "EEEE d MMMM"),
       logHref: moodLabel ? undefined : "/log-today",
       subtitle: "Your day, in your own words.",
       note: promptForDate(todayKey).prompt,
