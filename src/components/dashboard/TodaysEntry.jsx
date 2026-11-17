@@ -17,11 +17,16 @@ export default function TodaysEntry({ options, logged }) {
       ) : (
         <Link
           to="/log-today"
-          className="mt-3 block text-[13.5px] leading-relaxed text-muted-foreground underline decoration-border underline-offset-4 transition-colors hover:text-primary"
+          className="mt-3 flex items-start justify-between gap-4"
         >
-          Nothing logged yet today. Make today's entry here - a half-filled page
-          still tells you something. Alternatively make an entry for a specific
-          area by clicking below.
+          <span className="min-w-0 text-[13.5px] leading-relaxed text-muted-foreground">
+            Nothing logged yet today. Make today's entry here - a half-filled
+            page still tells you something.
+            <span className="mt-1 block">
+              Alternatively make an entry for a specific area by clicking below.
+            </span>
+          </span>
+          <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
         </Link>
       )}
 
