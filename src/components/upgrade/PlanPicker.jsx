@@ -12,7 +12,7 @@ export default function PlanPicker({ onSubscribe, disabled, loading }) {
   const plan = PLANS[cadence];
 
   return (
-    <div className="border border-border bg-card p-6">
+    <div className="border border-border bg-card p-5 sm:p-6">
       <div className="flex border border-border p-1">
         {Object.keys(PLANS).map((key) => (
           <button
@@ -30,7 +30,7 @@ export default function PlanPicker({ onSubscribe, disabled, loading }) {
         ))}
       </div>
 
-      <div className="mt-5 flex items-end justify-between">
+      <div className="mt-5 flex flex-wrap items-end justify-between gap-x-3 gap-y-2">
         <div>
           <p className="font-heading text-[32px] leading-none">
             {plan.price}

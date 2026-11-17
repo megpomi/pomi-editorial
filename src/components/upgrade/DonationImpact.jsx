@@ -23,12 +23,12 @@ export default function DonationImpact({ charityInterests = [] }) {
     : ["the causes you pick in your profile"];
 
   return (
-    <div className="border border-border bg-card p-6">
+    <div className="border border-border bg-card p-5 sm:p-6">
       <div className="flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-pomegranate-50 text-pomegranate-500">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-pomegranate-50 text-pomegranate-500">
           <HeartHandshake className="h-5 w-5" />
         </span>
-        <h2 className="font-heading text-[19px]">
+        <h2 className="min-w-0 font-heading text-[17px] leading-snug sm:text-[19px]">
           What your support sends to causes
         </h2>
       </div>
@@ -62,7 +62,7 @@ export default function DonationImpact({ charityInterests = [] }) {
           {causes.map((cause) => (
             <span
               key={cause}
-              className="rounded-full bg-pomegranate-50 px-3 py-1.5 text-xs font-medium text-pomegranate-700"
+              className="max-w-full break-words rounded-full bg-pomegranate-50 px-3 py-1.5 text-xs font-medium text-pomegranate-700"
             >
               {cause}
             </span>

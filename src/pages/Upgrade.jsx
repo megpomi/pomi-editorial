@@ -46,7 +46,7 @@ export default function Upgrade() {
     <div className="min-h-screen bg-background">
       <AppHeader />
 
-      <main className="mx-auto max-w-5xl px-5 py-8 sm:px-8 sm:py-12">
+      <main className="mx-auto w-full max-w-5xl px-5 pb-16 pt-8 sm:px-8 sm:pb-20 sm:pt-12">
         <Link
           to="/"
           className="mb-6 inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-primary"

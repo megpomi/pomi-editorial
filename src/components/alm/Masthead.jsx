@@ -21,7 +21,7 @@ export default function Masthead() {
           </Link>
         </div>
 
-        <span className="min-w-0 truncate text-[9.5px] tracking-[0.06em] text-muted-foreground sm:hidden">
+        <span className="hidden min-w-0 truncate text-[9.5px] tracking-[0.06em] text-muted-foreground min-[360px]:block sm:hidden">
           {format(now, "EEEE d MMM")}
         </span>
         <span className="hidden whitespace-nowrap text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:block">
