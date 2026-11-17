@@ -1,0 +1,46 @@
+{
+  "name": "ExitFeedback",
+  "type": "object",
+  "properties": {
+    "reason": {
+      "type": "string",
+      "enum": [
+        "taking_a_break",
+        "not_useful",
+        "too_expensive",
+        "privacy",
+        "switching",
+        "other"
+      ],
+      "title": "Reason for leaving"
+    },
+    "comments": {
+      "type": "string",
+      "title": "Comments",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "reason"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

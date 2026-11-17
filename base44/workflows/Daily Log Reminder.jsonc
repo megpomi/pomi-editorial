@@ -1,0 +1,76 @@
+{
+  "definition": {
+    "document": {
+      "dsl": "1.0.0",
+      "name": "daily_log_reminder",
+      "version": "1.0",
+      "namespace": "base44"
+    },
+    "do": [
+      {
+        "check_reminder": {
+          "call": "invoke_backend_function",
+          "with": {
+            "function_name": "reminderSettings"
+          },
+          "then": "should_send",
+          "x-base44": {
+            "title": "Check notification preference",
+            "description": "Reads the saved setting"
+          }
+        }
+      },
+      {
+        "should_send": {
+          "switch": [
+            {
+              "when": "${ .check_reminder.enabled }",
+              "then": "send_reminder"
+            },
+            {
+              "when": "${ true }",
+              "then": "end"
+            }
+          ]
+        }
+      },
+      {
+        "send_reminder": {
+          "call": "send_email",
+          "with": {
+            "template_name": "DailyLogReminder",
+            "to": "${ .check_reminder.email }",
+            "description": "Nudges you to log today's symptoms, flow and mood",
+            "variables": {
+              "first_name": "${ .check_reminder.first_name }"
+            }
+          },
+          "then": "end",
+          "x-base44": {
+            "title": "Send the evening reminder",
+            "description": "8pm every day"
+          }
+        }
+      }
+    ]
+  },
+  "trigger": {
+    "condition": null,
+    "config": {
+      "trigger_type": "scheduled",
+      "events": [],
+      "schedule_mode": "recurring",
+      "cron_expression": "0 20 * * *",
+      "one_time_date": null,
+      "timezone": "Europe/Madrid",
+      "interval_value": null,
+      "interval_unit": null,
+      "interval_anchor": null,
+      "ends_type": "never",
+      "ends_on_date": null,
+      "ends_after_count": null
+    }
+  },
+  "description": "Emails a reminder every evening at 8pm to log symptoms and cycle data, skipped when the user has turned email notifications off",
+  "name": "Daily Log Reminder"
+}

@@ -1,0 +1,52 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the user in the app",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "plan": {
+      "type": "string",
+      "description": "Subscription plan; written by the payments webhook.",
+      "enum": [
+        "free",
+        "adfree_monthly",
+        "adfree_yearly"
+      ],
+      "default": "free"
+    },
+    "plan_started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the ad-free subscription began; written by the payments webhook. Donations build daily from here."
+    },
+    "plan_ended_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the ad-free subscription ended; written by the payments webhook. Daily donation accrual stops here."
+    },
+    "ad_views_by_month": {
+      "type": "object",
+      "description": "Ad-supported visits per calendar month, keyed \"YYYY-MM\". Each visit adds one ad view.",
+      "default": {}
+    },
+    "notify_email": {
+      "type": "boolean",
+      "description": "Whether the user wants reminder emails, such as the daily check-in prompt.",
+      "default": true
+    },
+    "notify_push": {
+      "type": "boolean",
+      "description": "Whether the user wants push notifications on their phone.",
+      "default": false
+    }
+  },
+  "required": [
+    "role"
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "name": "DailyLog",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date",
+      "title": "Date"
+    },
+    "flow_intensity": {
+      "type": "string",
+      "enum": [
+        "none",
+        "light",
+        "medium",
+        "heavy"
+      ],
+      "default": "none",
+      "title": "Flow"
+    },
+    "mood": {
+      "type": "string",
+      "enum": [
+        "great",
+        "good",
+        "okay",
+        "low",
+        "devastated",
+        "anxious"
+      ],
+      "title": "Mood"
+    },
+    "symptoms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "title": "Symptoms"
+    },
+    "discharge": {
+      "type": "boolean",
+      "default": false,
+      "title": "Discharge"
+    },
+    "discharge_types": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "egg_white",
+          "creamy",
+          "watery",
+          "sticky",
+          "milky_white",
+          "discoloured",
+          "yellow",
+          "green",
+          "brown"
+        ]
+      },
+      "default": [],
+      "title": "Discharge type"
+    },
+    "had_sex": {
+      "type": "boolean",
+      "default": false,
+      "title": "Had sex today"
+    },
+    "alcohol": {
+      "type": "boolean",
+      "default": false,
+      "title": "Alcohol"
+    },
+    "light_exercise": {
+      "type": "boolean",
+      "default": false,
+      "title": "Light exercise"
+    },
+    "intense_exercise": {
+      "type": "boolean",
+      "default": false,
+      "title": "Intense exercise"
+    },
+    "caffeine": {
+      "type": "boolean",
+      "default": false,
+      "title": "Caffeine"
+    },
+    "custom_lifestyle": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "title": "Custom lifestyle trackers"
+    },
+    "journal_response": {
+      "type": "string",
+      "title": "Journal reflection",
+      "maxLength": 4000
+    },
+    "journal_voice_note": {
+      "type": "string",
+      "title": "Journal voice note"
+    },
+    "notes": {
+      "type": "string",
+      "title": "Notes",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "date"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

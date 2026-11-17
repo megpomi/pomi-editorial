@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 42 37% 93%;
+    --foreground: 350 10% 22%;
+    --card: 42 45% 97%;
+    --card-foreground: 350 10% 22%;
+    --popover: 42 45% 97%;
+    --popover-foreground: 350 10% 22%;
+    --primary: 351 25% 63%;
+    --primary-foreground: 42 50% 98%;
+    --secondary: 351 20% 89%;
+    --secondary-foreground: 351 18% 32%;
+    --muted: 351 16% 89%;
+    --muted-foreground: 351 8% 45%;
+    --accent: 351 22% 87%;
+    --accent-foreground: 351 18% 32%;
+    --destructive: 0 55% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 351 18% 84%;
+    --input: 351 18% 84%;
+    --ring: 351 25% 63%;
+    --symptom: 196 64% 64%;
+    --chart-1: 351 25% 63%;
+    --chart-2: 42 45% 62%;
+    --chart-3: 210 25% 55%;
+    --chart-4: 280 25% 60%;
+    --chart-5: 160 25% 50%;
+    --radius: 0.5rem;
+    --font-heading: ui-sans-serif, system-ui, sans-serif;
+    --font-body: ui-sans-serif, system-ui, sans-serif;
+    --font-display: ui-sans-serif, system-ui, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --sidebar-background: 42 40% 95%;
+    --sidebar-foreground: 350 10% 25%;
+    --sidebar-primary: 351 25% 63%;
+    --sidebar-primary-foreground: 42 50% 98%;
+    --sidebar-accent: 351 20% 89%;
+    --sidebar-accent-foreground: 350 10% 25%;
+    --sidebar-border: 351 18% 86%;
+    --sidebar-ring: 351 25% 63%;
+  }
+
+  .dark {
+    --background: 350 12% 11%;
+    --foreground: 42 30% 94%;
+    --card: 350 12% 14%;
+    --card-foreground: 42 30% 94%;
+    --popover: 350 12% 14%;
+    --popover-foreground: 42 30% 94%;
+    --primary: 351 30% 70%;
+    --primary-foreground: 350 15% 12%;
+    --secondary: 350 10% 19%;
+    --secondary-foreground: 42 25% 92%;
+    --muted: 350 10% 19%;
+    --muted-foreground: 351 10% 66%;
+    --accent: 350 10% 21%;
+    --accent-foreground: 42 25% 92%;
+    --destructive: 0 55% 40%;
+    --destructive-foreground: 42 30% 94%;
+    --border: 350 10% 23%;
+    --input: 350 10% 23%;
+    --ring: 351 30% 70%;
+    --symptom: 196 64% 64%;
+    --chart-1: 351 30% 70%;
+    --chart-2: 42 40% 62%;
+    --chart-3: 210 30% 60%;
+    --chart-4: 280 30% 65%;
+    --chart-5: 160 30% 55%;
+    --sidebar-background: 350 12% 13%;
+    --sidebar-foreground: 42 25% 92%;
+    --sidebar-primary: 351 30% 70%;
+    --sidebar-primary-foreground: 350 15% 12%;
+    --sidebar-accent: 350 10% 19%;
+    --sidebar-accent-foreground: 42 25% 92%;
+    --sidebar-border: 350 10% 23%;
+    --sidebar-ring: 351 30% 70%;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+}
