@@ -4,29 +4,31 @@ import { format } from "date-fns";
 import Pomegranate from "@/components/alm/Pomegranate";
 import HeaderActions from "@/components/alm/HeaderActions";
 
-// The one-line banner every page carries: the mark, the wordmark, the date,
-// then the ad-free invitation, the reminders and the profile door.
+// The one-line banner every page carries: the mark, the wordmark, the date at
+// the centre, then the ad-free invitation, the reminders and the profile door.
 export default function Masthead() {
   const now = new Date();
 
   return (
     <div className="px-5 pt-4 pb-3 sm:px-6">
-      <div className="flex items-center gap-2.5">
-        <Link to="/" className="flex shrink-0 items-center gap-2">
-          <Pomegranate size={24} />
-          <span className="font-heading text-[22px] italic leading-none text-primary">
-            Pomi
-          </span>
-        </Link>
+      <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex flex-1 items-center justify-start">
+          <Link to="/" className="flex shrink-0 items-center gap-2">
+            <Pomegranate size={24} />
+            <span className="font-heading text-[22px] italic leading-none text-primary">
+              Pomi
+            </span>
+          </Link>
+        </div>
 
-        <span className="eyebrow truncate text-muted-foreground sm:hidden">
-          {format(now, "d MMM")}
+        <span className="min-w-0 truncate text-[9.5px] tracking-[0.06em] text-muted-foreground sm:hidden">
+          {format(now, "EEEE d MMM")}
         </span>
-        <span className="eyebrow hidden truncate text-muted-foreground sm:inline">
+        <span className="hidden whitespace-nowrap text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:block">
           {format(now, "EEEE d MMMM")}
         </span>
 
-        <div className="ml-auto">
+        <div className="flex flex-1 items-center justify-end">
           <HeaderActions />
         </div>
       </div>
