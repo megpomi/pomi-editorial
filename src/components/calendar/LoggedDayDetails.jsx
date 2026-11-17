@@ -106,6 +106,14 @@ export default function LoggedDayDetails({
             </Row>
           )}
           {dailyLog?.had_sex && <Row label="Intimacy">Yes</Row>}
+          {dailyLog?.ovulation_test && (
+            <Row label="Ovulation test">
+              <span className="capitalize">{dailyLog.ovulation_test}</span>
+            </Row>
+          )}
+          {typeof dailyLog?.bbt === "number" && (
+            <Row label="Temperature">{dailyLog.bbt} °C</Row>
+          )}
           {notes && (
             <p className="mt-3 border-t border-border pt-3 font-heading text-[15px] italic leading-relaxed text-muted-foreground">
               {notes}

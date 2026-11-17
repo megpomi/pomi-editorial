@@ -20,8 +20,11 @@ const readDismissed = () => {
   }
 };
 
-export function useReminders(logs, dailyLogs) {
+export function useReminders(logs, dailyLogs, options = {}) {
   const [dismissed, setDismissed] = useState(readDismissed);
+  // Read as plain values so the memo below isn't rebuilt on every render.
+  const conception = Boolean(options.conception);
+  const ovulationTestDate = options.ovulationTestDate || null;
 
   useEffect(() => {
     const sync = () => setDismissed(readDismissed());
@@ -31,10 +34,10 @@ export function useReminders(logs, dailyLogs) {
 
   const reminders = useMemo(
     () =>
-      buildReminders(logs, dailyLogs).filter(
+      buildReminders(logs, dailyLogs, { conception, ovulationTestDate }).filter(
         (r) => !dismissed.includes(`${r.id}@${dayKey()}`)
       ),
-    [logs, dailyLogs, dismissed]
+    [logs, dailyLogs, conception, ovulationTestDate, dismissed]
   );
 
   const dismiss = (id) => {

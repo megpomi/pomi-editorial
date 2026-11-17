@@ -100,6 +100,18 @@
       "default": [],
       "title": "Custom lifestyle trackers"
     },
+    "ovulation_test": {
+      "type": "string",
+      "enum": [
+        "negative",
+        "positive"
+      ],
+      "title": "Ovulation test"
+    },
+    "bbt": {
+      "type": "number",
+      "title": "Basal body temperature"
+    },
     "journal_response": {
       "type": "string",
       "title": "Journal reflection",

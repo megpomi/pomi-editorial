@@ -18,6 +18,7 @@ import {
 import SymptomPicker from "@/components/daily-log/SymptomPicker";
 import LifestylePicker from "@/components/daily-log/LifestylePicker";
 import DischargePicker from "@/components/daily-log/DischargePicker";
+import ConceptionFields from "@/components/daily-log/ConceptionFields";
 import JournalEntryBox from "@/components/journal/JournalEntryBox";
 import {
   addPeriodDays,
@@ -38,6 +39,8 @@ const EMPTY = {
   caffeine: false,
   plenty_of_water: false,
   custom_lifestyle: [],
+  ovulation_test: "",
+  bbt: "",
   journal_response: "",
   journal_voice_note: "",
   notes: "",
@@ -92,6 +95,8 @@ export default function LogToday() {
           caffeine: entry?.caffeine || false,
           plenty_of_water: entry?.plenty_of_water || false,
           custom_lifestyle: entry?.custom_lifestyle || [],
+          ovulation_test: entry?.ovulation_test || "",
+          bbt: entry?.bbt ?? "",
           journal_response: entry?.journal_response || "",
           journal_voice_note: entry?.journal_voice_note || "",
           notes: entry?.notes || "",
@@ -164,6 +169,7 @@ export default function LogToday() {
     setSaving(true);
     setError("");
     try {
+      const bbtValue = form.bbt === "" ? null : Number(form.bbt);
       const payload = {
         date,
         flow_intensity: form.flow_intensity,
@@ -176,6 +182,8 @@ export default function LogToday() {
         intense_exercise: form.intense_exercise,
         caffeine: form.caffeine,
         custom_lifestyle: form.custom_lifestyle,
+        ovulation_test: form.ovulation_test || null,
+        bbt: Number.isFinite(bbtValue) ? bbtValue : null,
         journal_response: form.journal_response,
         journal_voice_note: form.journal_voice_note,
         notes: form.notes,
@@ -200,6 +208,7 @@ export default function LogToday() {
   };
 
   const tracksWellbeing = (tracking || []).includes("general_wellbeing");
+  const tracksConception = (tracking || []).includes("trying_to_conceive");
   const showCycle =
     (tracking || []).includes("menstrual_cycles") || !tracksWellbeing;
 
@@ -371,6 +380,7 @@ export default function LogToday() {
                   <SymptomPicker
                     value={form.symptoms}
                     onChange={(value) => set({ symptoms: value })}
+                    conception={tracksConception}
                   />
                   <TogglePill
                     label="Discharge"
@@ -387,6 +397,16 @@ export default function LogToday() {
                     onChange={(value) => set({ discharge_types: value })}
                     disabled={!form.discharge}
                   />
+                  {tracksConception && (
+                    <ConceptionFields
+                      ovulationTest={form.ovulation_test}
+                      onOvulationTestChange={(value) =>
+                        set({ ovulation_test: value })
+                      }
+                      bbt={form.bbt}
+                      onBbtChange={(value) => set({ bbt: value })}
+                    />
+                  )}
                 </div>
               </section>
             )}

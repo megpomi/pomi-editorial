@@ -3,6 +3,10 @@ import { Calendar } from "@/components/ui/calendar";
 import CalendarDay from "@/components/calendar/CalendarDay";
 import LoggedDayDetails from "@/components/calendar/LoggedDayDetails";
 import { getCycleDay } from "@/lib/cycle";
+import {
+  getFertileWindow,
+  getPositiveOvulationTestDate,
+} from "@/lib/fertility";
 import { addPeriodDays, deletePeriodDays } from "@/lib/periodLogs";
 
 // yyyy-MM-dd, built from local parts so days never shift by a timezone offset.
@@ -38,6 +42,7 @@ export default function CalendarPanel({
   loading,
   showJournal = false,
   showCycle = true,
+  showFertility = false,
   title,
   action,
   onChanged,
@@ -103,6 +108,31 @@ export default function CalendarPanel({
     [logs, selected]
   );
 
+  // The predicted fertile window is drawn on the month while conception is
+  // being tracked: shaded days, ringed on the expected ovulation day.
+  const fertility = useMemo(
+    () =>
+      showFertility && logs.length
+        ? getFertileWindow(logs, {
+            positiveTestDate: getPositiveOvulationTestDate(dailyLogs),
+          })
+        : null,
+    [logs, dailyLogs, showFertility]
+  );
+
+  const fertileDays = useMemo(() => {
+    if (!fertility) return [];
+    const days = [];
+    for (
+      let day = new Date(fertility.fertileStart);
+      day <= fertility.fertileEnd;
+      day.setDate(day.getDate() + 1)
+    ) {
+      days.push(new Date(day));
+    }
+    return days;
+  }, [fertility]);
+
   // Marks the selected day as a period day, or clears it when it already is one.
   const togglePeriodDay = async () => {
     if (!selected || saving) return;
@@ -140,6 +170,8 @@ export default function CalendarPanel({
             logged: showCycle ? loggedDays : checkedInDays,
             symptom: showCycle ? symptomDays : [],
             journal: journalDays,
+            fertile: fertileDays,
+            ovulation: fertility ? [fertility.ovulationDate] : [],
           }}
           components={{ DayContent: CalendarDay }}
           disabled={{ after: new Date() }}
@@ -172,6 +204,18 @@ export default function CalendarPanel({
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-symptom" />
             Symptoms
           </span>
+        )}
+        {showFertility && fertility && (
+          <>
+            <span className="flex items-center gap-2">
+              <span className="inline-block h-2.5 w-2.5 rounded-[1px] bg-pomegranate-600/15 ring-1 ring-inset ring-pomegranate-600/40" />
+              Fertile window
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="inline-block h-2.5 w-2.5 rounded-[1px] border border-pomegranate-600/50" />
+              Ovulation
+            </span>
+          </>
         )}
         {showJournal && (
           <span className="flex items-center gap-2">

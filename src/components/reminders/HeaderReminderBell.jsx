@@ -15,6 +15,7 @@ export default function HeaderReminderBell() {
   const todayKey = format(new Date(), "yyyy-MM-dd");
   const [logs, setLogs] = useState([]);
   const [todayEntry, setTodayEntry] = useState(null);
+  const [tracking, setTracking] = useState([]);
 
   useEffect(() => {
     let active = true;
@@ -24,6 +25,7 @@ export default function HeaderReminderBell() {
         .me()
         .then((me) => {
           const owner = { created_by_id: me?.id };
+          setTracking(me?.tracking_focus || []);
           return Promise.all([
             base44.entities.CycleLog.filter(owner, {
               sort: "-start_date",
@@ -65,7 +67,9 @@ export default function HeaderReminderBell() {
     () => (todayEntry ? [todayEntry] : []),
     [todayEntry]
   );
-  const { reminders, dismiss } = useReminders(logs, dailyLogs);
+  const { reminders, dismiss } = useReminders(logs, dailyLogs, {
+    conception: tracking.includes("trying_to_conceive"),
+  });
 
   const handleLogPeriod = (reminder) =>
     navigate(

@@ -95,6 +95,7 @@ export default function CycleCalendar() {
               logs={logs}
               dailyLogs={dailyLogs}
               showCycle={tracksCycles}
+              showFertility={tracking.includes("trying_to_conceive")}
               onChanged={loadAll}
             />
           )}

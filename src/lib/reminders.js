@@ -1,4 +1,5 @@
 import { getCurrentPhase } from "@/lib/cycle";
+import { getFertileWindow } from "@/lib/fertility";
 
 // Cycle reminders — pure functions. Each reminder is derived from the logs the
 // user already has, so nothing has to be stored or scheduled.
@@ -22,7 +23,10 @@ const startOfDay = (value) => {
 
 const daysBetween = (from, to) => Math.round((to - from) / DAY);
 
-export function buildReminders(logs = [], dailyLogs = []) {
+const shortDate = (date) =>
+  date.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+
+export function buildReminders(logs = [], dailyLogs = [], options = {}) {
   const today = startOfDay(new Date());
   const phase = getCurrentPhase(logs);
 
@@ -82,6 +86,39 @@ export function buildReminders(logs = [], dailyLogs = []) {
       body: "Log the first day as soon as it starts — that's what keeps your next prediction on track.",
       cta: "Log period",
     });
+  }
+
+  // Conception tracking adds a nudge just before the window opens, and one
+  // while it is open.
+  if (options.conception) {
+    const window = getFertileWindow(logs, {
+      positiveTestDate: options.ovulationTestDate || null,
+    });
+    if (window && !window.awaitingPeriod && !checkedInToday) {
+      if (window.inFertileWindow) {
+        reminders.push({
+          id: "fertile_now",
+          tone: "due",
+          title: "Your fertile window is open",
+          body: `Ovulation is expected around ${shortDate(
+            window.ovulationDate
+          )}. Log what you notice today — a test, cervical mucus, how you feel.`,
+          cta: "Log today",
+        });
+      } else if (window.daysUntilWindow > 0 && window.daysUntilWindow <= 2) {
+        reminders.push({
+          id: "fertile_soon",
+          tone: "info",
+          title: `Your fertile window opens in ${window.daysUntilWindow} day${
+            window.daysUntilWindow === 1 ? "" : "s"
+          }`,
+          body: `Pomi expects it from ${shortDate(
+            window.fertileStart
+          )} to ${shortDate(window.fertileEnd)}.`,
+          cta: "Log today",
+        });
+      }
+    }
   }
 
   // Any log counts as activity: a period entry, or a daily check-in on mood or

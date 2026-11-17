@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Check, Loader2, Pencil, Plus, X } from "lucide-react";
 import { base44 } from "@/api/base44Client";
-import { SYMPTOM_OPTIONS } from "@/lib/dailyLog";
+import {
+  CONCEPTION_SYMPTOMS,
+  SYMPTOM_OPTIONS,
+  prettySymptom,
+} from "@/lib/dailyLog";
 import { Label } from "@/components/ui/label";
 
 const BUBBLE =
@@ -9,7 +13,7 @@ const BUBBLE =
 
 // The day's symptoms: the standard bubbles, the user's own symptoms saved for
 // good, and a bubble at the end that turns into an input for a new one.
-export default function SymptomPicker({ value, onChange }) {
+export default function SymptomPicker({ value, onChange, conception = false }) {
   const [custom, setCustom] = useState([]);
   const [editing, setEditing] = useState(null); // "new" or a CustomSymptom id
   const [draft, setDraft] = useState("");
@@ -125,11 +129,17 @@ export default function SymptomPicker({ value, onChange }) {
     </span>
   );
 
+  // The conception-only signs are offered to people tracking that, and hidden
+  // for everyone else.
+  const visibleSymptoms = SYMPTOM_OPTIONS.filter(
+    (symptom) => conception || !CONCEPTION_SYMPTOMS.includes(symptom)
+  );
+
   return (
     <div className="space-y-2">
       <Label className="eyebrow text-muted-foreground">Symptoms</Label>
       <div className="flex flex-wrap items-center gap-2">
-        {SYMPTOM_OPTIONS.map((symptom) => (
+        {visibleSymptoms.map((symptom) => (
           <button
             key={symptom}
             type="button"
@@ -140,7 +150,7 @@ export default function SymptomPicker({ value, onChange }) {
                 : "border-foreground/20 text-foreground hover:border-primary/50"
             }`}
           >
-            {symptom.replace(/_/g, " ")}
+            {prettySymptom(symptom)}
           </button>
         ))}
 

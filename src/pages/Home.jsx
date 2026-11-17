@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { format } from "date-fns";
+import { format, subDays } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import { useToast } from "@/components/ui/use-toast";
@@ -15,6 +15,7 @@ import FeaturedCauses from "@/components/donations/FeaturedCauses";
 import { useReminders } from "@/hooks/use-reminders";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
 import { getCurrentPhase } from "@/lib/cycle";
+import { getPositiveOvulationTestDate } from "@/lib/fertility";
 import { NO_DATA_NOTE, PHASE_NOTES } from "@/lib/phaseNotes";
 import { MOOD_OPTIONS, prettySymptom } from "@/lib/dailyLog";
 import { promptForDate } from "@/lib/journalPrompts";
@@ -28,17 +29,37 @@ export default function Home() {
   const todayKey = format(new Date(), "yyyy-MM-dd");
   const [logs, setLogs] = useState([]);
   const [todayEntry, setTodayEntry] = useState(null);
+  const [recentDaily, setRecentDaily] = useState([]);
   const [loading, setLoading] = useState(true);
   const [checkingProfile, setCheckingProfile] = useState(true);
   const [user, setUser] = useState(null);
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  // Which parts of the day to offer comes from the tracking areas chosen during
+  // onboarding or in the profile.
+  const tracking = user?.tracking_focus || [];
+  const tracksWellbeing = tracking.includes("general_wellbeing");
+  const tracksConception = tracking.includes("trying_to_conceive");
+  const showCycle = tracking.includes("menstrual_cycles") || !tracksWellbeing;
+
+  const positiveTestDate = useMemo(
+    () =>
+      getPositiveOvulationTestDate([
+        ...recentDaily,
+        ...(todayEntry ? [todayEntry] : []),
+      ]),
+    [recentDaily, todayEntry]
+  );
+
   const dailyLogs = useMemo(
     () => (todayEntry ? [todayEntry] : []),
     [todayEntry]
   );
-  const { reminders, dismiss } = useReminders(logs, dailyLogs);
+  const { reminders, dismiss } = useReminders(logs, dailyLogs, {
+    conception: tracksConception,
+    ovulationTestDate: positiveTestDate,
+  });
 
   const openFromReminder = (reminder) =>
     navigate(
@@ -79,6 +100,23 @@ export default function Home() {
     load();
   }, [load]);
 
+  // The fertile window reads the last couple of months of check-ins: a positive
+  // ovulation test moves it, and temperatures confirm it after the fact.
+  useEffect(() => {
+    if (!user?.id || !tracksConception) return undefined;
+    let active = true;
+    const since = format(subDays(new Date(), 70), "yyyy-MM-dd");
+    base44.entities.DailyLog.filter(
+      { created_by_id: user.id, date: { $gte: since } },
+      { sort: "-date", limit: 120 }
+    )
+      .then((page) => active && setRecentDaily(page.items))
+      .catch(() => active && setRecentDaily([]));
+    return () => {
+      active = false;
+    };
+  }, [user?.id, tracksConception]);
+
   const subscriber = useIsSubscriber();
 
   useEffect(() => {
@@ -97,13 +135,6 @@ export default function Home() {
   // Before any history exists the "Start your history" box is the way in, so
   // the first-log reminder would only repeat it.
   const showBanner = hasCycle && reminders.length > 0;
-
-  // Which parts of the day to offer comes from the tracking areas chosen during
-  // onboarding or in the profile.
-  const tracking = user?.tracking_focus || [];
-  const tracksWellbeing = tracking.includes("general_wellbeing");
-  const tracksConception = tracking.includes("trying_to_conceive");
-  const showCycle = tracking.includes("menstrual_cycles") || !tracksWellbeing;
 
   const moodLabel = MOOD_OPTIONS.find(
     (option) => option.value === todayEntry?.mood
@@ -201,7 +232,7 @@ export default function Home() {
         {tracksConception && showCycle && hasCycle && (
           <>
             <div className="px-6">
-              <FertileWindow logs={logs} />
+              <FertileWindow logs={logs} dailyLogs={recentDaily} />
             </div>
             <Rule className="my-7" />
           </>
