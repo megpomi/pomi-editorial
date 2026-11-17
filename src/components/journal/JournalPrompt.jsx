@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles } from "lucide-react";
-import LotusIcon from "@/components/icons/LotusIcon";
 import { promptForDate } from "@/lib/journalPrompts";
+import { Eyebrow } from "@/components/alm/Primitives";
 
 // Shown on the home page for people tracking general wellbeing: one reflective
 // prompt a day, rotating through mood, gratitude and visualisation.
@@ -10,37 +9,26 @@ export default function JournalPrompt({ dateKey }) {
   const { theme, prompt } = promptForDate(dateKey);
 
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-pomegranate-100 bg-pomegranate-50/70 p-6 sm:p-7">
-      <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-pomegranate-500">
-          <LotusIcon className="h-5 w-5" />
+    <section className="border border-border bg-secondary/60 p-5 sm:p-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <Eyebrow>Today's journal prompt</Eyebrow>
+        <span className="font-heading text-[12px] italic text-primary">
+          {theme.label}
         </span>
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-pomegranate-500">
-              Today's journal prompt
-            </span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[11px] font-medium text-pomegranate-600">
-              <Sparkles className="h-3 w-3" />
-              {theme.label}
-            </span>
-          </div>
-          <p className="mt-3 font-heading text-lg leading-snug text-slate-800 sm:text-xl">
-            {prompt}
-          </p>
-          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
-            <Link
-              to="/log-today"
-              className="inline-flex items-center gap-1 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
-            >
-              Write it in today's log
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <span className="text-xs text-slate-500">
-              A new prompt every day.
-            </span>
-          </div>
-        </div>
+      </div>
+      <p className="mt-3 font-heading text-[19px] leading-snug sm:text-[21px]">
+        {prompt}
+      </p>
+      <div className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+        <Link
+          to="/log-today"
+          className="font-heading text-[13px] italic text-primary underline underline-offset-4"
+        >
+          Write it in today's entry
+        </Link>
+        <span className="text-[11.5px] text-muted-foreground">
+          A new prompt every day.
+        </span>
       </div>
     </section>
   );

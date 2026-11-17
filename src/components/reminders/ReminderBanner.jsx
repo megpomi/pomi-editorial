@@ -1,19 +1,10 @@
 import React from "react";
-import { Bell, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const TONES = {
-  due: {
-    wrap: "border-pomegranate-200 bg-pomegranate-50",
-    iconWrap: "bg-pomegranate-100",
-    icon: "text-pomegranate-600",
-  },
-  info: {
-    wrap: "border-slate-200 bg-white",
-    iconWrap: "bg-slate-100",
-    icon: "text-slate-500",
-  },
+  due: "border-l-primary",
+  info: "border-l-border",
 };
 
 export default function ReminderBanner({
@@ -25,41 +16,31 @@ export default function ReminderBanner({
   const tone = TONES[reminder.tone] || TONES.info;
 
   return (
-    <div
-      className={cn(
-        "mb-6 flex items-start gap-4 rounded-2xl border p-4 sm:p-5",
-        tone.wrap
-      )}
-    >
-      <span
-        className={cn(
-          "flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
-          tone.iconWrap
-        )}
-      >
-        <Bell className={cn("h-5 w-5", tone.icon)} />
-      </span>
-
+    <div className={cn("flex items-start gap-4 border-l-2 pl-4", tone)}>
       <div className="flex-1">
-        <p className="font-heading text-sm font-semibold text-slate-800 sm:text-base">
+        <p className="eyebrow text-primary">A note for you</p>
+        <p className="mt-2 font-heading text-[17px] leading-snug">
           {reminder.title}
         </p>
-        <p className="mt-0.5 text-sm text-slate-500">{reminder.body}</p>
+        <p className="mt-1 text-[13.5px] leading-relaxed text-muted-foreground">
+          {reminder.body}
+        </p>
         {reminder.cta && (
-          <Button
-            size="sm"
+          <button
+            type="button"
             onClick={() => onLogPeriod(reminder)}
-            className="mt-3 h-8 rounded-full bg-pomegranate-600 px-4 text-xs hover:bg-pomegranate-700"
+            className="mt-2 font-heading text-[13px] italic text-primary underline underline-offset-4"
           >
             {reminder.cta}
-          </Button>
+          </button>
         )}
       </div>
 
       <button
+        type="button"
         onClick={() => onDismiss(reminder.id)}
         aria-label="Dismiss reminder"
-        className="text-slate-300 transition-colors hover:text-slate-500"
+        className="mt-1 text-muted-foreground/60 transition-colors hover:text-foreground"
       >
         <X className="h-4 w-4" />
       </button>

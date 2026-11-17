@@ -2,14 +2,14 @@ import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { formatMonth } from "@/lib/patterns";
 
-// Month navigation for the patterns card: back through the months that hold
+// Month navigation for the patterns block: back through the months that hold
 // data, never forward past the present month.
 export default function MonthStepper({ month, onChange, canGoForward }) {
   const button =
-    "flex h-7 w-7 items-center justify-center rounded-full text-pomegranate-600 transition-colors hover:bg-white disabled:opacity-30 disabled:hover:bg-transparent";
+    "flex h-8 w-8 items-center justify-center text-primary transition-colors hover:bg-secondary disabled:opacity-30 disabled:hover:bg-transparent";
 
   return (
-    <div className="flex items-center gap-1 rounded-full border border-pomegranate-100 bg-pomegranate-50/70 p-1">
+    <div className="flex items-center border border-border">
       <button
         type="button"
         onClick={() => onChange(-1)}
@@ -18,7 +18,7 @@ export default function MonthStepper({ month, onChange, canGoForward }) {
       >
         <ChevronLeft className="h-4 w-4" />
       </button>
-      <span className="min-w-[7.5rem] text-center text-xs font-medium text-pomegranate-700">
+      <span className="min-w-[7.5rem] border-x border-border px-3 py-1.5 text-center font-heading text-[13px] italic">
         {formatMonth(month)}
       </span>
       <button

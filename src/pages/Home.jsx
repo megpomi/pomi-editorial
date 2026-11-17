@@ -2,10 +2,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import { format } from "date-fns";
 import { base44 } from "@/api/base44Client";
 import { useToast } from "@/components/ui/use-toast";
-import { Button } from "@/components/ui/button";
-import { CalendarPlus, Plus, Sparkles, UserRound } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import AppHeader from "@/components/AppHeader";
+import Masthead from "@/components/alm/Masthead";
+import AlmTabs from "@/components/alm/AlmTabs";
+import { AlmButton, Eyebrow, Rule } from "@/components/alm/Primitives";
 import CycleStatus from "@/components/CycleStatus";
 import CycleStats from "@/components/dashboard/CycleStats";
 import CalendarPanel from "@/components/calendar/CalendarPanel";
@@ -105,132 +106,139 @@ export default function Home() {
   if (checkingProfile) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-background">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-pomegranate-100 border-t-pomegranate-600" />
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-secondary border-t-primary" />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <AppHeader>
-        <ReminderBell
-          reminders={reminders}
-          onDismiss={dismiss}
-          onLogPeriod={openFromReminder}
+      <div className="mx-auto max-w-3xl pb-28">
+        <Masthead
+          kicker={format(new Date(), "EEEE d MMMM")}
+          actions={
+            <ReminderBell
+              reminders={reminders}
+              onDismiss={dismiss}
+              onLogPeriod={openFromReminder}
+            />
+          }
         />
-        <Button
-          asChild
-          variant="ghost"
-          size="icon"
-          className="rounded-full text-pomegranate-600 hover:bg-pomegranate-50"
-        >
-          <Link to="/profile" aria-label="Your profile">
-            <UserRound className="h-5 w-5" />
-          </Link>
-        </Button>
-        <Button
-          asChild
-          variant="outline"
-          className="rounded-full border-pomegranate-200 px-4 text-pomegranate-600 hover:bg-pomegranate-50"
-        >
-          <Link to="/upgrade" aria-label="Go ad-free">
-            <Sparkles className="mr-1.5 h-4 w-4" />
-            <span className="hidden sm:inline">Go ad-free</span>
-          </Link>
-        </Button>
-        <Button
-          onClick={openLogger}
-          className="rounded-full bg-pomegranate-600 px-4 hover:bg-pomegranate-700"
-        >
-          <Plus className="mr-1.5 h-4 w-4" />
-          {hasHistory ? "Log today" : "Log period"}
-        </Button>
-      </AppHeader>
 
-      <main className="mx-auto max-w-5xl px-5 py-8 sm:px-8 sm:py-12">
-        {/* Greeting */}
-        <div className="mb-8">
-          <h1 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
-            Hello{firstName ? `, ${firstName}` : logs.length ? "" : ", welcome"}
-          </h1>
-          <p className="mt-1 text-sm text-slate-500">
+        <section className="px-6 pb-1">
+          <Eyebrow>Your day</Eyebrow>
+          <p className="mt-2 font-heading text-[20px] italic leading-snug text-muted-foreground">
             {tracksWellbeing && !tracksCycles
-              ? "Here's your space to check in with yourself today."
+              ? "A quiet moment to check in with yourself."
               : logs.length
-              ? "Here's where you are in your cycle today."
-              : "Let's start tracking your cycle — and giving back."}
+              ? `Hello${firstName ? `, ${firstName}` : ""}. Here is where you are in your cycle today.`
+              : `Hello${
+                  firstName ? `, ${firstName}` : ""
+                }. Let's begin your record, and give back with it.`}
           </p>
+        </section>
+
+        <CycleStatus logs={logs} />
+
+        <div className="px-6 pt-7">
+          <AlmButton onClick={openLogger}>
+            {hasHistory ? "Write today's entry" : "Log your period"}
+          </AlmButton>
+          <div className="mt-3 text-center">
+            <Link
+              to="/upgrade"
+              className="font-heading text-[13px] italic text-primary underline underline-offset-4"
+            >
+              Go ad-free, and give more
+            </Link>
+          </div>
         </div>
 
-        {/* Reminder */}
         {reminders.length > 0 && (
-          <ReminderBanner
-            reminder={reminders[0]}
-            onDismiss={dismiss}
-            onLogPeriod={openFromReminder}
-          />
+          <div className="px-6 pt-7">
+            <ReminderBanner
+              reminder={reminders[0]}
+              onDismiss={dismiss}
+              onLogPeriod={openFromReminder}
+            />
+          </div>
         )}
 
-        {/* Daily journalling prompt for general wellbeing tracking */}
         {tracksWellbeing && (
-          <div className="mb-6">
+          <div className="px-6 pt-7">
             <JournalPrompt dateKey={format(new Date(), "yyyy-MM-dd")} />
           </div>
         )}
 
-        {/* Status */}
-        <CycleStatus logs={logs} />
+        <Rule className="my-7" />
 
-        {/* Stats */}
-        <div className="mt-6">
+        <div className="px-6">
           <CycleStats logs={logs} />
         </div>
 
-        {/* Grid */}
-        <div className="mt-6 grid gap-6 lg:grid-cols-5">
-          <div className="space-y-6 lg:col-span-3">
-            <CalendarPanel
-              logs={logs}
-              dailyLogs={dailyLogs}
-              loading={loading}
-              showJournal={tracksWellbeing}
-              title="Your calendar"
-              onChanged={loadLogs}
-              action={
-                tracksCycles && (
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="sm"
-                    className="rounded-full border-pomegranate-200 text-pomegranate-600 hover:bg-pomegranate-50"
-                  >
-                    <Link to="/calendar?log=1">
-                      <CalendarPlus className="mr-1.5 h-4 w-4" />
-                      Log historical menstrual days
-                    </Link>
-                  </Button>
-                )
-              }
-            />
+        <Rule className="my-7" />
 
-            <CyclePatterns logs={logs} dailyLogs={dailyLogs} />
+        <section className="px-6">
+          <div className="flex flex-wrap items-baseline justify-between gap-3">
+            <div>
+              <Eyebrow>The month</Eyebrow>
+              <h2 className="mt-2 font-heading text-[26px] leading-none">
+                Your calendar
+              </h2>
+            </div>
+            {tracksCycles && (
+              <Link
+                to="/calendar?log=1"
+                className="font-heading text-[13px] italic text-primary underline underline-offset-4"
+              >
+                Log past days
+              </Link>
+            )}
           </div>
-          <div className="lg:col-span-2">
-            <CharityImpact />
-          </div>
+        </section>
+        <div className="px-6 pt-5">
+          <CalendarPanel
+            logs={logs}
+            dailyLogs={dailyLogs}
+            loading={loading}
+            showJournal={tracksWellbeing}
+            onChanged={loadLogs}
+          />
         </div>
 
-        {/* Donations */}
-        <div className="mt-6">
+        <Rule className="my-7" />
+
+        <section className="px-6">
+          <Eyebrow>Review</Eyebrow>
+          <h2 className="mt-2 font-heading text-[26px] leading-none">
+            Your patterns
+          </h2>
+          <div className="mt-5">
+            <CyclePatterns logs={logs} dailyLogs={dailyLogs} />
+          </div>
+        </section>
+
+        <Rule className="my-7" />
+
+        <section className="px-6">
+          <Eyebrow>Give</Eyebrow>
+          <h2 className="mt-2 font-heading text-[26px] leading-none">
+            What your record supports
+          </h2>
+        </section>
+        <div className="px-6 pt-5">
+          <CharityImpact />
+        </div>
+        <div className="px-6 pt-6">
           <DonationTracker user={user} />
         </div>
 
-        <p className="mt-10 text-center text-xs text-slate-400">
-          Pomi is not a medical device. For health concerns, please consult a
+        <p className="px-6 pt-10 text-center text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+          Pomi is not a medical device. For health concerns, consult a
           healthcare professional.
         </p>
-      </main>
+      </div>
+      <AlmTabs />
     </div>
   );
 }

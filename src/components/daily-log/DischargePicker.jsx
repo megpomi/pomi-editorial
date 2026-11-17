@@ -12,8 +12,7 @@ export default function DischargePicker({ value, onChange, disabled }) {
     );
 
   return (
-    <div className={`space-y-2 transition ${disabled ? "opacity-50" : ""}`}>
-      <Label className={disabled ? "text-slate-400" : undefined}>Discharge</Label>
+    <div className={`transition ${disabled ? "opacity-50" : ""}`}>
       <div className="flex flex-wrap gap-2">
         {DISCHARGE_OPTIONS.map((type) => {
           const active = value.includes(type);
@@ -23,12 +22,12 @@ export default function DischargePicker({ value, onChange, disabled }) {
               type="button"
               disabled={disabled}
               onClick={() => toggle(type)}
-              className={`rounded-full border px-3 py-1.5 text-xs capitalize transition ${
+              className={`rounded-[3px] border px-3 py-1.5 text-[13px] capitalize transition-colors ${
                 disabled
-                  ? "cursor-not-allowed border-slate-200 text-slate-400"
+                  ? "cursor-not-allowed border-border text-muted-foreground/60"
                   : active
-                  ? "border-pomegranate-400 bg-pomegranate-50 text-pomegranate-700"
-                  : "border-slate-200 text-slate-600 hover:border-pomegranate-200"
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-foreground/20 text-foreground hover:border-primary/50"
               }`}
             >
               {prettySymptom(type)}

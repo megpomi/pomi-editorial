@@ -1,12 +1,9 @@
 import React from "react";
-import { Heart, Sparkles } from "lucide-react";
-import {
-  AD_REVENUE_PER_VISIT,
-  donationTotals,
-} from "@/lib/donations";
+import { AD_REVENUE_PER_VISIT, donationTotals } from "@/lib/donations";
 import DonationCauses from "@/components/donations/DonationCauses";
 import { currencyOf, formatMoney } from "@/lib/currency";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
+import { Eyebrow, Rule } from "@/components/alm/Primitives";
 
 export default function DonationTracker({ user }) {
   const money = (value) => formatMoney(value, currencyOf(user));
@@ -23,39 +20,29 @@ export default function DonationTracker({ user }) {
     `from ${money(revenue)} revenue · ${countLabel(count)}`;
 
   return (
-    <div className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
-      <div className="mb-1 flex items-center gap-2">
-        <Heart className="h-4 w-4 fill-pomegranate-400 text-pomegranate-400" />
-        <h2 className="font-heading text-lg font-semibold text-slate-800">
-          Your donations
-        </h2>
-      </div>
-      <p className="mb-5 text-sm text-slate-500">
-        Track the growth of your donation pot. Revenue is earned from your
-        engagement and is split equally between your chosen causes.
+    <section>
+      <Eyebrow>Your donations</Eyebrow>
+      <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
+        The growth of your donation pot. Revenue from your engagement is split
+        equally between your chosen causes.
       </p>
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div className="rounded-2xl bg-pomegranate-50 p-5">
-          <p className="text-xs uppercase tracking-wider text-pomegranate-500">
-            This month
-          </p>
-          <p className="mt-1 font-heading text-3xl font-semibold text-pomegranate-700">
+      <div className="mt-5 grid grid-cols-2 divide-x divide-border border-y border-border">
+        <div className="py-4 pr-4">
+          <p className="eyebrow text-muted-foreground">This month</p>
+          <p className="mt-2 font-heading text-[30px] leading-none text-primary">
             {money(totals.thisMonth)}
           </p>
-          <p className="mt-1 text-xs text-pomegranate-600">
+          <p className="mt-2 text-[11.5px] leading-snug text-muted-foreground">
             {fromLabel(totals.thisMonthRevenue, totals.thisMonthCount)}
           </p>
         </div>
-
-        <div className="rounded-2xl bg-gradient-to-br from-pomegranate-500 to-pomegranate-700 p-5 text-white">
-          <p className="text-xs uppercase tracking-wider text-white/80">
-            All time
-          </p>
-          <p className="mt-1 font-heading text-3xl font-semibold">
+        <div className="py-4 pl-4">
+          <p className="eyebrow text-muted-foreground">All time</p>
+          <p className="mt-2 font-heading text-[30px] leading-none">
             {money(totals.allTime)}
           </p>
-          <p className="mt-1 text-xs text-white/80">
+          <p className="mt-2 text-[11.5px] leading-snug text-muted-foreground">
             {fromLabel(totals.allTimeRevenue, totals.allTimeCount)}
           </p>
         </div>
@@ -64,11 +51,10 @@ export default function DonationTracker({ user }) {
       <DonationCauses user={user} pot={totals.allTime} />
 
       {!subscribed && (
-        <p className="mt-5 flex items-center gap-1.5 text-xs text-slate-400">
-          <Sparkles className="h-3.5 w-3.5 text-pomegranate-400" />
-          {`${money(AD_REVENUE_PER_VISIT)} of ad revenue per visit — go ad-free to donate more`}
+        <p className="mt-4 text-[11.5px] italic text-muted-foreground">
+          {`${money(AD_REVENUE_PER_VISIT)} of ad revenue per visit. Going ad-free donates more.`}
         </p>
       )}
-    </div>
+    </section>
   );
 }

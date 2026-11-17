@@ -1,6 +1,6 @@
 import React from "react";
-import { Activity, Droplet, Repeat } from "lucide-react";
 import { getCycleStats } from "@/lib/cycle";
+import { Eyebrow } from "@/components/alm/Primitives";
 
 const formatRange = (stats) => {
   if (stats.minCycle == null || stats.maxCycle == null) return null;
@@ -15,19 +15,16 @@ export default function CycleStats({ logs }) {
 
   const cards = [
     {
-      icon: <Repeat className="h-4 w-4" />,
       label: "Previous cycle",
       value: stats.lastCycleLength,
       hint: "Start to start",
     },
     {
-      icon: <Droplet className="h-4 w-4" />,
       label: "Previous period",
       value: stats.lastPeriodLength,
       hint: "Days of bleeding",
     },
     {
-      icon: <Activity className="h-4 w-4" />,
       label: "Cycle range",
       value: range,
       hint: stats.cycleCount ? `Across ${stats.cycleCount} cycles` : null,
@@ -35,41 +32,34 @@ export default function CycleStats({ logs }) {
   ];
 
   return (
-    <div className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
-      <h2 className="font-heading text-lg font-semibold text-slate-800">
-        Your cycle stats
-      </h2>
-      <p className="mb-5 text-sm text-slate-500">
+    <section>
+      <Eyebrow>Your cycle stats</Eyebrow>
+      <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
         {stats.hasHistory
           ? "How your recent cycles compare."
-          : "Log a couple of periods and your stats will fill in."}
+          : "Record a couple of periods and your figures will fill in."}
       </p>
 
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="mt-5 grid grid-cols-3 divide-x divide-border border-y border-border">
         {cards.map((card) => (
-          <StatCard key={card.label} {...card} />
+          <div key={card.label} className="px-3 py-4 first:pl-0">
+            <p className="eyebrow text-muted-foreground">{card.label}</p>
+            <p className="mt-2 font-heading text-[28px] leading-none">
+              {card.value == null ? "—" : card.value}
+              {card.value != null && (
+                <span className="ml-1 font-heading text-[13px] italic text-muted-foreground">
+                  days
+                </span>
+              )}
+            </p>
+            {card.hint && (
+              <p className="mt-2 text-[11.5px] leading-snug text-muted-foreground">
+                {card.hint}
+              </p>
+            )}
+          </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function StatCard({ icon, label, value, hint }) {
-  return (
-    <div className="rounded-2xl bg-pomegranate-50/70 p-4">
-      <div className="mb-2 flex items-center gap-1.5 text-pomegranate-400">
-        {icon}
-        <span className="text-xs uppercase tracking-[0.12em]">{label}</span>
-      </div>
-      <div className="flex items-baseline gap-1.5">
-        <span className="font-heading text-2xl font-semibold text-slate-800">
-          {value == null ? "—" : value}
-        </span>
-        {value != null && (
-          <span className="text-xs text-slate-400">days</span>
-        )}
-      </div>
-      {hint && <p className="mt-1 text-xs text-slate-400">{hint}</p>}
-    </div>
+    </section>
   );
 }

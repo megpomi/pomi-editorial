@@ -114,18 +114,16 @@ export default function CalendarPanel({
 
   return (
     <div>
-      <div className="rounded-3xl border border-slate-100 bg-white p-1 sm:p-3">
-        {(title || action) && (
-          <div className="flex flex-wrap items-center justify-between gap-3 px-4 pb-1 pt-3">
-            {title && (
-              <h3 className="font-heading text-lg font-semibold text-slate-800">
-                {title}
-              </h3>
-            )}
-            {action}
-          </div>
-        )}
+      {(title || action) && (
+        <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
+          {title && (
+            <h3 className="font-heading text-[18px] leading-none">{title}</h3>
+          )}
+          {action}
+        </div>
+      )}
 
+      <div className="border-y border-border py-2">
         <Calendar
           mode="single"
           selected={selected}
@@ -139,49 +137,43 @@ export default function CalendarPanel({
           disabled={{ after: new Date() }}
           classNames={{
             months: "flex flex-col items-center",
-            month: "w-full space-y-3",
+            month: "w-full space-y-2",
             head_row: "flex w-full",
             head_cell:
-              "flex-1 font-normal text-[0.8rem] text-muted-foreground",
-            row: "flex w-full mt-1",
+              "flex-1 pb-2 text-[10px] font-normal uppercase tracking-[0.18em] text-muted-foreground",
+            row: "flex w-full",
             cell: "relative flex-1 p-0 text-center text-sm",
-            day: "inline-flex h-11 w-full items-center justify-center rounded-full p-0 text-sm font-normal hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring aria-selected:opacity-100",
+            day: "inline-flex h-11 w-full items-center justify-center rounded-full p-0 font-heading text-[15px] font-normal hover:bg-secondary focus-visible:outline-none aria-selected:opacity-100",
             day_logged:
-              "bg-pomegranate-200/70 font-medium text-pomegranate-900 hover:bg-pomegranate-200",
+              "bg-pomegranate-600/10 font-medium text-pomegranate-700 hover:bg-pomegranate-600/15",
             day_selected:
-              "bg-pomegranate-600 text-primary-foreground hover:bg-pomegranate-600 focus:bg-pomegranate-600",
-            day_today: "font-semibold",
+              "bg-primary text-primary-foreground hover:bg-primary focus:bg-primary",
+            day_today: "font-semibold underline underline-offset-4",
           }}
-          className="w-full p-3"
+          className="w-full p-2"
         />
+      </div>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 pb-3 text-xs text-slate-500">
+      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+        <span className="flex items-center gap-2">
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-pomegranate-600" />
+          Period day
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-symptom" />
+          Symptoms
+        </span>
+        {showJournal && (
           <span className="flex items-center gap-2">
-            <span className="relative inline-flex h-4 w-4 items-center justify-center rounded-full bg-pomegranate-200/70">
-              <span className="h-1 w-1 rounded-full bg-pomegranate-600" />
-            </span>
-            Period day
+            <span className="inline-block h-2.5 w-2.5 rounded-full bg-purple-800" />
+            Journal entry
           </span>
-          <span className="flex items-center gap-2">
-            <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-slate-200">
-              <span className="h-1.5 w-1.5 rounded-full bg-symptom" />
-            </span>
-            Symptoms
-          </span>
-          {showJournal && (
-            <span className="flex items-center gap-2">
-              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full border border-slate-200">
-                <span className="h-1.5 w-1.5 rounded-full bg-purple-800" />
-              </span>
-              Journal entry
-            </span>
-          )}
-        </div>
+        )}
       </div>
 
       <div className="mt-6">
         {loading ? (
-          <div className="h-32 animate-pulse rounded-3xl bg-white" />
+          <div className="h-32 animate-pulse border border-border bg-card" />
         ) : (
           <LoggedDayDetails
             date={selected}

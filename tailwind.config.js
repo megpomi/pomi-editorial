@@ -7,8 +7,12 @@ module.exports = {
   		opacity: Object.fromEntries(Array.from({ length: 101 }, (_, i) => [i, `${i / 100}`])),
   		borderRadius: {
   			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			md: 'var(--radius)',
+  			sm: '2px',
+  			xl: '4px',
+  			'2xl': '4px',
+  			'3xl': '4px',
+  			full: '9999px'
   		},
   		colors: {
   			background: 'hsl(var(--background))',
@@ -45,17 +49,23 @@ module.exports = {
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
   			symptom: 'hsl(var(--symptom))',
+  			terra: 'hsl(var(--terra))',
   			pomegranate: {
-  				50: '#f7f1f2',
-  				100: '#efe1e3',
-  				200: '#e2c9cd',
-  				300: '#d0aab1',
-  				400: '#c0989f',
-  				500: '#b7888f',
-  				600: '#a1707a',
-  				700: '#875c66',
-  				800: '#6d4b54',
-  				900: '#593e46'
+  				50: '#faf2f3',
+  				100: '#f4e6e8',
+  				200: '#e8cdd2',
+  				300: '#d6a8b0',
+  				400: '#bf818d',
+  				500: '#a55c6b',
+  				600: '#7d2638',
+  				700: '#661e2d',
+  				800: '#521825',
+  				900: '#3f131d'
+  			},
+  			ink: {
+  				DEFAULT: '#2c1810',
+  				muted: '#6e5b53',
+  				paper: '#fbf7f0'
   			},
   			chart: {
   				'1': 'hsl(var(--chart-1))',

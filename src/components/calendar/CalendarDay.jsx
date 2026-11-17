@@ -13,11 +13,11 @@ export default function CalendarDay({ date, activeModifiers }) {
     <div className="relative flex h-full w-full items-center justify-center">
       <span>{date.getDate()}</span>
       {dots.length > 0 && (
-        <span className="absolute bottom-1 left-1/2 flex -translate-x-1/2 items-center gap-0.5">
+        <span className="absolute bottom-1 left-1/2 flex -translate-x-1/2 items-center gap-[3px]">
           {dots.map((color) => (
             <span
               key={color}
-              className={`h-1.5 w-1.5 rounded-full ${
+              className={`h-[3px] w-[3px] rounded-full ${
                 activeModifiers.selected ? "bg-primary-foreground" : color
               }`}
             />

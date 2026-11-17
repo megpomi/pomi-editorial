@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
 import { splitByCause } from "@/lib/donations";
 import { currencyOf, formatMoney } from "@/lib/currency";
 
@@ -10,39 +9,37 @@ export default function DonationCauses({ user, pot }) {
 
   if (!shares.length) {
     return (
-      <p className="mt-6 text-sm text-slate-400">
-        You haven't chosen any causes yet — your pot is split equally between
-        the causes you pick.
+      <p className="mt-5 font-heading text-[14px] italic leading-relaxed text-muted-foreground">
+        You haven't chosen any causes yet. Your pot is split equally between the
+        causes you pick.
       </p>
     );
   }
 
   return (
     <div className="mt-6">
-      <div className="mb-1 flex items-baseline justify-between">
-        <h3 className="text-xs font-medium uppercase tracking-wider text-slate-400">
-          Your causes
-        </h3>
-        <span className="text-xs text-slate-400">all time · split equally</span>
+      <div className="mb-1 flex items-baseline justify-between gap-3">
+        <p className="eyebrow text-muted-foreground">Your causes</p>
+        <span className="text-[11px] text-muted-foreground">
+          all time · split equally
+        </span>
       </div>
-      <ul className="divide-y divide-slate-100">
+      <div className="border-t border-border">
         {shares.map((share) => (
-          <li key={share.value}>
-            <Link
-              to={`/causes/${share.value}`}
-              className="group flex items-center justify-between gap-4 py-2.5"
-            >
-              <span className="flex items-center gap-1.5 text-sm text-slate-600 group-hover:text-pomegranate-700">
-                {share.label}
-                <ChevronRight className="h-3.5 w-3.5 text-slate-300 group-hover:text-pomegranate-500" />
-              </span>
-              <span className="font-heading text-sm font-semibold text-pomegranate-600">
-                {money(share.amount)}
-              </span>
-            </Link>
-          </li>
+          <Link
+            key={share.value}
+            to={`/causes/${share.value}`}
+            className="group flex items-baseline justify-between gap-4 border-b border-border py-2.5"
+          >
+            <span className="font-heading text-[15px] leading-snug transition-colors group-hover:text-primary">
+              {share.label}
+            </span>
+            <span className="font-heading text-[15px] text-primary">
+              {money(share.amount)}
+            </span>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

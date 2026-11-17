@@ -1,37 +1,27 @@
 import React from "react";
-import { Droplet, CalendarHeart, Sparkles } from "lucide-react";
 import { getCurrentPhase, phaseLabel } from "@/lib/cycle";
+import { Eyebrow, Rule } from "@/components/alm/Primitives";
 
 const PHASE_COPY = {
   period: {
     title: "On your period",
-    sub: "Be gentle with yourself today.",
-    color: "text-pomegranate-500",
-    ring: "#b7888f",
+    note: "Your period is likely underway. Rest is not a reward you have to earn: warmth, water and an earlier night tend to help more than pushing through.",
   },
   follicular: {
     title: "Follicular phase",
-    sub: "Energy returning — a good week to start things.",
-    color: "text-amber-500",
-    ring: "#f59e0b",
+    note: "Energy often lifts in the days after a period. If yours does, it can be a good stretch for focused work. If it doesn't, that is ordinary too.",
   },
   ovulation: {
-    title: "Ovulation",
-    sub: "Peak energy and focus.",
-    color: "text-emerald-500",
-    ring: "#10b981",
+    title: "Ovulatory phase",
+    note: "You may be near ovulation. Some people notice more energy or a mild one-sided ache; many notice nothing at all. Both are normal.",
   },
   luteal: {
     title: "Luteal phase",
-    sub: "Wind down — rest and reflect.",
-    color: "text-pomegranate-700",
-    ring: "#875c66",
+    note: "In the second half of the cycle, sleep and mood can feel more sensitive. Noting how you feel now helps Pomi show you clearer patterns later.",
   },
   unknown: {
-    title: "Welcome to Pomi",
-    sub: "Log your first period above to start tracking.",
-    color: "text-pomegranate-500",
-    ring: "#b7888f",
+    title: "A blank first page",
+    note: "Record the first day of your last period and Pomi will begin to keep the count: where you are, what may come next, and what your own notes add up to.",
   },
 };
 
@@ -44,113 +34,70 @@ export default function CycleStatus({ logs }) {
       ? Math.min(100, Math.round((status.dayOfCycle / status.avgCycle) * 100))
       : 0;
 
-  const radius = 78;
-  const circ = 2 * Math.PI * radius;
-  const dash = (progress / 100) * circ;
-
   const fmtDate = (d) =>
     d
-      ? new Date(d).toLocaleDateString(undefined, {
-          month: "short",
+      ? new Date(d).toLocaleDateString("en-GB", {
           day: "numeric",
+          month: "short",
         })
       : "—";
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-pomegranate-100/80 bg-gradient-to-br from-pomegranate-50/60 via-white to-white p-8 sm:p-10">
-      <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-center sm:justify-between">
-        <div className="order-2 sm:order-1">
-          <div className="mb-2 flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-pomegranate-400" />
-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-pomegranate-400">
-              {phaseLabel(status.phase)}
-            </span>
-          </div>
-          <h2 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
-            {meta.title}
-          </h2>
-          <p className="mt-2 max-w-xs text-sm text-slate-500">{meta.sub}</p>
+    <>
+      <section className="px-6 pt-6">
+        <Eyebrow>{phaseLabel(status.phase)}</Eyebrow>
+        {status.dayOfCycle != null ? (
+          <>
+            <h1 className="mt-3 font-heading text-[64px] leading-[0.95] tracking-tight">
+              Day {status.dayOfCycle}
+            </h1>
+            <p className="mt-2 font-heading text-[18px] italic text-muted-foreground">
+              of {status.avgCycle}, in the {phaseLabel(status.phase).toLowerCase()} phase
+            </p>
+          </>
+        ) : (
+          <h1 className="mt-3 font-heading text-[40px] leading-[1.02] tracking-tight">
+            Welcome to <span className="italic text-primary">Pomi.</span>
+          </h1>
+        )}
 
-          {status.phase !== "unknown" && (
-            <div className="mt-6 flex flex-wrap gap-6">
-              <Stat
-                icon={<Droplet className="h-4 w-4" />}
-                label="Cycle day"
-                value={status.dayOfCycle}
-              />
-              <Stat
-                icon={<CalendarHeart className="h-4 w-4" />}
-                label="Next period"
-                value={
-                  status.daysUntilNext <= 0
-                    ? "Any day"
-                    : `in ${status.daysUntilNext}d`
-                }
-                hint={fmtDate(status.nextStart)}
+        {status.dayOfCycle != null && (
+          <div className="mt-6">
+            <div className="relative h-px w-full bg-border">
+              <span
+                className="absolute left-0 top-0 h-px bg-primary transition-all duration-700 ease-out"
+                style={{ width: `${progress}%` }}
               />
             </div>
-          )}
-
-
-        </div>
-
-        <div className="order-1 sm:order-2">
-          <div className="relative h-44 w-44">
-            <svg className="h-full w-full -rotate-90" viewBox="0 0 180 180">
-              <circle
-                cx="90"
-                cy="90"
-                r={radius}
-                fill="none"
-                stroke="#e2c9cd"
-                strokeWidth="10"
-              />
-              <circle
-                cx="90"
-                cy="90"
-                r={radius}
-                fill="none"
-                stroke={meta.ring}
-                strokeWidth="10"
-                strokeLinecap="round"
-                strokeDasharray={`${dash} ${circ}`}
-                className="transition-all duration-700 ease-out"
-              />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              {status.phase !== "unknown" ? (
-                <>
-                  <span className="font-heading text-4xl font-semibold text-slate-800">
-                    {status.dayOfCycle}
-                  </span>
-                  <span className="text-xs uppercase tracking-widest text-slate-400">
-                    day of cycle
-                  </span>
-                </>
-              ) : (
-                <Droplet className="h-10 w-10 text-pomegranate-300" />
-              )}
+            <div className="mt-3 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 text-[12.5px]">
+              <span className="text-muted-foreground">
+                Next period{" "}
+                <span className="font-heading text-[15px] italic text-foreground">
+                  {status.daysUntilNext <= 0
+                    ? "any day now"
+                    : `in ${status.daysUntilNext} days`}
+                </span>{" "}
+                <span className="text-muted-foreground/80">
+                  ({fmtDate(status.nextStart)})
+                </span>
+              </span>
+              <span className="text-muted-foreground">
+                Average cycle{" "}
+                <span className="font-heading text-[15px] italic text-foreground">
+                  {status.avgCycle} days
+                </span>
+              </span>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+        )}
+      </section>
 
-function Stat({ icon, label, value, hint }) {
-  return (
-    <div>
-      <div className="mb-1 flex items-center gap-1.5 text-slate-400">
-        {icon}
-        <span className="text-xs uppercase tracking-wider">{label}</span>
-      </div>
-      <div className="flex items-baseline gap-1.5">
-        <span className="font-heading text-xl font-semibold text-slate-700">
-          {value}
-        </span>
-        {hint && <span className="text-xs text-slate-400">{hint}</span>}
-      </div>
-    </div>
+      <Rule className="my-6" />
+
+      <section className="px-6">
+        <Eyebrow className="mb-3">The day's note</Eyebrow>
+        <p className="alm-dropcap text-[15px] leading-[1.65]">{meta.note}</p>
+      </section>
+    </>
   );
 }

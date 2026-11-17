@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Droplet, Mic, PencilLine } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { prettySymptom } from "@/lib/dailyLog";
 import MoodFace from "@/components/icons/MoodFace";
 import JournalEntryDialog from "@/components/journal/JournalEntryDialog";
+import { Eyebrow } from "@/components/alm/Primitives";
 
 const FLOW_LABEL = { light: "Light", medium: "Medium", heavy: "Heavy" };
 
-
 const prettyDate = (d) =>
   d
-    ? d.toLocaleDateString(undefined, {
+    ? d.toLocaleDateString("en-GB", {
         weekday: "long",
-        month: "long",
         day: "numeric",
+        month: "long",
         year: "numeric",
       })
     : "";
@@ -27,6 +24,15 @@ const dayKey = (d) => {
   const day = String(d.getDate()).padStart(2, "0");
   return `${d.getFullYear()}-${month}-${day}`;
 };
+
+const Row = ({ label, children }) => (
+  <div className="flex gap-4 border-b border-border py-2.5 last:border-0">
+    <span className="w-24 shrink-0 pt-0.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+      {label}
+    </span>
+    <span className="min-w-0 flex-1 text-[14px] leading-relaxed">{children}</span>
+  </div>
+);
 
 export default function LoggedDayDetails({
   date,
@@ -44,7 +50,7 @@ export default function LoggedDayDetails({
   const journalVoice = journal?.journal_voice_note || "";
   const hasJournal = Boolean(journalResponse || journalVoice);
   // A period entry and the daily check-in are separate records for the same
-  // day, so the card shows whatever either of them has to say.
+  // day, so the panel shows whatever either of them has to say.
   const flow =
     log?.flow_intensity ||
     (dailyLog?.flow_intensity && dailyLog.flow_intensity !== "none"
@@ -57,123 +63,94 @@ export default function LoggedDayDetails({
   const notes = dailyLog?.notes || log?.notes;
 
   return (
-    <div className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
+    <div>
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-        <h3 className="font-heading text-lg font-semibold text-slate-800">
+        <h3 className="font-heading text-[19px] leading-snug">
           {prettyDate(date)}
         </h3>
         {cycleDay ? (
-          <span className="text-xs font-medium uppercase tracking-[0.12em] text-pomegranate-700">
-            Day {cycleDay} of your cycle
-          </span>
+          <Eyebrow>Day {cycleDay} of your cycle</Eyebrow>
         ) : null}
       </div>
 
       {!log && !dailyLog ? (
-        <p className="mt-3 flex items-center gap-2 text-sm text-slate-500">
-          <Droplet className="h-4 w-4 text-pomegranate-200" />
-          Nothing logged for this day.
+        <p className="mt-3 font-heading text-[15px] italic text-muted-foreground">
+          Nothing recorded for this day.
         </p>
       ) : (
-        <div className="mt-4 space-y-3 text-sm text-slate-600">
-          {flow && (
-            <p>
-              <span className="text-slate-400">Flow: </span>
-              {FLOW_LABEL[flow] || "—"} flow
-            </p>
-          )}
+        <div className="mt-3 border-t border-border">
+          {flow && <Row label="Flow">{FLOW_LABEL[flow] || "—"} flow</Row>}
           {mood && (
-            <p>
-              <span className="text-slate-400">Mood: </span>
-              <MoodFace
-                mood={mood}
-                className="inline h-4 w-4 align-[-3px] text-pomegranate-500"
-              />{" "}
-              {mood}
-            </p>
+            <Row label="Mood">
+              <span className="inline-flex items-center gap-1.5 capitalize">
+                <MoodFace
+                  mood={mood}
+                  className="h-4 w-4 text-primary"
+                />
+                {mood}
+              </span>
+            </Row>
           )}
           {symptoms.length > 0 && (
-            <div>
-              <span className="text-slate-400">Symptoms: </span>
-              <div className="mt-2 flex flex-wrap gap-2">
+            <Row label="Symptoms">
+              <span className="flex flex-wrap gap-1.5">
                 {symptoms.map((s) => (
                   <span
                     key={s}
-                    className="rounded-full bg-pomegranate-50 px-3 py-1 text-xs capitalize text-pomegranate-700"
+                    className="border border-border px-2 py-0.5 text-[12px] capitalize"
                   >
                     {prettySymptom(s)}
                   </span>
                 ))}
-              </div>
-            </div>
+              </span>
+            </Row>
           )}
-          {dailyLog?.had_sex && (
-            <p>
-              <span className="text-slate-400">Intimacy: </span>
-              Yes
-            </p>
-          )}
+          {dailyLog?.had_sex && <Row label="Intimacy">Yes</Row>}
           {notes && (
-            <p className="rounded-2xl bg-slate-50 p-4 text-slate-500">
-              {notes}
-            </p>
+            <Row label="Notes">
+              <span className="font-heading text-[15px] italic leading-relaxed text-muted-foreground">
+                {notes}
+              </span>
+            </Row>
           )}
           {hasJournal && (
-            <button
-              type="button"
-              onClick={() => setJournalOpen(true)}
-              className="flex w-full items-center justify-between gap-3 rounded-2xl border border-purple-200 bg-purple-50/60 px-4 py-3 text-left text-sm text-purple-900 transition-colors hover:bg-purple-50"
-            >
-              <span className="flex items-center gap-2">
-                <BookOpen className="h-4 w-4 shrink-0" />
-                Journal entry saved
-                {journalVoice && (
-                  <Mic className="h-3.5 w-3.5 text-purple-600" />
-                )}
-              </span>
-              <span className="shrink-0 text-[11px] font-medium uppercase tracking-[0.14em] text-purple-700">
-                Read
-              </span>
-            </button>
+            <Row label="Journal">
+              <button
+                type="button"
+                onClick={() => setJournalOpen(true)}
+                className="font-heading text-[15px] italic text-primary underline underline-offset-4"
+              >
+                Read the entry
+                {journalVoice ? " (with a voice note)" : ""}
+              </button>
+            </Row>
           )}
         </div>
       )}
 
-      <div className="mt-5 flex flex-wrap items-center gap-2">
-        <Button
-          asChild
-          variant="outline"
-          size="sm"
-          className="rounded-full border-pomegranate-200 text-pomegranate-600 hover:bg-pomegranate-50"
+      <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+        <Link
+          to={`/log-today?date=${dayKey(date)}`}
+          className="font-heading text-[13px] italic text-primary underline underline-offset-4"
         >
-          <Link to={`/log-today?date=${dayKey(date)}`}>
-            <PencilLine className="mr-1.5 h-4 w-4" />
-            Add or edit symptoms
-          </Link>
-        </Button>
-        <Button
+          Add or edit symptoms
+        </Link>
+        <button
+          type="button"
           onClick={onTogglePeriod}
           disabled={periodSaving}
-          variant="outline"
-          size="sm"
-          className={cn(
-            "rounded-full",
-            isPeriodDay
-              ? "border-slate-200 text-slate-600 hover:bg-slate-50"
-              : "border-pomegranate-200 text-pomegranate-600 hover:bg-pomegranate-50"
-          )}
+          className="font-heading text-[13px] italic text-muted-foreground underline underline-offset-4 transition-colors hover:text-primary disabled:opacity-50"
         >
-          <Droplet className="mr-1.5 h-4 w-4" />
           {periodSaving
             ? "Saving…"
             : isPeriodDay
             ? "Remove as period day"
             : "Add as period day"}
-        </Button>
+        </button>
       </div>
 
       {periodError && (
-        <p className="mt-2 text-sm text-destructive">{periodError}</p>
+        <p className="mt-2 text-[13px] text-destructive">{periodError}</p>
       )}
 
       <JournalEntryDialog

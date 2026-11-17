@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { SYMPTOM_OPTIONS } from "@/lib/dailyLog";
 
 const BUBBLE =
-  "rounded-full border px-3 py-1.5 text-xs capitalize transition";
+  "rounded-[3px] border px-3 py-1.5 text-[13px] capitalize transition-colors";
 
 // The day's symptoms: the standard bubbles, the user's own symptoms saved for
 // good, and a bubble at the end that turns into an input for a new one.
@@ -91,7 +91,7 @@ export default function SymptomPicker({ value, onChange }) {
   };
 
   const editor = (placeholder) => (
-    <span className="inline-flex items-center gap-1 rounded-full border border-pomegranate-400 bg-pomegranate-50 px-2.5 py-1">
+    <span className="inline-flex items-center gap-1 rounded-[3px] border border-primary bg-secondary px-2.5 py-1">
       <input
         autoFocus
         value={draft}
@@ -99,7 +99,7 @@ export default function SymptomPicker({ value, onChange }) {
         onChange={(e) => setDraft(e.target.value)}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
-        className="w-28 bg-transparent text-xs text-pomegranate-800 outline-none placeholder:text-pomegranate-300"
+        className="w-28 bg-transparent text-[13px] text-foreground outline-none placeholder:text-muted-foreground/60"
       />
       <button
         type="button"
@@ -127,7 +127,6 @@ export default function SymptomPicker({ value, onChange }) {
 
   return (
     <div className="space-y-2">
-      <Label>Symptoms</Label>
       <div className="flex flex-wrap items-center gap-2">
         {SYMPTOM_OPTIONS.map((symptom) => (
           <button
@@ -136,8 +135,8 @@ export default function SymptomPicker({ value, onChange }) {
             onClick={() => toggle(symptom)}
             className={`${BUBBLE} ${
               value.includes(symptom)
-                ? "border-pomegranate-400 bg-pomegranate-50 text-pomegranate-700"
-                : "border-slate-200 text-slate-600 hover:border-pomegranate-200"
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-foreground/20 text-foreground hover:border-primary/50"
             }`}
           >
             {symptom.replace(/_/g, " ")}
@@ -154,8 +153,8 @@ export default function SymptomPicker({ value, onChange }) {
                 onClick={() => toggle(item.name)}
                 className={`${BUBBLE} ${
                   value.includes(item.name)
-                    ? "border-pomegranate-400 bg-pomegranate-50 text-pomegranate-700"
-                    : "border-slate-200 text-slate-600 hover:border-pomegranate-200"
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-foreground/20 text-foreground hover:border-primary/50"
                 }`}
               >
                 {item.name}
@@ -164,7 +163,7 @@ export default function SymptomPicker({ value, onChange }) {
                 type="button"
                 onClick={() => startEdit(item.id, item.name)}
                 aria-label={`Edit ${item.name}`}
-                className="absolute -right-1.5 -top-1.5 rounded-full border border-pomegranate-200 bg-white p-[3px] text-pomegranate-500 shadow-sm transition hover:text-pomegranate-700"
+                className="absolute -right-1.5 -top-1.5 rounded-full border border-border bg-card p-[3px] text-muted-foreground shadow-sm transition hover:text-primary"
               >
                 <Pencil className="h-2.5 w-2.5" />
               </button>
@@ -178,7 +177,7 @@ export default function SymptomPicker({ value, onChange }) {
           <button
             type="button"
             onClick={() => startEdit("new")}
-            className="inline-flex items-center gap-1 rounded-full border border-dashed border-pomegranate-300 px-3 py-1.5 text-xs text-pomegranate-600 transition hover:border-pomegranate-400 hover:bg-pomegranate-50"
+            className="inline-flex items-center gap-1 rounded-[3px] border border-dashed border-primary/40 px-3 py-1.5 text-[13px] text-primary transition hover:border-primary hover:bg-secondary"
           >
             <Plus className="h-3 w-3" />
             Add Custom Symptom

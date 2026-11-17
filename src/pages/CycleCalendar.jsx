@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import { base44 } from "@/api/base44Client";
-import AppHeader from "@/components/AppHeader";
+import Masthead from "@/components/alm/Masthead";
+import AlmTabs from "@/components/alm/AlmTabs";
+import { Eyebrow, Rule } from "@/components/alm/Primitives";
 import { useToast } from "@/components/ui/use-toast";
 import PeriodHistoryCalendar from "@/components/calendar/PeriodHistoryCalendar";
+import { format } from "date-fns";
 
 export default function CycleCalendar() {
   const [logs, setLogs] = useState([]);
@@ -32,28 +34,35 @@ export default function CycleCalendar() {
 
   return (
     <div className="min-h-screen bg-background">
-      <AppHeader maxWidth="max-w-3xl">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to my dashboard
-        </Link>
-      </AppHeader>
+      <div className="mx-auto max-w-3xl pb-28">
+        <Masthead
+          kicker={format(new Date(), "MMMM yyyy")}
+          actions={
+            <Link
+              to="/"
+              className="font-heading text-[12.5px] italic text-primary underline underline-offset-4"
+            >
+              Today
+            </Link>
+          }
+        />
 
-      <main className="mx-auto max-w-3xl px-5 py-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
-          Log historical menstrual days
-        </h1>
-        <p className="mt-2 text-sm text-slate-500">
-          Tap days you were menstruating to add them, or tap a logged day to
-          remove it.
-        </p>
+        <section className="px-6">
+          <Eyebrow>The month</Eyebrow>
+          <h1 className="mt-3 font-heading text-[34px] leading-[1.05] tracking-tight">
+            A record of your <span className="italic text-primary">months.</span>
+          </h1>
+          <p className="mt-3 max-w-md text-[14px] leading-relaxed text-muted-foreground">
+            Tap the days you were menstruating to add them, or tap a recorded
+            day to remove it. You can also bring in history from a screenshot.
+          </p>
+        </section>
 
-        <div className="mt-6">
+        <Rule className="my-6" />
+
+        <div className="px-6">
           {loading ? (
-            <div className="h-64 animate-pulse rounded-3xl bg-white" />
+            <div className="h-64 animate-pulse border border-border bg-card" />
           ) : (
             <PeriodHistoryCalendar
               logs={logs}
@@ -69,15 +78,16 @@ export default function CycleCalendar() {
           )}
         </div>
 
-        <div className="mt-6 text-center">
+        <div className="px-6 pt-8 text-center">
           <Link
             to="/"
-            className="text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
+            className="font-heading text-[13px] italic text-primary underline underline-offset-4"
           >
-            Back to my dashboard
+            Back to today
           </Link>
         </div>
-      </main>
+      </div>
+      <AlmTabs />
     </div>
   );
 }

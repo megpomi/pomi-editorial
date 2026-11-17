@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { format } from "date-fns";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { format, subDays } from "date-fns";
+import { Loader2 } from "lucide-react";
 import { base44 } from "@/api/base44Client";
-import AppHeader from "@/components/AppHeader";
-import { Button } from "@/components/ui/button";
+import Masthead from "@/components/alm/Masthead";
+import AlmTabs from "@/components/alm/AlmTabs";
+import {
+  AlmButton,
+  AlmChip,
+  AlmSection,
+  Eyebrow,
+} from "@/components/alm/Primitives";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
@@ -179,7 +185,7 @@ export default function LogToday() {
         await base44.entities.DailyLog.create(payload);
       }
       toast({
-        title: isToday ? "Today's entry saved" : "Entry saved",
+        title: isToday ? "Today's entry kept" : "Entry kept",
         description: isToday
           ? "Thanks for checking in."
           : "Thanks for filling in that day.",
@@ -195,44 +201,107 @@ export default function LogToday() {
   const showCycle =
     (tracking || []).includes("menstrual_cycles") || !tracksWellbeing;
 
+  const week = Array.from({ length: 7 }, (_, i) => subDays(new Date(), 6 - i));
+
   return (
     <div className="min-h-screen bg-background">
-      <AppHeader maxWidth="max-w-2xl">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to my dashboard
-        </Link>
-      </AppHeader>
+      <div className="mx-auto max-w-3xl pb-28">
+        <Masthead
+          kicker="Entry"
+          actions={
+            <Link
+              to="/"
+              className="font-heading text-[12.5px] italic text-primary underline underline-offset-4"
+            >
+              Close
+            </Link>
+          }
+        />
 
-      <main className="mx-auto max-w-2xl px-5 py-8 sm:px-8 sm:py-12">
-        <h1 className="font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
-          {isToday ? "How are you today?" : "Edit this day"}
-        </h1>
-        <p className="mt-2 text-sm text-slate-500">
-          It's the {format(new Date(`${date}T00:00:00`), "EEEE d MMMM")}
-        </p>
+        <div className="px-6">
+          <Eyebrow>{isToday ? "Today's page" : "A page from before"}</Eyebrow>
+          <h1 className="mt-3 font-heading text-[30px] leading-tight tracking-tight">
+            {format(new Date(`${date}T00:00:00`), "EEEE d MMMM")}
+          </h1>
+
+          <div className="mt-5 flex justify-between">
+            {week.map((d) => {
+              const key = format(d, "yyyy-MM-dd");
+              const active = key === date;
+              return (
+                <Link
+                  key={key}
+                  to={`/log-today?date=${key}`}
+                  className="flex w-10 flex-col items-center gap-1"
+                >
+                  <span className="text-[9px] uppercase tracking-[0.16em] text-muted-foreground">
+                    {format(d, "EE")}
+                  </span>
+                  <span
+                    className={`w-7 border-b-2 pb-1 text-center font-heading text-[17px] transition-colors ${
+                      active
+                        ? "border-primary text-primary"
+                        : "border-transparent"
+                    }`}
+                  >
+                    {d.getDate()}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-4 border-t border-border" />
 
         {loading || !tracking ? (
-          <div className="mt-8 flex justify-center">
-            <Loader2 className="h-5 w-5 animate-spin text-pomegranate-400" />
+          <div className="flex justify-center py-16">
+            <Loader2 className="h-5 w-5 animate-spin text-primary" />
           </div>
         ) : (
-          <div className="mt-6 space-y-6">
-            <section className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
-              <p className="text-sm text-slate-500">
-                Log your mood and lifestyle choices for today
-              </p>
-              <div className="mt-5 space-y-6">
-                <MoodPicker
-                  value={form.mood}
-                  onChange={(value) => set({ mood: value })}
-                />
-                <div className="space-y-2">
-                  <Label>Lifestyle</Label>
-                  <div className="flex flex-wrap gap-2">
+          <>
+            {showCycle && (
+              <>
+                <AlmSection
+                  n="i"
+                  title="Flow"
+                  description="Log today as a period day, then how your flow felt."
+                >
+                  <div className="mb-4">
+                    <AlmChip
+                      on={isPeriodDay}
+                      onClick={() => togglePeriod(!isPeriodDay)}
+                      disabled={periodBusy}
+                    >
+                      {isPeriodDay ? "A period day" : "Not a period day"}
+                    </AlmChip>
+                  </div>
+                  <FlowPicker
+                    value={form.flow_intensity}
+                    onChange={(value) => set({ flow_intensity: value })}
+                    disabled={!isPeriodDay}
+                  />
+                </AlmSection>
+
+                <AlmSection n="ii" title="Mood">
+                  <MoodPicker
+                    value={form.mood}
+                    onChange={(value) => set({ mood: value })}
+                  />
+                </AlmSection>
+
+                <AlmSection n="iii" title="Body">
+                  <SymptomPicker
+                    value={form.symptoms}
+                    onChange={(value) => set({ symptoms: value })}
+                  />
+                </AlmSection>
+
+                <AlmSection n="iv" title="Lifestyle">
+                  <Label className="eyebrow text-muted-foreground">
+                    What today held
+                  </Label>
+                  <div className="mt-3 flex flex-wrap gap-2">
                     <TogglePill
                       label="Sex"
                       checked={form.had_sex}
@@ -263,74 +332,50 @@ export default function LogToday() {
                       onChange={(value) => set({ custom_lifestyle: value })}
                     />
                   </div>
-                </div>
+                </AlmSection>
+
+                <AlmSection n="v" title="Discharge">
+                  <div className="mb-4">
+                    <AlmChip
+                      on={form.discharge}
+                      onClick={() =>
+                        set({
+                          discharge: !form.discharge,
+                          discharge_types: form.discharge
+                            ? []
+                            : form.discharge_types,
+                        })
+                      }
+                    >
+                      {form.discharge ? "Noted today" : "None noted"}
+                    </AlmChip>
+                  </div>
+                  <DischargePicker
+                    value={form.discharge_types}
+                    onChange={(value) => set({ discharge_types: value })}
+                    disabled={!form.discharge}
+                  />
+                </AlmSection>
+              </>
+            )}
+
+            <AlmSection n={showCycle ? "vi" : "i"} title="In your own words">
+              <div className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="daily-notes">Notes</Label>
+                  <Label htmlFor="daily-notes" className="eyebrow text-muted-foreground">
+                    Notes
+                  </Label>
                   <Textarea
                     id="daily-notes"
                     rows={3}
                     value={form.notes}
                     onChange={(e) => set({ notes: e.target.value })}
                     placeholder="Anything else you noticed today?"
+                    className="ruled-lines rounded-none border-0 bg-transparent px-0 font-heading text-[16px] italic shadow-none placeholder:text-muted-foreground/60 focus-visible:ring-0"
                   />
                 </div>
-              </div>
-            </section>
 
-            {showCycle && (
-              <section className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
-                <h2 className="font-heading text-xl font-semibold text-slate-800">
-                  Menstrual cycles
-                </h2>
-                <p className="mt-1 text-sm text-slate-500">
-                  Log today as a period day or simply track today's cycle
-                  symptoms.
-                </p>
-                <div className="mt-5 space-y-6">
-                  <TogglePill
-                    label="Period"
-                    checked={isPeriodDay}
-                    onChange={togglePeriod}
-                    disabled={periodBusy}
-                  />
-                  <FlowPicker
-                    value={form.flow_intensity}
-                    onChange={(value) => set({ flow_intensity: value })}
-                    disabled={!isPeriodDay}
-                  />
-                  <SymptomPicker
-                    value={form.symptoms}
-                    onChange={(value) => set({ symptoms: value })}
-                  />
-                  <TogglePill
-                    label="Discharge"
-                    checked={form.discharge}
-                    onChange={(value) =>
-                      set({
-                        discharge: value,
-                        discharge_types: value ? form.discharge_types : [],
-                      })
-                    }
-                  />
-                  <DischargePicker
-                    value={form.discharge_types}
-                    onChange={(value) => set({ discharge_types: value })}
-                    disabled={!form.discharge}
-                  />
-                </div>
-              </section>
-            )}
-
-            {tracksWellbeing && (
-              <section className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
-                <h2 className="font-heading text-xl font-semibold text-slate-800">
-                  General wellbeing
-                </h2>
-                <p className="mt-1 text-sm text-slate-500">
-                  Take a quiet moment to reflect on today, maybe using today's
-                  journal prompt if you need.
-                </p>
-                <div className="mt-5">
+                {tracksWellbeing && (
                   <JournalEntryBox
                     dateKey={date}
                     response={form.journal_response}
@@ -342,23 +387,26 @@ export default function LogToday() {
                       set({ journal_voice_note: value })
                     }
                   />
-                </div>
-              </section>
+                )}
+              </div>
+            </AlmSection>
+
+            {error && (
+              <p className="px-6 pt-4 text-[13px] text-destructive">{error}</p>
             )}
 
-            {error && <p className="text-sm text-destructive">{error}</p>}
-
-            <Button
-              onClick={save}
-              disabled={saving}
-              className="w-full rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
-            >
-              {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Save entry
-            </Button>
-          </div>
+            <div className="px-6 pt-6">
+              <AlmButton onClick={save} disabled={saving}>
+                {saving ? "Keeping…" : "Keep this entry"}
+              </AlmButton>
+              <p className="mt-3 text-center font-heading text-[13px] italic text-muted-foreground">
+                One entry a day. Saving again revises this page.
+              </p>
+            </div>
+          </>
         )}
-      </main>
+      </div>
+      <AlmTabs />
     </div>
   );
 }
