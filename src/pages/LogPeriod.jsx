@@ -51,7 +51,8 @@ export default function LogPeriod() {
             Log historical periods
           </h1>
           <p className="mt-3 max-w-md text-[14px] leading-relaxed text-muted-foreground">
-            Tap days you were menstruating to add them, or tap a previously logged day to
+            Tap the first day of a period and then its last day to mark every day in
+            between, or tap a single day on its own. Tap a previously logged day to
             remove it. You can also import screenshots from another tracking app.
           </p>
         </section>

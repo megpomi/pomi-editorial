@@ -32,6 +32,8 @@ export default function PeriodHistoryCalendar({
   // Days already logged that this save removes — tapped on the calendar.
   const [removals, setRemovals] = useState([]);
   const daysRef = useRef([]);
+  // The day a range starts from: tap the first day of a period, then its last.
+  const rangeAnchor = useRef(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -84,6 +86,47 @@ export default function PeriodHistoryCalendar({
     return next.length - current.length;
   };
 
+  // A period is two taps: its first day, then its last day, with every day in
+  // between marked. Tapping a single day still marks just that day.
+  const handleSelect = (value) => {
+    const next = (value || []).filter(
+      (day) => !loggedKeys.has(formatDay(day))
+    );
+    const nextKeys = new Set(next.map(formatDay));
+    const prevKeys = new Set(daysRef.current.map(formatDay));
+    const added = next.filter((day) => !prevKeys.has(formatDay(day)));
+    const tookAway = daysRef.current.some(
+      (day) => !nextKeys.has(formatDay(day))
+    );
+
+    // Deselecting, or a change we didn't make ourselves: start a new range.
+    if (added.length !== 1 || tookAway) {
+      rangeAnchor.current = null;
+      selectDays(next);
+      return;
+    }
+
+    const clicked = added[0];
+    const anchor = rangeAnchor.current;
+    if (!anchor || formatDay(anchor) === formatDay(clicked)) {
+      rangeAnchor.current = clicked;
+      selectDays(next);
+      return;
+    }
+
+    const from = anchor < clicked ? anchor : clicked;
+    const to = anchor < clicked ? clicked : anchor;
+    for (let d = new Date(from); d <= to; d.setDate(d.getDate() + 1)) {
+      const day = new Date(d);
+      const key = formatDay(day);
+      if (day > today || loggedKeys.has(key) || nextKeys.has(key)) continue;
+      nextKeys.add(key);
+      next.push(day);
+    }
+    rangeAnchor.current = null;
+    selectDays(next);
+  };
+
   // Opens on the most recent month, with the earlier months scrolled above it.
   // A stable callback so it only runs when the container mounts — otherwise
   // every re-render (each day you tap) would snap the view back down.
@@ -124,18 +167,17 @@ export default function PeriodHistoryCalendar({
           <Calendar
             mode="multiple"
             selected={days}
-            onSelect={(value) =>
-              // Days already logged stay as they are, so they can't be saved twice.
-              selectDays(
-                (value || []).filter((day) => !loggedKeys.has(formatDay(day)))
-              )
-            }
+            // Days already logged stay as they are, so they can't be saved twice.
+            onSelect={handleSelect}
             numberOfMonths={12}
             defaultMonth={historyStart}
             disabled={{ after: today }}
             modifiers={{ logged: keptLoggedDays, removing: removedDays }}
             onDayClick={(day, modifiers) => {
-              if (modifiers.logged || modifiers.removing) toggleRemoval(day);
+              if (modifiers.logged || modifiers.removing) {
+                rangeAnchor.current = null;
+                toggleRemoval(day);
+              }
             }}
             components={{ DayContent: CalendarDay }}
             classNames={{
