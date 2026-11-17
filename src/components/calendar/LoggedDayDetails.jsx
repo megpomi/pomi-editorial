@@ -134,7 +134,7 @@ export default function LoggedDayDetails({
           to={`/log-today?date=${dayKey(date)}`}
           className="font-heading text-[13px] italic text-primary underline underline-offset-4"
         >
-          Add or edit symptoms
+          Add or edit entries
         </Link>
         {onTogglePeriod && (
           <button
