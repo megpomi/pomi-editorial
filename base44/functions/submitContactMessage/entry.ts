@@ -57,6 +57,21 @@ export default async function (req: Request): Promise<Response> {
       );
     }
 
+    // And a ceiling across everyone, so someone cycling through addresses cannot
+    // put more than a few dozen messages an hour into the inbox.
+    const inbox = await withinLimit(base44, {
+      kind: 'contact-total',
+      identity: 'app',
+      limit: 30,
+      windowMinutes: 60,
+    });
+    if (!inbox.allowed) {
+      return Response.json(
+        { error: 'Our inbox is very busy right now. Please try again a little later.' },
+        { status: 429 }
+      );
+    }
+
     await base44.asServiceRole.entities.ContactMessage.create({
       name,
       email,

@@ -27,11 +27,11 @@ export default async function (req) {
     if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 });
 
     // Each read spends AI credits, so cap how many one account can run in a day —
-    // well above a real import of a year's history, far below a runaway loop.
+    // more than a real import of a year's history needs, far below a runaway loop.
     const { allowed } = await withinLimit(base44, {
       kind: 'screenshot-import',
       identity: callerIdentity(req, user),
-      limit: 40,
+      limit: 6,
       windowMinutes: 24 * 60,
     });
     if (!allowed) {

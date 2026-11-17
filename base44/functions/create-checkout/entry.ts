@@ -70,12 +70,12 @@ Deno.serve(async (req: Request) => {
 
     const body = await req.json().catch(() => ({}));
 
-    // A few checkout starts per visitor per hour: a real buyer needs one, a script
-    // could otherwise fill the purchase table and hammer Wix without limit.
+    // A couple of checkout starts per visitor per hour: a real buyer needs one (two
+    // if a card fails), a script could otherwise fill the purchase table and hammer Wix.
     const { allowed } = await withinLimit(base44, {
       kind: "checkout",
       identity: callerIdentity(req, appUser),
-      limit: 10,
+      limit: 3,
       windowMinutes: 60,
     });
     if (!allowed) {
@@ -95,10 +95,9 @@ Deno.serve(async (req: Request) => {
     // integer BEFORE using it — do NOT Math.trunc first, or a fractional POST (e.g. 1.9) silently
     // passes as 1 and charges a quantity the UI never allowed. For a plan / fixed-entitlement product,
     // hard-code `1` and ignore the body; for a genuine multi-unit product, also enforce YOUR own max.
-    const quantity = Number(body.quantity ?? 1);
-    if (!Number.isInteger(quantity) || quantity < 1) {
-      return new Response(JSON.stringify({ error: "Invalid quantity" }), { status: 400 });
-    }
+    // The ad-free plan is one subscription, so the quantity is fixed at 1 and the
+    // body's value is ignored: a tampered request can never start a larger charge.
+    const quantity = 1;
     // Example — replace with your real trusted product source:
     //   const product = (await base44.asServiceRole.entities.Product.filter({ id: productId }))[0];
     //   if (!product) return new Response(JSON.stringify({ error: "Unknown product" }), { status: 400 });
