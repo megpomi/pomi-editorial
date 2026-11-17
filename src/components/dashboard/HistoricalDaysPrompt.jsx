@@ -17,7 +17,7 @@ export default function HistoricalDaysPrompt() {
             Add the period days you've already had
           </h2>
           <p className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground">
-            Open the period log to mark past days, or import a screenshot from
+            Open the period log to mark past days, or import screenshots from
             another tracking app and we'll transfer them for you.
           </p>
           <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
