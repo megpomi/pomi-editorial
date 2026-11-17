@@ -17,10 +17,10 @@ export default function CalendarDay({ date, activeModifiers }) {
   return (
     <div className="relative flex h-full w-full items-center justify-center">
       {shaded && (
-        <span className="absolute inset-x-1.5 inset-y-1.5 rounded-[2px] bg-sky-300/40" />
+        <span className="absolute inset-x-1.5 inset-y-1.5 rounded-[2px] bg-sky-300/20" />
       )}
       {ringed && (
-        <span className="absolute inset-x-1.5 inset-y-1.5 rounded-[2px] border border-pomegranate-600/60" />
+        <span className="absolute inset-x-1.5 inset-y-1.5 rounded-[2px] border border-sky-500/80" />
       )}
       <span className="relative">{date.getDate()}</span>
       {dots.length > 0 && (
