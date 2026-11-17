@@ -142,6 +142,13 @@ export default function Profile() {
 
           <div className="mt-8 border-t border-border pt-5">
             <Link
+              to="/request-data"
+              className="mb-3 flex items-center justify-between border-b border-border pb-3 text-[13px] text-foreground transition-colors hover:text-primary"
+            >
+              <span className="font-heading">Request data export</span>
+              <span className="text-muted-foreground">→</span>
+            </Link>
+            <Link
               to="/privacy"
               className="mb-3 flex items-center justify-between border-b border-border pb-3 text-[13px] text-foreground transition-colors hover:text-primary"
             >
