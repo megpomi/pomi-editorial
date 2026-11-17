@@ -69,12 +69,12 @@ export default function CycleCalendar() {
             className="group flex items-center justify-between gap-4 border-y border-border py-4"
           >
             <span className="min-w-0">
-              <Eyebrow className="text-primary">Log period</Eyebrow>
+              <Eyebrow className="text-primary">Log historical periods</Eyebrow>
               <span className="mt-1.5 block font-heading text-[16.5px] leading-snug">
-                Mark your period days
+                Click here to build your history
               </span>
               <span className="mt-1 block text-[12.5px] leading-relaxed text-muted-foreground">
-                Choose several days at once, or import a screenshot from another
+                Select several days at once, or import screenshots from another
                 app.
               </span>
             </span>
