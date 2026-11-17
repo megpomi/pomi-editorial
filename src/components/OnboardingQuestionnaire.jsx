@@ -16,6 +16,7 @@ import { AlmButton } from "@/components/alm/Primitives";
 import ChoiceCard from "@/components/onboarding/ChoiceCard";
 import IntroStep from "@/components/onboarding/IntroStep";
 import AccountStep from "@/components/onboarding/AccountStep";
+import TrackingDependencyNote from "@/components/tracking/TrackingDependencyNote";
 
 // Cycle tracking starts switched on — Pomi is a cycle tracker first — and can be
 // turned off again. Conception tracking always travels with it.
@@ -163,6 +164,8 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
             />
           )}
         </div>
+
+        {isFirst && <TrackingDependencyNote />}
 
         <div className="mt-7 grid grid-cols-[auto_1fr] gap-3">
           <button

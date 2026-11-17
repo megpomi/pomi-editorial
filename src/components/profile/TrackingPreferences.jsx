@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TRACKING_OPTIONS, addFocus, removeFocus } from "@/lib/tracking";
 import ChoiceCard from "@/components/onboarding/ChoiceCard";
 import RemoveTrackingDialog from "@/components/profile/RemoveTrackingDialog";
+import TrackingDependencyNote from "@/components/tracking/TrackingDependencyNote";
 
 export default function TrackingPreferences({ selected, onChange }) {
   const [pending, setPending] = useState(null);
@@ -43,6 +44,8 @@ export default function TrackingPreferences({ selected, onChange }) {
           />
         ))}
       </div>
+
+      <TrackingDependencyNote />
 
       <RemoveTrackingDialog
         option={pending}
