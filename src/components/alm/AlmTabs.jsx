@@ -36,13 +36,13 @@ export default function AlmTabs() {
                 key={tab.to}
                 to={tab.to}
                 aria-label={tab.label}
-                className="flex flex-1 items-center justify-center py-1"
+                className="-mt-1 flex flex-1 items-center justify-center"
               >
                 <img
                   src={tab.art}
                   alt=""
                   aria-hidden="true"
-                  className={`h-8 w-auto max-w-none transition-opacity duration-200 sm:h-10 ${
+                  className={`h-10 w-auto max-w-none transition-opacity duration-200 sm:h-12 ${
                     active ? "opacity-100" : "opacity-60"
                   }`}
                 />
