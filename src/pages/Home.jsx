@@ -10,6 +10,7 @@ import TodayCycleBlock from "@/components/dashboard/TodayCycleBlock";
 import TodaysEntry from "@/components/dashboard/TodaysEntry";
 import HistoricalDaysPrompt from "@/components/dashboard/HistoricalDaysPrompt";
 import ReminderBanner from "@/components/reminders/ReminderBanner";
+import FeaturedCauses from "@/components/donations/FeaturedCauses";
 import { useReminders } from "@/hooks/use-reminders";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
 import { getCurrentPhase } from "@/lib/cycle";
@@ -214,7 +215,11 @@ export default function Home() {
           </>
         )}
 
-        <p className="px-6 pt-8 text-center text-[12px] leading-relaxed text-muted-foreground">
+        <div className="mt-8">
+          <FeaturedCauses />
+        </div>
+
+        <p className="px-6 pt-6 text-center text-[12px] leading-relaxed text-muted-foreground">
           Pomi is not a medical device. For health concerns, please consult a
           healthcare professional.
         </p>
