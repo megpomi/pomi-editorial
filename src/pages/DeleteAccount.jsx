@@ -41,8 +41,9 @@ export default function DeleteAccount() {
         reason,
         comments: comments.trim(),
       });
-      await base44.entities.CycleLog.deleteMany({ created_by_id: user.id });
-      await base44.entities.DailyLog.deleteMany({ created_by_id: user.id });
+      // Erases every saved cycle, daily log, journal and custom tracker for
+      // this account on the server, where ownership is checked.
+      await base44.functions.invoke("deleteMyAccount", {});
       await base44.auth.updateMe({
         preferred_name: "",
         tracking_focus: [],

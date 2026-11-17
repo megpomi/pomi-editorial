@@ -1,8 +1,8 @@
 import React from "react";
-import { ArrowUpRight, Heart } from "lucide-react";
-import AppHeader from "@/components/AppHeader";
+import { ArrowUpRight } from "lucide-react";
+import Masthead from "@/components/alm/Masthead";
 import AlmTabs from "@/components/alm/AlmTabs";
-import BackLink from "@/components/alm/BackLink";
+import { Eyebrow, Rule } from "@/components/alm/Primitives";
 import { CHARITY_OPTIONS } from "@/lib/charities";
 import { DONATION_SHARE } from "@/lib/donations";
 
@@ -26,23 +26,15 @@ const STEPS = [
 export default function Mission() {
   return (
     <div className="min-h-screen bg-background">
-      <AppHeader maxWidth="max-w-4xl" />
+      <div className="mx-auto max-w-3xl pb-28">
+        <Masthead />
 
-      <main className="mx-auto max-w-4xl px-5 pb-28 pt-8 sm:px-8 sm:pt-12">
-        <BackLink to="/" className="mb-6">
-          Back to Today
-        </BackLink>
-        <div className="border border-pomegranate-100 bg-pomegranate-800 p-8 text-pomegranate-50 sm:p-10">
-          <div className="mb-4 flex items-center gap-2">
-            <Heart className="h-4 w-4 fill-white/80" />
-            <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/80">
-              Our mission
-            </span>
-          </div>
-          <h1 className="font-heading text-[30px] leading-[1.15] tracking-tight sm:text-[36px]">
+        <section className="px-6">
+          <Eyebrow className="mb-3 text-primary">Our mission</Eyebrow>
+          <h1 className="font-heading text-[26px] leading-tight tracking-tight sm:text-[30px]">
             Tracking your cycle should give something back.
           </h1>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/85">
+          <p className="mt-3 max-w-md text-[14px] leading-relaxed text-muted-foreground">
             Health data is some of the most personal information there is, and it
             is usually collected for profit - Pomi's purpose is different. We've
             used similar apps and felt uncomfortable for years with the money
@@ -52,23 +44,23 @@ export default function Mission() {
             funds to seven causes via the charities given below, chosen to help
             women as well as those similarly impacted.
           </p>
-        </div>
+        </section>
 
-        <section className="mt-8 border border-border bg-card p-6 sm:p-8">
-          <h2 className="font-heading text-[19px] text-foreground">
-            How we donate
-          </h2>
-          <ol className="mt-5 space-y-6">
+        <Rule className="my-6" />
+
+        <section className="px-6">
+          <Eyebrow className="mb-4">How we donate</Eyebrow>
+          <ol className="space-y-6">
             {STEPS.map((step, index) => (
               <li key={step.title} className="flex gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-pomegranate-100 font-heading text-sm font-semibold text-pomegranate-700">
-                  {index + 1}
+                <span className="shrink-0 font-heading text-[20px] italic leading-none text-primary">
+                  {index + 1}.
                 </span>
-                <div>
-                  <h3 className="text-sm font-semibold text-slate-800">
+                <div className="min-w-0">
+                  <h3 className="font-heading text-[17px] leading-snug">
                     {step.title}
                   </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                  <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted-foreground">
                     {step.body}
                   </p>
                 </div>
@@ -77,17 +69,17 @@ export default function Mission() {
           </ol>
         </section>
 
-        <section className="mt-8">
-          <h2 className="font-heading text-[19px] text-foreground">
-            The causes we support
-          </h2>
-          <p className="mt-1 text-sm text-slate-500">
+        <Rule className="my-7" />
+
+        <section className="px-6">
+          <Eyebrow className="mb-4">The causes we support</Eyebrow>
+          <p className="mb-5 text-[13.5px] leading-relaxed text-muted-foreground">
             Each cause is delivered through more than one charitable
             organisation. Here is what they do and links to find out more
             information.
           </p>
 
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2">
             {CHARITY_OPTIONS.flatMap((cause) =>
               cause.partners.map((partner) => {
                 const Icon = cause.icon;
@@ -97,29 +89,29 @@ export default function Mission() {
                     className="flex flex-col border border-border bg-card p-5"
                   >
                     <div className="flex items-start gap-3">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-pomegranate-100 text-pomegranate-600">
-                        <Icon className="h-5 w-5" />
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[3px] border border-border bg-secondary text-primary">
+                        <Icon className="h-4 w-4" />
                       </span>
-                      <div>
-                        <h3 className="font-heading text-[17px] text-foreground">
+                      <div className="min-w-0">
+                        <h3 className="font-heading text-[16px] leading-snug">
                           {partner.name}
                         </h3>
-                        <p className="text-xs uppercase tracking-wider text-pomegranate-400">
+                        <p className="mt-0.5 text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
                           {cause.label}
                         </p>
                       </div>
                     </div>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">
+                    <p className="mt-3 flex-1 text-[13px] leading-relaxed text-muted-foreground">
                       {partner.blurb}
                     </p>
                     <a
                       href={partner.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
+                      className="mt-4 inline-flex items-center gap-1.5 font-heading text-[13.5px] text-primary underline decoration-1 underline-offset-4 transition-colors hover:text-pomegranate-700"
                     >
                       Visit website
-                      <ArrowUpRight className="h-4 w-4" />
+                      <ArrowUpRight className="h-3.5 w-3.5" />
                     </a>
                   </div>
                 );
@@ -128,11 +120,14 @@ export default function Mission() {
           </div>
         </section>
 
-        <p className="mt-8 text-center text-xs text-slate-400">
+        <Rule className="my-7" />
+
+        <p className="px-6 text-[11.5px] leading-relaxed text-muted-foreground">
           Partner organisations and their websites are listed for information.
           Pomi is not affiliated with them beyond our donation distributions.
         </p>
-      </main>
+      </div>
+
       <AlmTabs />
     </div>
   );

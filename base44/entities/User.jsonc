@@ -12,23 +12,44 @@
     },
     "plan": {
       "type": "string",
-      "description": "Subscription plan; written by the payments webhook.",
+      "description": "Subscription plan; written by the payments webhook. Locked so a user cannot grant themselves a plan.",
       "enum": [
         "free",
         "adfree_monthly",
         "adfree_yearly"
       ],
-      "default": "free"
+      "default": "free",
+      "rls": {
+        "update": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
     },
     "plan_started_at": {
       "type": "string",
       "format": "date-time",
-      "description": "When the ad-free subscription began; written by the payments webhook. Donations build daily from here."
+      "description": "When the ad-free subscription began; written by the payments webhook. Donations build daily from here. Locked so donation accrual cannot be fabricated.",
+      "rls": {
+        "update": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
     },
     "plan_ended_at": {
       "type": "string",
       "format": "date-time",
-      "description": "When the ad-free subscription ended; written by the payments webhook. Daily donation accrual stops here."
+      "description": "When the ad-free subscription ended; written by the payments webhook. Daily donation accrual stops here. Locked so donation accrual cannot be fabricated.",
+      "rls": {
+        "update": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
     },
     "ad_views_by_month": {
       "type": "object",
