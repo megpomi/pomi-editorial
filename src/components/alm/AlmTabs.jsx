@@ -7,7 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 // The news tab carries a drawn mark instead of a word, and sits on the banner
 // without making it any thicker.
 const NEWS_MARK =
-  "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/e7e503625_pomi-news-mark.png";
+  "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/7e9d67daa_pomi-news-transparent.png";
 
 const TABS = [
   { label: "Today", short: "Today", to: "/" },
@@ -42,8 +42,8 @@ export default function AlmTabs() {
                   src={tab.art}
                   alt=""
                   aria-hidden="true"
-                  className={`pointer-events-none absolute left-1/2 top-1/2 h-11 w-auto max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-multiply transition-opacity duration-200 ${
-                    active ? "opacity-100" : "opacity-55"
+                  className={`pointer-events-none absolute left-1/2 top-1/2 h-12 w-auto max-w-none -translate-x-1/2 -translate-y-[62%] drop-shadow-[0_3px_7px_rgba(44,24,16,0.18)] transition-opacity duration-200 sm:h-16 ${
+                    active ? "opacity-100" : "opacity-75"
                   }`}
                 />
               </Link>
