@@ -87,6 +87,11 @@
       "default": false,
       "title": "Caffeine"
     },
+    "plenty_of_water": {
+      "type": "boolean",
+      "default": false,
+      "title": "Plenty of water"
+    },
     "custom_lifestyle": {
       "type": "array",
       "items": {

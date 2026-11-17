@@ -316,6 +316,11 @@ export default function LogToday() {
                       checked={form.caffeine}
                       onChange={(value) => set({ caffeine: value })}
                     />
+                    <TogglePill
+                      label="Plenty of water"
+                      checked={form.plenty_of_water}
+                      onChange={(value) => set({ plenty_of_water: value })}
+                    />
                     <LifestylePicker
                       value={form.custom_lifestyle}
                       onChange={(value) => set({ custom_lifestyle: value })}
