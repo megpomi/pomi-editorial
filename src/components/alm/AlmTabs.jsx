@@ -1,14 +1,18 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Newspaper } from "lucide-react";
 
 // Almanac's section tabs, kept at the foot of the page the way a printed
 // almanac keeps its index: today, the calendar, the news, the mission, the
 // donations. `short` keeps the foot of the page on one line on a phone.
+// The news tab carries a drawn mark instead of a word, and sits on the banner
+// without making it any thicker.
+const NEWS_MARK =
+  "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/e7e503625_pomi-news-mark.png";
+
 const TABS = [
   { label: "Today", short: "Today", to: "/" },
   { label: "Calendar", short: "Calendar", to: "/calendar" },
-  { label: "In the News", short: "News", to: "/news", icon: Newspaper, iconOnly: true },
+  { label: "In the News", to: "/news", art: NEWS_MARK },
   { label: "Our Mission", short: "Mission", to: "/mission" },
   { label: "Your donations", short: "Donations", to: "/donations" },
 ];
@@ -25,43 +29,50 @@ export default function AlmTabs() {
         {TABS.map((tab) => {
           const active =
             tab.to === "/" ? pathname === "/" : pathname.startsWith(tab.to);
+
+          if (tab.art) {
+            return (
+              <Link
+                key={tab.to}
+                to={tab.to}
+                aria-label={tab.label}
+                className="relative flex flex-1 items-center justify-center"
+              >
+                <img
+                  src={tab.art}
+                  alt=""
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute left-1/2 top-1/2 h-11 w-auto max-w-none -translate-x-1/2 -translate-y-1/2 mix-blend-multiply transition-opacity duration-200 ${
+                    active ? "opacity-100" : "opacity-55"
+                  }`}
+                />
+              </Link>
+            );
+          }
+
           return (
             <Link
               key={tab.to}
               to={tab.to}
               aria-label={tab.label}
-              className="flex flex-1 flex-col items-center gap-1.5 py-1"
+              className="flex flex-1 flex-col items-center justify-center gap-1.5 py-1"
             >
-              {tab.iconOnly ? (
-                <span className="flex h-[34px] items-center justify-center">
-                  <tab.icon
-                    strokeWidth={1.25}
-                    aria-hidden="true"
-                    className={`h-7 w-7 transition-colors ${
-                      active ? "text-primary" : "text-muted-foreground"
-                    }`}
-                  />
-                </span>
-              ) : (
-                <>
-                  <span className="flex h-3.5 items-center justify-center">
-                    <span
-                      className="h-1 w-1 rounded-full bg-primary transition-opacity"
-                      style={{ opacity: active ? 1 : 0 }}
-                    />
-                  </span>
-                  <span
-                    className={`text-[10px] uppercase tracking-[0.12em] transition-colors sm:text-[11px] sm:tracking-[0.16em] ${
-                      active
-                        ? "font-semibold text-primary"
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    <span className="sm:hidden">{tab.short}</span>
-                    <span className="hidden sm:inline">{tab.label}</span>
-                  </span>
-                </>
-              )}
+              <span className="flex h-3.5 items-center justify-center">
+                <span
+                  className="h-1 w-1 rounded-full bg-primary transition-opacity"
+                  style={{ opacity: active ? 1 : 0 }}
+                />
+              </span>
+              <span
+                className={`text-[10px] uppercase tracking-[0.12em] transition-colors sm:text-[11px] sm:tracking-[0.16em] ${
+                  active
+                    ? "font-semibold text-primary"
+                    : "text-muted-foreground"
+                }`}
+              >
+                <span className="sm:hidden">{tab.short}</span>
+                <span className="hidden sm:inline">{tab.label}</span>
+              </span>
             </Link>
           );
         })}
