@@ -23,12 +23,12 @@ export default function IntroStep({ onStart }) {
     <div className="flex min-h-screen flex-col bg-background">
       <PublicHeader />
 
-      <main className="flex flex-1 items-center justify-center px-6 py-10">
+      <main className="flex flex-1 items-center justify-start px-6 py-10 sm:px-10 lg:px-16">
         <div className="w-full max-w-xl">
           <motion.div layout className="flex flex-col items-start">
             <motion.div layout transition={{ duration: 0.6, ease: "easeInOut" }}>
               <Pomegranate
-                size={revealed ? "min(34vh, 100%)" : "min(46vh, 100%)"}
+                size={revealed ? "min(26vh, 100%)" : "min(36vh, 100%)"}
               />
             </motion.div>
           </motion.div>
