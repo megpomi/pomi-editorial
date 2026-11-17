@@ -48,6 +48,13 @@ export default function CalendarPanel({
 
   const loggedDays = useMemo(() => logs.flatMap(expandLog), [logs]);
 
+  // Every day the daily check-in saved something on. Without cycle tracking
+  // there is no period to mark, so the day itself carries the pomegranate dot.
+  const checkedInDays = useMemo(
+    () => dailyLogs.map((entry) => parseDayKey(entry.date)),
+    [dailyLogs]
+  );
+
   // Days the daily check-in recorded a symptom on, so a day that isn't part of
   // a period can still be spotted and opened.
   const symptomDays = useMemo(
@@ -130,8 +137,8 @@ export default function CalendarPanel({
           selected={selected}
           onSelect={(value) => value && setSelected(value)}
           modifiers={{
-            logged: loggedDays,
-            symptom: symptomDays,
+            logged: showCycle ? loggedDays : checkedInDays,
+            symptom: showCycle ? symptomDays : [],
             journal: journalDays,
           }}
           components={{ DayContent: CalendarDay }}
@@ -156,16 +163,16 @@ export default function CalendarPanel({
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+        <span className="flex items-center gap-2">
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-pomegranate-600" />
+          {showCycle ? "Period day" : "Logged day"}
+        </span>
         {showCycle && (
           <span className="flex items-center gap-2">
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-pomegranate-600" />
-            Period day
+            <span className="inline-block h-2.5 w-2.5 rounded-full bg-symptom" />
+            Symptoms
           </span>
         )}
-        <span className="flex items-center gap-2">
-          <span className="inline-block h-2.5 w-2.5 rounded-full bg-symptom" />
-          Symptoms
-        </span>
         {showJournal && (
           <span className="flex items-center gap-2">
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-purple-800" />
