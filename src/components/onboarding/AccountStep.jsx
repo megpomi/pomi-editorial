@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Image } from "@/components/ui/image";
-import pomiLogo from "@/assets/pomi-logo.png";
+const pomiLogo = "/pomi-logo.png";
 import { ArrowLeft, Apple, Facebook, Lock, Mail } from "lucide-react";
 import GoogleIcon from "@/components/GoogleIcon";
 import {

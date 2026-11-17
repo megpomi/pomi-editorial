@@ -1,5 +1,5 @@
 import React from "react";
-import pomiLogo from "@/assets/pomi-logo.png";
+const pomiLogo = "/pomi-logo.png";
 
 // Pomi's mark: the crimson pomegranate, shown wherever the app signs itself.
 export default function Pomegranate({ size = 96, className = "" }) {

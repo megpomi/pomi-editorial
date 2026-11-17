@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
 import { Image } from '@/components/ui/image';
-import pomiLogo from '@/assets/pomi-logo.png';
+const pomiLogo = "/pomi-logo.png";
 
 
 export default function PageNotFound({}) {

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CheckCircle2 } from "lucide-react";
 import { Image } from "@/components/ui/image";
-import pomiLogo from "@/assets/pomi-logo.png";
+const pomiLogo = "/pomi-logo.png";
 
 export default function ThankYou() {
   return (
