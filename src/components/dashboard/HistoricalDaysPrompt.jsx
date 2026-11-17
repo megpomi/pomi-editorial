@@ -31,7 +31,7 @@ export default function HistoricalDaysPrompt() {
               to="/log-period?import=1"
               className="inline-flex h-11 items-center justify-center rounded-[3px] border border-foreground/25 px-5 font-heading text-[15px] transition-colors hover:bg-secondary"
             >
-              Import a screenshot
+              Import screenshots
             </Link>
           </div>
         </div>
