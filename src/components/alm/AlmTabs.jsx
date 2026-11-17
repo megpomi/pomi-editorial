@@ -8,7 +8,7 @@ import { Newspaper } from "lucide-react";
 const TABS = [
   { label: "Today", short: "Today", to: "/" },
   { label: "Calendar", short: "Calendar", to: "/calendar" },
-  { label: "In the News", short: "News", to: "/news", icon: Newspaper },
+  { label: "In the News", short: "News", to: "/news", icon: Newspaper, iconOnly: true },
   { label: "Our Mission", short: "Mission", to: "/mission" },
   { label: "Your donations", short: "Donations", to: "/donations" },
 ];
@@ -29,34 +29,39 @@ export default function AlmTabs() {
             <Link
               key={tab.to}
               to={tab.to}
+              aria-label={tab.label}
               className="flex flex-1 flex-col items-center gap-1.5 py-1"
             >
-              <span className="flex h-3.5 items-center justify-center">
-                {tab.icon ? (
+              {tab.iconOnly ? (
+                <span className="flex h-[34px] items-center justify-center">
                   <tab.icon
                     strokeWidth={1.25}
                     aria-hidden="true"
-                    className={`h-3.5 w-3.5 transition-colors ${
+                    className={`h-7 w-7 transition-colors ${
                       active ? "text-primary" : "text-muted-foreground"
                     }`}
                   />
-                ) : (
+                </span>
+              ) : (
+                <>
+                  <span className="flex h-3.5 items-center justify-center">
+                    <span
+                      className="h-1 w-1 rounded-full bg-primary transition-opacity"
+                      style={{ opacity: active ? 1 : 0 }}
+                    />
+                  </span>
                   <span
-                    className="h-1 w-1 rounded-full bg-primary transition-opacity"
-                    style={{ opacity: active ? 1 : 0 }}
-                  />
-                )}
-              </span>
-              <span
-                className={`text-[10px] uppercase tracking-[0.12em] transition-colors sm:text-[11px] sm:tracking-[0.16em] ${
-                  active
-                    ? "font-semibold text-primary"
-                    : "text-muted-foreground"
-                }`}
-              >
-                <span className="sm:hidden">{tab.short}</span>
-                <span className="hidden sm:inline">{tab.label}</span>
-              </span>
+                    className={`text-[10px] uppercase tracking-[0.12em] transition-colors sm:text-[11px] sm:tracking-[0.16em] ${
+                      active
+                        ? "font-semibold text-primary"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    <span className="sm:hidden">{tab.short}</span>
+                    <span className="hidden sm:inline">{tab.label}</span>
+                  </span>
+                </>
+              )}
             </Link>
           );
         })}
