@@ -110,9 +110,11 @@ export default function LogPeriodSheet({ open, onOpenChange, onSaved }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[92vh] overflow-y-auto sm:max-w-lg">
+      <DialogContent className="max-h-[92vh] overflow-y-auto rounded-[3px] border-border sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="font-heading text-2xl">Log your period</DialogTitle>
+          <DialogTitle className="font-heading text-[26px] leading-tight">
+            Log your period
+          </DialogTitle>
           <DialogDescription>
             Add a few details — predictions improve with every entry.
           </DialogDescription>
@@ -247,7 +249,11 @@ export default function LogPeriodSheet({ open, onOpenChange, onSaved }) {
           >
             Cancel
           </Button>
-          <Button onClick={submit} disabled={saving} className="bg-pomegranate-500 hover:bg-pomegranate-600">
+          <Button
+            onClick={submit}
+            disabled={saving}
+            className="rounded-[3px] bg-primary py-6 font-heading text-[16px] hover:bg-pomegranate-700"
+          >
             {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Save entry
           </Button>

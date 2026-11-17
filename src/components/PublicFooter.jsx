@@ -5,20 +5,14 @@ import { Link } from "react-router-dom";
 // one click away.
 export default function PublicFooter() {
   return (
-    <footer className="border-t border-pomegranate-100">
-      <div className="mx-auto flex max-w-4xl flex-col items-center gap-3 px-5 py-8 text-center text-xs text-slate-500 sm:flex-row sm:justify-between sm:text-left">
-        <p>© {new Date().getFullYear()} Pomi. Not a medical device.</p>
-        <nav className="flex items-center gap-5">
-          <Link
-            to="/about"
-            className="font-medium text-pomegranate-600 hover:text-pomegranate-700"
-          >
+    <footer className="border-t border-border">
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-3 px-6 py-8 text-center text-[11px] uppercase tracking-[0.16em] text-muted-foreground sm:flex-row sm:justify-between sm:text-left">
+        <p>© {new Date().getFullYear()} Pomi · Not a medical device</p>
+        <nav className="flex items-center gap-6">
+          <Link to="/about" className="transition-colors hover:text-primary">
             About us
           </Link>
-          <Link
-            to="/contact"
-            className="font-medium text-pomegranate-600 hover:text-pomegranate-700"
-          >
+          <Link to="/contact" className="transition-colors hover:text-primary">
             Contact us
           </Link>
         </nav>

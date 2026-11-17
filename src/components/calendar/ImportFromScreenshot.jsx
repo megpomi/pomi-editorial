@@ -139,16 +139,16 @@ export default function ImportFromScreenshot({ onImported }) {
   };
 
   return (
-    <div className="rounded-3xl border border-slate-100 bg-white p-5 sm:p-6">
+    <div className="border border-border bg-card p-5 sm:p-6">
       <div className="flex flex-wrap items-center gap-4">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-pomegranate-100 text-pomegranate-600">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[3px] border border-border text-primary">
           <Images className="h-5 w-5" />
         </div>
         <div className="min-w-[12rem] flex-1">
-          <h2 className="font-heading text-lg font-semibold text-slate-800">
+          <h2 className="font-heading text-[19px]">
             Import from screenshots
           </h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-[13.5px] leading-relaxed text-muted-foreground">
             Already tracking elsewhere? Upload as many screenshots of your other
             app's calendar as you like and we'll mark those days for you.
           </p>

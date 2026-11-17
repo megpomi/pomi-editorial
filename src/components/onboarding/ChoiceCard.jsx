@@ -1,47 +1,51 @@
 import React from "react";
 import { Check } from "lucide-react";
 
+// A numbered choice row in Almanac's hand: hairline border, serif label,
+// crimson ink when chosen.
 export default function ChoiceCard({ icon: Icon, label, desc, active, onClick, comingSoon }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`flex w-full items-center gap-4 rounded-2xl border p-4 text-left transition ${
+      className={`flex w-full items-center gap-4 rounded-[3px] border p-4 text-left transition-colors ${
         active
-          ? "border-pomegranate-400 bg-pomegranate-50/70 ring-1 ring-pomegranate-300"
-          : "border-pomegranate-100 bg-white hover:border-pomegranate-200 hover:bg-pomegranate-50/40"
+          ? "border-primary bg-accent"
+          : "border-border bg-card hover:border-primary/40"
       }`}
     >
-      <span
-        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${
-          active
-            ? "bg-pomegranate-500 text-white"
-            : "bg-pomegranate-50 text-pomegranate-500"
-        }`}
-      >
-        <Icon className="h-5 w-5" />
-      </span>
+      {Icon && (
+        <span
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-[3px] border ${
+            active
+              ? "border-primary bg-primary text-primary-foreground"
+              : "border-border text-primary"
+          }`}
+        >
+          <Icon className="h-4 w-4" />
+        </span>
+      )}
       <span className="flex-1">
-        <span className="flex flex-wrap items-center gap-2">
-          <span className="font-medium text-slate-800">{label}</span>
+        <span className="flex flex-wrap items-baseline gap-2">
+          <span className="font-heading text-[17px] leading-snug">{label}</span>
           {comingSoon && (
-            <span className="rounded-full bg-pomegranate-100 px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide text-pomegranate-600">
-              Coming soon
-            </span>
+            <span className="eyebrow text-muted-foreground">Coming soon</span>
           )}
         </span>
         {desc && (
-          <span className="mt-0.5 block text-sm text-slate-500">{desc}</span>
+          <span className="mt-1 block text-[13px] text-muted-foreground">
+            {desc}
+          </span>
         )}
       </span>
       <span
-        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${
+        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-[2px] border ${
           active
-            ? "border-pomegranate-500 bg-pomegranate-500 text-white"
-            : "border-pomegranate-200"
+            ? "border-primary bg-primary text-primary-foreground"
+            : "border-foreground/25"
         }`}
       >
-        {active && <Check className="h-4 w-4" />}
+        {active && <Check className="h-3.5 w-3.5" />}
       </span>
     </button>
   );

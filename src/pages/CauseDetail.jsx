@@ -66,7 +66,7 @@ export default function CauseDetail() {
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-pomegranate-400">
               Your cause
             </span>
-            <h1 className="mt-1 font-heading text-2xl font-semibold text-slate-800 sm:text-3xl">
+            <h1 className="mt-1 font-heading text-[28px] leading-tight tracking-tight sm:text-[34px]">
               {cause.label}
             </h1>
             <p className="mt-2 text-sm text-slate-500">{cause.summary}</p>
@@ -88,7 +88,7 @@ export default function CauseDetail() {
         </div>
 
         {allTime != null && (
-          <div className="mt-8 rounded-3xl border border-pomegranate-100 bg-pomegranate-50 p-6 sm:p-8">
+          <div className="mt-8 border border-pomegranate-100 bg-pomegranate-50 p-6 sm:p-8">
             <div className="flex items-center gap-2">
               <Heart className="h-4 w-4 fill-pomegranate-400 text-pomegranate-400" />
               <span className="text-xs font-medium uppercase tracking-wider text-pomegranate-500">
@@ -104,8 +104,8 @@ export default function CauseDetail() {
           </div>
         )}
 
-        <div className="mt-8 rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
-          <h2 className="font-heading text-lg font-semibold text-slate-800">
+        <div className="mt-8 border border-border bg-card p-6 sm:p-8">
+          <h2 className="font-heading text-[19px] text-foreground">
             Why it matters
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
@@ -113,8 +113,8 @@ export default function CauseDetail() {
           </p>
         </div>
 
-        <div className="mt-6 rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
-          <h2 className="font-heading text-lg font-semibold text-slate-800">
+        <div className="mt-6 border border-border bg-card p-6 sm:p-8">
+          <h2 className="font-heading text-[19px] text-foreground">
             What your donations fund
           </h2>
           <ul className="mt-3 space-y-3">

@@ -12,14 +12,14 @@ export default function PlanPicker({ onSubscribe, disabled, loading }) {
   const plan = PLANS[cadence];
 
   return (
-    <div className="rounded-3xl border border-pomegranate-200 bg-white p-6">
-      <div className="flex rounded-full bg-pomegranate-50 p-1">
+    <div className="border border-border bg-card p-6">
+      <div className="flex border border-border p-1">
         {Object.keys(PLANS).map((key) => (
           <button
             key={key}
             type="button"
             onClick={() => setCadence(key)}
-            className={`flex-1 rounded-full py-2 text-sm font-medium capitalize transition ${
+            className={`flex-1 rounded-[2px] py-2 font-heading text-[14px] capitalize transition ${
               cadence === key
                 ? "bg-white text-pomegranate-700 shadow-sm"
                 : "text-pomegranate-500 hover:text-pomegranate-700"
@@ -32,7 +32,7 @@ export default function PlanPicker({ onSubscribe, disabled, loading }) {
 
       <div className="mt-5 flex items-end justify-between">
         <div>
-          <p className="font-heading text-3xl font-semibold text-slate-800">
+          <p className="font-heading text-[32px] leading-none">
             {plan.price}
           </p>
           <p className="mt-1 text-sm text-slate-500">{plan.cadence}</p>
@@ -47,7 +47,7 @@ export default function PlanPicker({ onSubscribe, disabled, loading }) {
       <Button
         onClick={() => onSubscribe(cadence)}
         disabled={disabled || loading}
-        className="mt-5 w-full rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
+        className="mt-5 w-full rounded-[3px] bg-primary py-6 font-heading text-[16px] hover:bg-pomegranate-700"
       >
         <Sparkles className="mr-2 h-4 w-4" />
         {loading ? "Starting…" : "Start ad-free"}

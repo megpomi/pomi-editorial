@@ -1,52 +1,44 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Image } from "@/components/ui/image";
-import { Button } from "@/components/ui/button";
-import pomiLogo from "@/assets/pomi-logo.png";
+import { Eyebrow } from "@/components/alm/Primitives";
 
-// Header for the public (non signed-in) pages: the logo plus the plain links a
-// visitor or reviewer needs.
+// Header for the public (non signed-in) pages: the wordmark in italic
+// Playfair, the plain links a visitor or reviewer needs, and the way in.
 export default function PublicHeader() {
   return (
-    <header className="border-b border-pomegranate-100/70 bg-background/85">
-      <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-5 py-4 sm:px-8">
-        <Link to="/" className="flex items-center gap-3">
-          <Image
-            src={pomiLogo}
-            alt="Pomi"
-            className="h-12 w-12 shrink-0"
-            fittingType="fit"
-          />
-          <span className="font-heading text-lg font-semibold text-slate-800">
+    <header className="border-b border-border">
+      <div className="mx-auto flex max-w-3xl items-baseline justify-between gap-6 px-6 py-4">
+        <Link to="/" className="flex items-baseline gap-3">
+          <span className="font-heading text-[24px] italic leading-none text-primary">
             Pomi
           </span>
+          <Eyebrow className="hidden sm:block">Cycle almanac</Eyebrow>
         </Link>
-        <nav className="flex items-center gap-3 text-sm sm:gap-4">
+        <nav className="flex items-baseline gap-4 text-[13px] sm:gap-6">
           <Link
             to="/about"
-            className="font-medium text-slate-600 hover:text-pomegranate-600"
+            className="text-muted-foreground transition-colors hover:text-primary"
           >
             About us
           </Link>
           <Link
             to="/contact"
-            className="font-medium text-slate-600 hover:text-pomegranate-600"
+            className="text-muted-foreground transition-colors hover:text-primary"
           >
             Contact us
           </Link>
           <Link
             to="/login"
-            className="font-medium text-pomegranate-600 hover:text-pomegranate-700"
+            className="font-heading italic text-primary underline underline-offset-4"
           >
             Sign in
           </Link>
-          <Button
-            asChild
-            size="sm"
-            className="rounded-full bg-pomegranate-600 px-4 hover:bg-pomegranate-700"
+          <Link
+            to="/"
+            className="rounded-[3px] bg-primary px-4 py-2 font-heading text-[13px] text-primary-foreground transition-colors hover:bg-pomegranate-700"
           >
-            <Link to="/">Start with Pomi</Link>
-          </Button>
+            Start
+          </Link>
         </nav>
       </div>
     </header>

@@ -17,7 +17,7 @@ export default function ReminderBell({ reminders, onDismiss, onLogPeriod }) {
           variant="ghost"
           size="icon"
           aria-label="Reminders"
-          className="relative rounded-full text-pomegranate-600 hover:bg-pomegranate-50"
+          className="relative rounded-full text-primary hover:bg-secondary"
         >
           <Bell className="h-5 w-5" />
           {count > 0 && (
@@ -30,19 +30,17 @@ export default function ReminderBell({ reminders, onDismiss, onLogPeriod }) {
 
       <PopoverContent
         align="end"
-        className="w-80 rounded-2xl border-pomegranate-100 p-4"
+        className="w-80 rounded-[3px] border-border p-4"
       >
-        <div className="mb-3 flex items-center justify-between">
-          <p className="font-heading text-sm font-semibold text-slate-800">
-            Reminders
-          </p>
-          <span className="text-xs text-slate-400">
+        <div className="mb-3 flex items-baseline justify-between">
+          <p className="font-heading text-[17px]">Reminders</p>
+          <span className="eyebrow text-muted-foreground">
             {count ? `${count} to review` : "All caught up"}
           </span>
         </div>
 
         {count === 0 ? (
-          <p className="text-sm text-slate-500">
+          <p className="text-[13.5px] text-muted-foreground">
             Nothing to do right now — your log is up to date.
           </p>
         ) : (
@@ -50,10 +48,10 @@ export default function ReminderBell({ reminders, onDismiss, onLogPeriod }) {
             {reminders.map((reminder) => (
               <li
                 key={reminder.id}
-                className="rounded-xl border border-slate-100 p-3"
+                className="border border-border p-3"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <p className="text-sm font-medium text-slate-700">
+                  <p className="font-heading text-[15px] leading-snug">
                     {reminder.title}
                   </p>
                   <button

@@ -66,6 +66,7 @@ export default function LogToday() {
 
   useEffect(() => {
     let active = true;
+    setLoading(true);
     base44.auth
       .me()
       .then((me) =>

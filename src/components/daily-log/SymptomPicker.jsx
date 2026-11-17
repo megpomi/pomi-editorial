@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Check, Loader2, Pencil, Plus, X } from "lucide-react";
 import { base44 } from "@/api/base44Client";
-import { Label } from "@/components/ui/label";
 import { SYMPTOM_OPTIONS } from "@/lib/dailyLog";
 
 const BUBBLE =

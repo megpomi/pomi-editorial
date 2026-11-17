@@ -10,6 +10,7 @@ import {
   clearOnboardingDraft,
   writeOnboardingDraft,
 } from "@/lib/onboardingDraft";
+import { AlmButton } from "@/components/alm/Primitives";
 import ChoiceCard from "@/components/onboarding/ChoiceCard";
 import IntroStep from "@/components/onboarding/IntroStep";
 import AccountStep from "@/components/onboarding/AccountStep";
@@ -114,24 +115,24 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-5 py-10">
-      <div className="w-full max-w-xl">
-        <div className="mb-8 flex flex-col items-center text-center">
-          <Image
-            src={pomiLogo}
-            alt="Pomi"
-            className="h-12 w-12"
-            fittingType="fit"
-          />
-          <span className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-pomegranate-400">
-            Step {step} of 3
+    <div className="min-h-screen bg-background px-6 py-10">
+      <div className="mx-auto w-full max-w-xl">
+        <div className="flex items-baseline justify-between">
+          <span className="font-heading text-[24px] italic leading-none text-primary">
+            Pomi
           </span>
-          <h1 className="mt-2 font-heading text-3xl font-semibold text-slate-800">
+          <span className="eyebrow text-muted-foreground">
+            No. {["I", "II", "III"][step - 1] || "I"} of III
+          </span>
+        </div>
+        <div className="mt-3 h-[4px] border-y border-foreground" />
+        <div className="mb-8 mt-8">
+          <h1 className="font-heading text-[32px] leading-tight tracking-tight">
             {isFirst
               ? "What would you like to track?"
               : "Which causes matter to you?"}
           </h1>
-          <p className="mt-2 max-w-md text-sm text-slate-500">
+          <p className="mt-3 max-w-md text-[14px] leading-relaxed text-muted-foreground">
             {isFirst
               ? "Choose what matters to you — this shapes your personalised insights and symptoms predictions and can be updated at any point."
               : "A share of what Pomi earns is donated to these areas - Pick the ones you'd like to support directly, these can be updated at any point."}
@@ -160,23 +161,20 @@ export default function OnboardingQuestionnaire({ draft, onComplete }) {
           )}
         </div>
 
-        <div className="mt-6 flex items-center gap-3">
-          <Button
-            variant="outline"
+        <div className="mt-7 grid grid-cols-[auto_1fr] gap-3">
+          <button
+            type="button"
             onClick={() => setStep(isFirst ? 0 : step - 1)}
-            className="rounded-full border-pomegranate-200 px-5 text-pomegranate-600 hover:bg-pomegranate-50"
+            className="h-12 rounded-[3px] border border-foreground/25 px-6 font-heading text-[15px] transition-colors hover:bg-secondary"
           >
-            <ArrowLeft className="mr-1.5 h-4 w-4" />
             Back
-          </Button>
-          <Button
+          </button>
+          <AlmButton
             onClick={() => setStep(step + 1)}
             disabled={!selected.length}
-            className="flex-1 rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
           >
             Continue
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          </AlmButton>
         </div>
       </div>
     </div>

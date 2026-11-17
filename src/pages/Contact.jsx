@@ -54,7 +54,7 @@ export default function Contact() {
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-pomegranate-400">
             Contact us
           </span>
-          <h1 className="mt-2 font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
+          <h1 className="mt-2 font-heading text-[32px] leading-tight tracking-tight sm:text-[40px]">
             Talk to the Pomi team
           </h1>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-slate-500">
@@ -64,13 +64,13 @@ export default function Contact() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-5">
-          <section className="rounded-3xl border border-slate-100 bg-white p-6 sm:col-span-3 sm:p-8">
+          <section className="border border-border bg-card p-6 sm:col-span-3 sm:p-8">
             {sent ? (
               <div className="flex flex-col items-start gap-3 py-6">
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pomegranate-100 text-pomegranate-600">
                   <Check className="h-5 w-5" />
                 </span>
-                <h2 className="font-heading text-lg font-semibold text-slate-800">
+                <h2 className="font-heading text-[19px] text-foreground">
                   Message sent
                 </h2>
                 <p className="text-sm leading-relaxed text-slate-600">
@@ -138,22 +138,22 @@ export default function Contact() {
           </section>
 
           <aside className="space-y-4 sm:col-span-2">
-            <div className="rounded-3xl border border-slate-100 bg-white p-5">
+            <div className="border border-border bg-card p-5">
               <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-pomegranate-100 text-pomegranate-600">
                 <Clock className="h-5 w-5" />
               </span>
-              <h2 className="mt-3 font-heading text-base font-semibold text-slate-800">
+              <h2 className="mt-3 font-heading text-[17px] text-foreground">
                 Response times
               </h2>
               <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
                 We aim to reply to every message within two working days.
               </p>
             </div>
-            <div className="rounded-3xl border border-slate-100 bg-white p-5">
+            <div className="border border-border bg-card p-5">
               <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-pomegranate-100 text-pomegranate-600">
                 <Mail className="h-5 w-5" />
               </span>
-              <h2 className="mt-3 font-heading text-base font-semibold text-slate-800">
+              <h2 className="mt-3 font-heading text-[17px] text-foreground">
                 Account and data requests
               </h2>
               <p className="mt-1.5 text-sm leading-relaxed text-slate-600">

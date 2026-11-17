@@ -26,9 +26,9 @@ export default function AdBanner({ className = "" }) {
   if (!adsConfigured()) {
     return (
       <div
-        className={`hidden h-[50px] w-full min-w-0 items-center justify-center rounded-lg border border-dashed border-pomegranate-200 bg-pomegranate-50/60 px-4 text-[11px] uppercase tracking-[0.18em] text-pomegranate-400 sm:flex ${className}`}
+        className={`hidden h-[34px] w-full min-w-0 items-center justify-center border border-dashed border-border bg-secondary/40 px-3 text-[9px] uppercase tracking-[0.22em] text-muted-foreground sm:flex ${className}`}
       >
-        Google ad space
+        Sponsor space
       </div>
     );
   }

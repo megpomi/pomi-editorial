@@ -56,7 +56,7 @@ export default function Upgrade() {
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-pomegranate-400">
             Pomi ad-free
           </span>
-          <h1 className="mt-2 font-heading text-3xl font-semibold text-slate-800 sm:text-4xl">
+          <h1 className="mt-2 font-heading text-[32px] leading-tight tracking-tight sm:text-[40px]">
             Track without ads, give more
           </h1>
           <p className="mt-3 text-sm leading-relaxed text-slate-500 sm:text-base">

@@ -15,7 +15,7 @@ export default function ThankYou() {
           fittingType="fit"
         />
         <CheckCircle2 className="mx-auto mt-6 h-10 w-10 text-pomegranate-500" />
-        <h1 className="mt-4 font-heading text-3xl font-semibold text-slate-800">
+        <h1 className="mt-4 font-heading text-[32px] leading-tight tracking-tight">
           Thank you
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-slate-500">

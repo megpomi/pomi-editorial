@@ -112,10 +112,10 @@ export default function PeriodHistoryCalendar({ logs, onSaved }) {
     <div className="space-y-4">
       <ImportFromScreenshot onImported={mergeImported} />
 
-      <div className="rounded-3xl border border-slate-100 bg-white p-1 sm:p-3">
+      <div className="border-y border-border py-2">
         <div
           ref={scrollToLatest}
-          className="max-h-[23rem] overflow-y-auto rounded-2xl"
+          className="max-h-[23rem] overflow-y-auto"
         >
           <Calendar
             mode="multiple"
@@ -160,7 +160,7 @@ export default function PeriodHistoryCalendar({ logs, onSaved }) {
         )}
 
         <div className="flex items-center gap-3 px-4 py-3">
-          <span className="flex-1 text-sm text-slate-500">
+          <span className="flex-1 font-heading text-[13.5px] italic text-muted-foreground">
             {[
               days.length > 0 &&
                 `${days.length} day${days.length === 1 ? "" : "s"} selected`,
@@ -172,7 +172,7 @@ export default function PeriodHistoryCalendar({ logs, onSaved }) {
           <Button
             onClick={handleSave}
             disabled={(!days.length && !removals.length) || saving}
-            className="rounded-full bg-pomegranate-600 px-6 hover:bg-pomegranate-700"
+            className="rounded-[3px] bg-primary px-6 font-heading text-[15px] hover:bg-pomegranate-700"
           >
             {saving ? "Saving…" : removals.length ? "Save changes" : "Save days"}
           </Button>

@@ -77,16 +77,16 @@ export default function SymptomHistoryStep({ trackingFocus, onComplete, onBack }
             className="h-12 w-12"
             fittingType="fit"
           />
-          <h1 className="mt-4 font-heading text-3xl font-semibold text-slate-800">
+          <h1 className="mt-4 font-heading text-[28px] leading-tight tracking-tight">
             {copy.question}
           </h1>
-          <p className="mt-2 max-w-md text-sm text-slate-500">
+          <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
             Let's enter some data.
           </p>
         </div>
 
-        <div className="flex items-center justify-between rounded-2xl border border-pomegranate-100 bg-white px-5 py-4">
-          <span className="text-sm font-medium text-slate-700">
+        <div className="flex items-center justify-between border border-border bg-card px-5 py-4">
+          <span className="font-heading text-[16px]">
             {currentlyActive ? "Yes" : "No"}
           </span>
           <Switch
@@ -100,7 +100,7 @@ export default function SymptomHistoryStep({ trackingFocus, onComplete, onBack }
             <p className="mb-2 text-sm text-slate-500">{copy.prompt}</p>
             <div
               ref={scrollToLatest}
-              className="max-h-[26rem] overflow-y-auto rounded-2xl border border-pomegranate-100 bg-white p-1"
+              className="max-h-[26rem] overflow-y-auto border border-border bg-card p-1"
             >
               <Calendar
                 mode="multiple"
@@ -139,7 +139,7 @@ export default function SymptomHistoryStep({ trackingFocus, onComplete, onBack }
             variant="outline"
             onClick={onBack}
             disabled={saving}
-            className="rounded-full border-pomegranate-200 px-5 text-pomegranate-600 hover:bg-pomegranate-50"
+            className="rounded-[3px] border-foreground/25 px-6 font-heading text-[15px]"
           >
             <ArrowLeft className="mr-1.5 h-4 w-4" />
             Back
@@ -147,9 +147,9 @@ export default function SymptomHistoryStep({ trackingFocus, onComplete, onBack }
           <Button
             onClick={handleFinish}
             disabled={saving}
-            className="flex-1 rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
+            className="flex-1 rounded-[3px] bg-primary py-6 font-heading text-[16px] hover:bg-pomegranate-700"
           >
-            {saving ? "Saving…" : "Finish"}
+            {saving ? "Saving…" : "Open my record"}
             {!saving && <ArrowRight className="ml-2 h-4 w-4" />}
           </Button>
         </div>

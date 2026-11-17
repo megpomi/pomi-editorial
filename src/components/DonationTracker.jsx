@@ -3,7 +3,7 @@ import { AD_REVENUE_PER_VISIT, donationTotals } from "@/lib/donations";
 import DonationCauses from "@/components/donations/DonationCauses";
 import { currencyOf, formatMoney } from "@/lib/currency";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
-import { Eyebrow, Rule } from "@/components/alm/Primitives";
+import { Eyebrow } from "@/components/alm/Primitives";
 
 export default function DonationTracker({ user }) {
   const money = (value) => formatMoney(value, currencyOf(user));

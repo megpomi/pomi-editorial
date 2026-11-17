@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import { base44 } from "@/api/base44Client";
 import { useToast } from "@/components/ui/use-toast";
 import { Link, useNavigate } from "react-router-dom";
-import AppHeader from "@/components/AppHeader";
 import Masthead from "@/components/alm/Masthead";
 import AlmTabs from "@/components/alm/AlmTabs";
 import { AlmButton, Eyebrow, Rule } from "@/components/alm/Primitives";

@@ -10,8 +10,8 @@ import {
 
 export default function CurrencyPreference({ value, onChange }) {
   return (
-    <section className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
-      <h2 className="font-heading text-lg font-semibold text-slate-800">
+    <section className="border border-border bg-card p-6">
+      <h2 className="font-heading text-[19px] text-foreground">
         Currency
       </h2>
       <p className="mt-1 text-sm text-slate-500">

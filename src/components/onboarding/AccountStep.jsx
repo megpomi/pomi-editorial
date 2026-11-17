@@ -76,17 +76,17 @@ export default function AccountStep({ onBack, onContinue }) {
           <span className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-pomegranate-400">
             Step 3 of 3
           </span>
-          <h1 className="mt-2 font-heading text-3xl font-semibold text-slate-800">
+          <h1 className="mt-2 font-heading text-[28px] leading-tight tracking-tight">
             {showOtp ? "Verify your email" : "What should we call you?"}
           </h1>
-          <p className="mt-2 max-w-md text-sm text-slate-500">
+          <p className="mt-2 max-w-md text-[14px] leading-relaxed text-muted-foreground">
             {showOtp
               ? `We sent a 6-digit code to ${email}.`
               : "Make an account so your symptom and donation tracking stay with you."}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-pomegranate-100 bg-white p-5">
+        <div className="border border-border bg-card p-5">
           {showOtp ? (
             <div className="space-y-4">
               <div className="flex justify-center">
@@ -110,7 +110,7 @@ export default function AccountStep({ onBack, onContinue }) {
               <Button
                 onClick={handleVerify}
                 disabled={loading || otpCode.length < 6}
-                className="w-full rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
+                className="w-full rounded-[3px] bg-primary py-6 font-heading text-[16px] hover:bg-pomegranate-700"
               >
                 {loading ? "Verifying…" : "Verify and continue"}
               </Button>
@@ -182,7 +182,7 @@ export default function AccountStep({ onBack, onContinue }) {
                 <Button
                   type="submit"
                   disabled={loading || !ready}
-                  className="w-full rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
+                  className="w-full rounded-[3px] bg-primary py-6 font-heading text-[16px] hover:bg-pomegranate-700"
                 >
                   {loading ? "Creating your account…" : "Create account"}
                 </Button>

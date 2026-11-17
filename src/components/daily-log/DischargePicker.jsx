@@ -1,5 +1,4 @@
 import React from "react";
-import { Label } from "@/components/ui/label";
 import { DISCHARGE_OPTIONS, prettySymptom } from "@/lib/dailyLog";
 
 // The kinds of discharge a user can note — only active once Discharge is on.

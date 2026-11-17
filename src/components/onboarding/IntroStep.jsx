@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Droplet, Heart, Navigation } from "lucide-react";
-import { Image } from "@/components/ui/image";
-import pomiLogo from "@/assets/pomi-logo.png";
+import { Link } from "react-router-dom";
 import PublicHeader from "@/components/PublicHeader";
 import PublicFooter from "@/components/PublicFooter";
+import Pomegranate from "@/components/alm/Pomegranate";
+import { AlmButton, Eyebrow, Rule } from "@/components/alm/Primitives";
 
 export default function IntroStep({ onStart }) {
   const [revealed, setRevealed] = useState(false);
@@ -15,41 +14,42 @@ export default function IntroStep({ onStart }) {
     return () => clearTimeout(timer);
   }, []);
 
+  const points = [
+    "Kept for you, and never sold",
+    "Your record powers your own insights",
+    "Every entry helps fund causes you choose",
+  ];
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <PublicHeader />
 
-      <main className="flex flex-1 items-center justify-center px-5 py-10">
+      <main className="flex flex-1 items-center justify-center px-6 py-10">
         <div className="w-full max-w-xl">
-          <motion.div layout className="flex flex-col items-center text-center">
-            <motion.div
-              layout
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-            >
-              <Image
-                src={pomiLogo}
-                alt="Pomi"
-                className={revealed ? "h-24 w-24" : "h-40 w-40"}
-                fittingType="fit"
-              />
+          <motion.div layout className="flex flex-col items-start">
+            <motion.div layout transition={{ duration: 0.6, ease: "easeInOut" }}>
+              <Pomegranate size={revealed ? 96 : 140} />
             </motion.div>
-
-            {revealed && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.15 }}
-              >
-                <h1 className="mt-4 font-heading text-3xl font-semibold text-slate-800">
-                  Welcome to Pomi
-                </h1>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-500">
-                  As in the pomegranate - Symbolic of health, abundance and natural
-                  cycles.
-                </p>
-              </motion.div>
-            )}
           </motion.div>
+
+          {revealed && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+            >
+              <Eyebrow className="mt-6">Est. for your own record</Eyebrow>
+              <h1 className="mt-3 font-heading text-[38px] leading-[1.05] tracking-tight sm:text-[44px]">
+                A quiet record
+                <br />
+                <span className="italic text-primary">of your cycle.</span>
+              </h1>
+              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-muted-foreground">
+                Pomi helps you notice your own rhythm: gently, privately, and in
+                your own words.
+              </p>
+            </motion.div>
+          )}
 
           {revealed && (
             <motion.div
@@ -57,36 +57,30 @@ export default function IntroStep({ onStart }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <div className="mt-6 space-y-3">
-                <div className="flex items-start gap-3 rounded-2xl border border-pomegranate-100 bg-white p-5">
-                  <Heart className="mt-0.5 h-5 w-5 shrink-0 fill-pomegranate-400 text-pomegranate-400" />
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    Our purpose is built on the simple idea that every cycle is
-                    powerful and should be used for further good.
-                  </p>
-                </div>
-                <div className="flex items-start gap-3 rounded-2xl border border-pomegranate-100 bg-white p-5">
-                  <Droplet className="mt-0.5 h-5 w-5 shrink-0 fill-pomegranate-400 text-pomegranate-400" />
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    Your data powers personalised health insights.
-                  </p>
-                </div>
-                <div className="flex items-start gap-3 rounded-2xl border border-pomegranate-100 bg-white p-5">
-                  <Navigation className="mt-0.5 h-5 w-5 shrink-0 fill-pomegranate-400 text-pomegranate-400" />
-                  <p className="text-sm leading-relaxed text-slate-600">
-                    Your account generates trackable donations made to charitable
-                    causes important to you.
-                  </p>
-                </div>
+              <ul className="mt-7 space-y-2.5 text-[14px]">
+                {points.map((t) => (
+                  <li key={t} className="flex items-baseline gap-3">
+                    <span className="h-px w-4 shrink-0 bg-primary" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8">
+                <AlmButton onClick={onStart}>Begin</AlmButton>
               </div>
 
-              <Button
-                onClick={onStart}
-                className="mt-6 w-full rounded-full bg-pomegranate-600 py-6 text-base hover:bg-pomegranate-700"
-              >
-                Start with Pomi
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Rule className="my-6" />
+
+              <p className="text-center text-[13px] text-muted-foreground">
+                Already keep a record with Pomi?{" "}
+                <Link
+                  to="/login"
+                  className="font-heading italic text-primary underline underline-offset-4"
+                >
+                  Sign in
+                </Link>
+              </p>
             </motion.div>
           )}
         </div>

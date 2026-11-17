@@ -44,7 +44,7 @@ export function AlmChip({ on = false, children, className = "", ...props }) {
       type="button"
       {...props}
       className={cn(
-        "rounded-[3px] border px-3 py-1.5 text-[13px] transition-colors duration-200",
+        "rounded-[3px] border px-3 py-1.5 text-[13px] transition-colors duration-200 disabled:opacity-50",
         on
           ? "border-primary bg-primary text-primary-foreground"
           : "border-foreground/20 bg-transparent text-foreground hover:border-primary/50",

@@ -23,12 +23,12 @@ export default function DonationImpact({ charityInterests = [] }) {
     : ["the causes you pick in your profile"];
 
   return (
-    <div className="rounded-3xl border border-pomegranate-100 bg-white p-6">
+    <div className="border border-border bg-card p-6">
       <div className="flex items-center gap-3">
         <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-pomegranate-50 text-pomegranate-500">
           <HeartHandshake className="h-5 w-5" />
         </span>
-        <h2 className="font-heading text-lg font-semibold text-slate-800">
+        <h2 className="font-heading text-[19px]">
           What your support sends to causes
         </h2>
       </div>

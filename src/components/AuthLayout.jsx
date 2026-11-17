@@ -1,28 +1,38 @@
 import React from "react";
-import { Image } from "@/components/ui/image";
-import pomiLogo from "@/assets/pomi-logo.png";
+import { Eyebrow } from "@/components/alm/Primitives";
+import Pomegranate from "@/components/alm/Pomegranate";
 
 export default function AuthLayout({ title, subtitle, footer, children }) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+    <div className="flex min-h-screen items-center justify-center bg-background px-5 py-12">
       <div className="w-full max-w-md">
-        <div className="text-center mb-10">
-          <div className="mb-4 flex justify-center">
-            <Image
-              src={pomiLogo}
-              alt="Pomi"
-              className="h-16 w-16"
-              fittingType="fit"
-            />
+        <div className="mb-8">
+          <div className="flex items-baseline justify-between">
+            <span className="font-heading text-[24px] italic leading-none text-primary">
+              Pomi
+            </span>
+            <Eyebrow>Your record</Eyebrow>
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">{title}</h1>
-          {subtitle && <p className="text-muted-foreground mt-2">{subtitle}</p>}
+          <div className="mt-3 h-[4px] border-y border-foreground" />
+          <div className="mt-8 flex justify-center">
+            <Pomegranate size={64} />
+          </div>
+          <h1 className="mt-5 text-center font-heading text-[30px] leading-tight tracking-tight">
+            {title}
+          </h1>
+          {subtitle && (
+            <p className="mt-2 text-center text-[14px] leading-relaxed text-muted-foreground">
+              {subtitle}
+            </p>
+          )}
         </div>
-        <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
-          {children}
-        </div>
+
+        <div className="border border-border bg-card p-6 sm:p-8">{children}</div>
+
         {footer && (
-          <p className="text-center text-sm text-muted-foreground mt-6">{footer}</p>
+          <p className="mt-6 text-center text-[13px] text-muted-foreground">
+            {footer}
+          </p>
         )}
       </div>
     </div>

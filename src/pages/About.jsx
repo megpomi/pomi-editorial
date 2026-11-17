@@ -32,14 +32,14 @@ export default function About() {
       <PublicHeader />
 
       <main className="mx-auto w-full max-w-4xl flex-1 px-5 py-8 sm:px-8 sm:py-12">
-        <div className="overflow-hidden rounded-3xl border border-pomegranate-100 bg-gradient-to-br from-pomegranate-500 to-pomegranate-800 p-8 text-white sm:p-10">
+        <div className="border border-pomegranate-100 bg-pomegranate-800 p-8 text-pomegranate-50 sm:p-10">
           <div className="mb-4 flex items-center gap-2">
             <Heart className="h-4 w-4 fill-white/80" />
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/80">
               About us
             </span>
           </div>
-          <h1 className="font-heading text-3xl font-semibold leading-snug sm:text-4xl">
+          <h1 className="font-heading text-[30px] leading-[1.15] tracking-tight sm:text-[36px]">
             A women's health app that shares what it earns.
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/85">
@@ -55,12 +55,12 @@ export default function About() {
           {PILLARS.map((pillar) => (
             <div
               key={pillar.title}
-              className="rounded-3xl border border-slate-100 bg-white p-5"
+              className="border border-border bg-card p-5"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-pomegranate-100 text-pomegranate-600">
                 <pillar.icon className="h-5 w-5" />
               </span>
-              <h2 className="mt-3 font-heading text-base font-semibold text-slate-800">
+              <h2 className="mt-3 font-heading text-[17px] text-foreground">
                 {pillar.title}
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
@@ -70,8 +70,8 @@ export default function About() {
           ))}
         </section>
 
-        <section className="mt-8 rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
-          <h2 className="font-heading text-lg font-semibold text-slate-800">
+        <section className="mt-8 border border-border bg-card p-6 sm:p-8">
+          <h2 className="font-heading text-[19px] text-foreground">
             What Pomi tracks
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
@@ -90,8 +90,8 @@ export default function About() {
           </p>
         </section>
 
-        <section className="mt-8 rounded-3xl border border-slate-100 bg-white p-6 sm:p-8">
-          <h2 className="font-heading text-lg font-semibold text-slate-800">
+        <section className="mt-8 border border-border bg-card p-6 sm:p-8">
+          <h2 className="font-heading text-[19px] text-foreground">
             The causes we support
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">

@@ -45,7 +45,9 @@ export default function CycleStatus({ logs }) {
   return (
     <>
       <section className="px-6 pt-6">
-        <Eyebrow>{phaseLabel(status.phase)}</Eyebrow>
+        <Eyebrow>
+          {status.dayOfCycle != null ? phaseLabel(status.phase) : "The first page"}
+        </Eyebrow>
         {status.dayOfCycle != null ? (
           <>
             <h1 className="mt-3 font-heading text-[64px] leading-[0.95] tracking-tight">
@@ -63,9 +65,9 @@ export default function CycleStatus({ logs }) {
 
         {status.dayOfCycle != null && (
           <div className="mt-6">
-            <div className="relative h-px w-full bg-border">
+            <div className="relative h-[2px] w-full bg-border">
               <span
-                className="absolute left-0 top-0 h-px bg-primary transition-all duration-700 ease-out"
+                className="absolute left-0 top-0 h-[2px] bg-primary transition-all duration-700 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>
