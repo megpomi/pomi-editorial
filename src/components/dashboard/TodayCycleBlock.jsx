@@ -27,7 +27,7 @@ export default function TodayCycleBlock({
       <section className="px-6">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <Eyebrow>{kicker}</Eyebrow>
+            <Eyebrow className="text-primary">{kicker}</Eyebrow>
             <h1 className="mt-3 text-foreground">
               {logHref ? (
                 <Link
