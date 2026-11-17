@@ -146,20 +146,20 @@ export default function Home() {
   const options = [];
   options.push({
     title: "Mood & lifestyle",
-    desc: "Mood, exercise, alcohol and caffeine.",
+    desc: "Daily mood, sex, exercise, food and drink intake.",
     to: "/log-today?section=mood",
   });
   if (showCycle) {
     options.push({
       title: "Menstrual symptoms",
-      desc: "Period day, flow, symptoms and how your body feels.",
+      desc: "Period flow, symptoms and how your body feels.",
       to: "/log-today?section=cycle",
     });
   }
   if (tracksWellbeing) {
     options.push({
       title: "Journal",
-      desc: "Today's note, in your own words.",
+      desc: "Today's note for you.",
       to: "/log-today?section=journal",
     });
   }
