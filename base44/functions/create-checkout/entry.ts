@@ -39,8 +39,9 @@ Deno.serve(async (req: Request) => {
     }
     // Read per request, never at module scope: disconnecting payments blanks these, and a warm
     // isolate that captured them at startup would keep charging with the old credentials.
-    const WIX_API_KEY = Deno.env.get("WIX_CHECKOUT_API_KEY");
-    const WIX_SITE_ID = Deno.env.get("WIX_CHECKOUT_SITE_ID");
+    // These are the names the payments connection registers for this app.
+    const WIX_API_KEY = Deno.env.get("WIX_PAYMENTS_API_KEY");
+    const WIX_SITE_ID = Deno.env.get("WIX_PAYMENTS_SITE_ID");
     if (!WIX_API_KEY || !WIX_SITE_ID) {
       console.error("create-checkout: Wix payment config not set");
       return new Response(JSON.stringify({ error: "Payments not configured" }), { status: 500 });
