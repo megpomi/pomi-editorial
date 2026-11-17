@@ -8,7 +8,7 @@
   "theme_color": "#7d2638",
   "icons": [
     {
-      "src": "/pomi-logo.png",
+      "src": "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/79945a76f_pomi-favicon.png",
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any"
