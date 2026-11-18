@@ -53,7 +53,7 @@ export default function PhasePomegranate({ phase, className = "" }) {
       <img
         src={image.src}
         alt=""
-        className="absolute max-w-none object-contain mix-blend-multiply"
+        className="pom-cream absolute max-w-none object-contain mix-blend-multiply dark:mix-blend-normal"
         style={{ width: image.width, left: image.left, top: image.top }}
       />
     </div>

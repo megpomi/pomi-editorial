@@ -251,6 +251,12 @@
   fill: hsl(348 42% 74%);
 }
 
+/* The drawn marks are burgundy line art on transparency: on ink they read as
+   cream instead, keeping every line and soft edge. */
+.dark .pom-cream {
+  filter: brightness(0) invert(95%) sepia(16%);
+}
+
 .dark .hover\:bg-pomegranate-700:hover {
   background-color: hsl(348 42% 56%);
 }

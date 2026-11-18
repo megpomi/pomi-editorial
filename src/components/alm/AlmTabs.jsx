@@ -42,7 +42,7 @@ export default function AlmTabs() {
                   src={tab.art}
                   alt=""
                   aria-hidden="true"
-                  className={`h-10 w-auto max-w-none transition-opacity duration-200 sm:h-12 ${
+                  className={`pom-cream h-10 w-auto max-w-none transition-opacity duration-200 sm:h-12 ${
                     active ? "opacity-100" : "opacity-60"
                   }`}
                 />
