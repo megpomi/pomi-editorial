@@ -54,7 +54,7 @@ export default function InTheNews() {
           <div className="px-6 py-10 text-center">
             <div className="mx-auto h-7 w-7 animate-spin rounded-full border-2 border-border border-t-primary" />
             <p className="mt-4 font-heading text-[14px] italic text-muted-foreground">
-              Setting today's edition — this can take a moment.
+              Opening the edition…
             </p>
           </div>
         )}
@@ -70,15 +70,14 @@ export default function InTheNews() {
           </div>
         )}
 
-        {!loading && !error && digest && causes.length === 0 && (
+        {!loading && !error && !digest && (
           <div className="px-6">
             <p className="text-[14px] leading-relaxed text-muted-foreground">
-              This page gathers news about the causes you support. Choose at
-              least one cause and today's edition will be waiting for you here.
+              There's no edition on file just now. Please check back soon.
             </p>
             <div className="mt-5 max-w-xs">
-              <Link to="/profile">
-                <AlmButton>Choose your causes</AlmButton>
+              <Link to="/mission">
+                <AlmButton>See the causes we support</AlmButton>
               </Link>
             </div>
           </div>
@@ -89,8 +88,8 @@ export default function InTheNews() {
             <section className="px-6">
               <p className="text-[14px] leading-relaxed text-muted-foreground">
                 Research milestones and mentions in the press for{" "}
-                {causes.map((value) => charityLabel(value)).join(", ")} — one
-                edition a day, each story linking back to its source.
+                {causes.map((value) => charityLabel(value)).join(", ")} — each
+                story linking back to its source.
               </p>
             </section>
 
@@ -98,7 +97,7 @@ export default function InTheNews() {
 
             {stories.length === 0 ? (
               <p className="px-6 text-[14px] leading-relaxed text-muted-foreground">
-                A quiet day for your causes. Tomorrow's edition will look again.
+                A quiet day for your causes — there are no stories on file just now.
               </p>
             ) : (
               <section className="space-y-6 px-6">
@@ -112,8 +111,8 @@ export default function InTheNews() {
 
             <p className="px-6 text-[11.5px] leading-relaxed text-muted-foreground">
               Summaries are written by Pomi from the sources linked beside them.
-              {compiled ? ` Compiled ${compiled}` : ""} — refreshed once a day.
-              Pomi does not provide medical advice.
+              {compiled ? ` Compiled ${compiled}.` : ""} Pomi does not provide
+              medical advice.
             </p>
           </>
         )}
