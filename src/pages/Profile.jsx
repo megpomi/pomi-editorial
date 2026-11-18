@@ -30,6 +30,9 @@ export default function Profile() {
     readNotificationPrefs(null)
   );
   const [saving, setSaving] = useState(false);
+  // What the server already holds, so the page can tell when a change is waiting
+  // to be saved and offer the button at the top as well as the foot.
+  const [saved, setSaved] = useState(null);
   const { toast } = useToast();
   // Clears the stored session and reloads, so the app opens as a new visitor.
   const handleLogout = () => {
@@ -40,11 +43,18 @@ export default function Profile() {
     base44.auth
       .me()
       .then((u) => {
+        const stored = {
+          tracking: u?.tracking_focus || [],
+          causes: u?.charity_interests || [],
+          currency: currencyOf(u),
+          notifications: readNotificationPrefs(u),
+        };
         setUser(u || null);
-        setTracking(u?.tracking_focus || []);
-        setCauses(u?.charity_interests || []);
-        setCurrency(currencyOf(u));
-        setNotifications(readNotificationPrefs(u));
+        setTracking(stored.tracking);
+        setCauses(stored.causes);
+        setCurrency(stored.currency);
+        setNotifications(stored.notifications);
+        setSaved(stored);
       })
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
@@ -59,6 +69,7 @@ export default function Profile() {
         currency,
         ...notificationUserFields(notifications),
       });
+      setSaved({ tracking, causes, currency, notifications });
       toast({
         title: "Preferences saved",
         description:
@@ -99,6 +110,11 @@ export default function Profile() {
   }
 
   const canSave = tracking.length > 0 && causes.length > 0 && !saving;
+  // Anything changed since the last save brings the button up under the title.
+  const unsaved =
+    !!saved &&
+    JSON.stringify({ tracking, causes, currency, notifications }) !==
+      JSON.stringify(saved);
 
   return (
     <div className="min-h-screen bg-background">
@@ -114,6 +130,22 @@ export default function Profile() {
         <Rule className="my-6" />
 
         <div className="space-y-6 px-6">
+          {unsaved && (
+            <div className="border border-primary bg-pomegranate-50 px-4 py-4">
+              <p className="eyebrow text-primary">Unsaved changes</p>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-foreground">
+                Save these preferences so they're kept.
+              </p>
+              <AlmButton
+                className="mt-3"
+                onClick={handleSave}
+                disabled={!canSave}
+              >
+                {saving ? "Saving…" : "Save preferences"}
+              </AlmButton>
+            </div>
+          )}
+
           <ProfileNameForm
             user={user}
             onSaved={(name) =>
