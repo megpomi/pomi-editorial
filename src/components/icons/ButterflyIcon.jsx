@@ -1,28 +1,18 @@
 import React from "react";
 
 // A butterfly: the mark for a gender affirming journey, where the point is the
-// change itself rather than a phase to wait out.
-export default function ButterflyIcon({ className = "h-5 w-5" }) {
+// change itself rather than a phase to wait out. Drawn artwork, sized to fill
+// the tile it sits in, so callers' icon sizing doesn't shrink it back down.
+const BUTTERFLY_MARK =
+  "https://media.base44.com/images/public/6afc241cb31d2d0419b1358b/8c2235a18_generated_6dac81fa.png";
+
+export default function ButterflyIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
+    <img
+      src={BUTTERFLY_MARK}
+      alt=""
       aria-hidden="true"
-    >
-      <path d="M11.9 10.7C11 8.5 9.1 6.7 7 6.6 5.1 6.5 3.7 7.9 4 9.7c.4 2.2 2.6 3.7 5.1 3.6 1.2 0 2.1-.4 2.8-1.1" />
-      <path d="M11.9 13.9c-1.2.6-2.4 1.6-3.2 2.9-1 1.5-1 3.1.2 3.9 1.3.9 3.1 0 4-1.6.5-1 .8-2.1.8-3.3" />
-      <g transform="translate(24 0) scale(-1 1)">
-        <path d="M11.9 10.7C11 8.5 9.1 6.7 7 6.6 5.1 6.5 3.7 7.9 4 9.7c.4 2.2 2.6 3.7 5.1 3.6 1.2 0 2.1-.4 2.8-1.1" />
-        <path d="M11.9 13.9c-1.2.6-2.4 1.6-3.2 2.9-1 1.5-1 3.1.2 3.9 1.3.9 3.1 0 4-1.6.5-1 .8-2.1.8-3.3" />
-      </g>
-      <path d="M12 9.2v9.6" />
-      <path d="M11.4 9.4 9.9 6.9" />
-      <path d="M12.6 9.4 14.1 6.9" />
-    </svg>
+      className="h-7 w-7 shrink-0 rounded-[2px] object-contain"
+    />
   );
 }
