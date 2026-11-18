@@ -13,7 +13,7 @@ export default function ButterflyIcon() {
       strokeWidth="1.6"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="h-6 w-6 shrink-0"
+      className="h-5 w-5 shrink-0"
       aria-hidden="true"
     >
       <path d="M11.9 10.7C11 8.5 9.1 6.7 7 6.6 5.1 6.5 3.7 7.9 4 9.7c.4 2.2 2.6 3.7 5.1 3.6 1.2 0 2.1-.4 2.8-1.1" />
