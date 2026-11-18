@@ -10,6 +10,7 @@ import TodayCycleBlock from "@/components/dashboard/TodayCycleBlock";
 import TodaysEntry from "@/components/dashboard/TodaysEntry";
 import HistoricalDaysPrompt from "@/components/dashboard/HistoricalDaysPrompt";
 import FertileWindow from "@/components/dashboard/FertileWindow";
+import JournalPrompt from "@/components/journal/JournalPrompt";
 import ReminderBanner from "@/components/reminders/ReminderBanner";
 import FeaturedCauses from "@/components/donations/FeaturedCauses";
 import { useReminders } from "@/hooks/use-reminders";
@@ -240,6 +241,15 @@ export default function Home() {
           <>
             <div className="px-6">
               <FertileWindow logs={logs} dailyLogs={recentDaily} />
+            </div>
+            <Rule className="my-7" />
+          </>
+        )}
+
+        {tracksWellbeing && (
+          <>
+            <div className="px-6">
+              <JournalPrompt dateKey={todayKey} />
             </div>
             <Rule className="my-7" />
           </>

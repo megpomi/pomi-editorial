@@ -28,6 +28,8 @@
     --ring: 348 53% 32%;
     --terra: 10 43% 52%;
     --symptom: 10 43% 52%;
+    --journal: 285 32% 19%;
+    --journal-foreground: 38 58% 96%;
     --chart-1: 348 53% 32%;
     --chart-2: 10 43% 52%;
     --chart-3: 39 30% 55%;
@@ -70,6 +72,8 @@
     --ring: 348 42% 58%;
     --terra: 12 45% 60%;
     --symptom: 12 45% 60%;
+    --journal: 285 26% 26%;
+    --journal-foreground: 38 58% 96%;
     --chart-1: 348 42% 58%;
     --chart-2: 12 45% 60%;
     --chart-3: 39 25% 60%;

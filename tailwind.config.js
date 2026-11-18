@@ -50,6 +50,10 @@ module.exports = {
   			ring: 'hsl(var(--ring))',
   			symptom: 'hsl(var(--symptom))',
   			terra: 'hsl(var(--terra))',
+  			journal: {
+  				DEFAULT: 'hsl(var(--journal))',
+  				foreground: 'hsl(var(--journal-foreground))'
+  			},
   			pomegranate: {
   				50: '#faf2f3',
   				100: '#f4e6e8',
