@@ -16,7 +16,7 @@ export default function IntroStep({ onStart }) {
   const points = [
     "Our purpose is built on the simple idea that every cycle is powerful and should be used for further good.",
     "Your data powers personalised health insights.",
-    "Your account generates trackable donations made to charitable causes important to you.",
+    "Tracking generates transparent donations made to charitable causes important to you.",
   ];
 
   return (
