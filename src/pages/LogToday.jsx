@@ -217,11 +217,13 @@ export default function LogToday() {
   const AREAS = {
     mood: "Mood & lifestyle",
     cycle: "Menstrual symptoms",
+    ovulation: "Ovulation",
     journal: "Journal",
   };
   const section =
     requestedSection === "mood" ||
     (requestedSection === "cycle" && showCycle) ||
+    (requestedSection === "ovulation" && tracksConception) ||
     (requestedSection === "journal" && tracksWellbeing)
       ? requestedSection
       : null;
@@ -407,6 +409,28 @@ export default function LogToday() {
                       onBbtChange={(value) => set({ bbt: value })}
                     />
                   )}
+                </div>
+              </section>
+            )}
+
+            {tracksConception && section === "ovulation" && (
+              <section className="border-b border-border px-6 py-6">
+                <h2 className="font-heading text-[19px] leading-snug">
+                  Ovulation
+                </h2>
+                <p className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground">
+                  Log an ovulation test or temperature. An estimate to read
+                  alongside your body, not a contraceptive method.
+                </p>
+                <div className="mt-5">
+                  <ConceptionFields
+                    ovulationTest={form.ovulation_test}
+                    onOvulationTestChange={(value) =>
+                      set({ ovulation_test: value })
+                    }
+                    bbt={form.bbt}
+                    onBbtChange={(value) => set({ bbt: value })}
+                  />
                 </div>
               </section>
             )}
