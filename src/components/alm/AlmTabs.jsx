@@ -6,8 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 // donations. `short` keeps the foot of the page on one line on a phone.
 // The news tab carries a drawn mark instead of a word, and sits on the banner
 // without making it any thicker.
-const NEWS_MARK =
-  "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/0f86320da_pomi-newspaper-linework-transparent.png";
+const NEWS_MARK = "/pomi/newspaper.png";
 
 const TABS = [
   { label: "Today", short: "Today", to: "/" },
@@ -38,13 +37,15 @@ export default function AlmTabs() {
                 aria-label={tab.label}
                 className="-mt-1 flex flex-1 items-center justify-center"
               >
-                <img
-                  src={tab.art}
-                  alt=""
+                <div
                   aria-hidden="true"
-                  className={`pom-cream h-10 w-auto max-w-none transition-opacity duration-200 sm:h-12 ${
+                  className={`pom-mark aspect-[470/313] h-10 max-w-none transition-opacity duration-200 sm:h-12 ${
                     active ? "opacity-100" : "opacity-60"
                   }`}
+                  style={{
+                    WebkitMaskImage: `url(${tab.art})`,
+                    maskImage: `url(${tab.art})`,
+                  }}
                 />
               </Link>
             );

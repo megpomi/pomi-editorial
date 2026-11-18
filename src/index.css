@@ -60,7 +60,7 @@
     --primary: 348 45% 66%;
     --primary-foreground: 20 16% 10%;
     --secondary: 20 12% 18%;
-    --secondary-foreground: 38 35% 90%;
+    --secondary-foreground: 38 40% 92%;
     --muted: 20 12% 18%;
     --muted-foreground: 33 12% 64%;
     --accent: 20 14% 21%;
@@ -73,14 +73,14 @@
     --terra: 12 45% 60%;
     --symptom: 12 45% 60%;
     --journal: 285 26% 26%;
-    --journal-foreground: 38 58% 96%;
+    --journal-foreground: 38 40% 92%;
     --chart-1: 348 42% 58%;
     --chart-2: 12 45% 60%;
     --chart-3: 39 25% 60%;
     --chart-4: 30 15% 55%;
     --chart-5: 38 35% 88%;
     --sidebar-background: 20 15% 11%;
-    --sidebar-foreground: 38 35% 90%;
+    --sidebar-foreground: 38 40% 92%;
     --sidebar-primary: 348 42% 58%;
     --sidebar-primary-foreground: 20 16% 10%;
     --sidebar-accent: 20 12% 18%;
@@ -217,13 +217,13 @@
 }
 
 .dark .text-pomegranate-50 {
-  color: hsl(350 45% 92%);
+  color: hsl(38 40% 92%);
 }
 .dark .text-pomegranate-100 {
-  color: hsl(350 42% 88%);
+  color: hsl(38 40% 92%);
 }
 .dark .text-pomegranate-200 {
-  color: hsl(350 40% 84%);
+  color: hsl(38 40% 92%);
 }
 .dark .text-pomegranate-300 {
   color: hsl(350 40% 80%);
@@ -251,18 +251,21 @@
   fill: hsl(348 42% 74%);
 }
 
-/* The drawn marks are burgundy line art on transparency: on ink they read as
-   cream instead, keeping every line and soft edge. */
-.dark .pom-cream {
-  filter: brightness(0) invert(95%) sepia(16%);
+/* The drawn marks are line art, so they are painted rather than shown: the
+   drawing is the mask, the colour is the ink. Burgundy on paper, and on ink the
+   same light tone as the day headline. */
+.pom-mark {
+  background-color: hsl(var(--primary));
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
-/* Three of the phase drawings were exported on a white card rather than on
-   transparency: inverting turns that card black, and screen blending drops it,
-   so only the drawn lines remain, in cream. */
-.dark .pom-cream-inverted {
-  filter: invert(1) sepia(1) saturate(0.6) brightness(1.05);
-  mix-blend-mode: screen;
+.dark .pom-mark {
+  background-color: hsl(var(--foreground));
 }
 
 .dark .hover\:bg-pomegranate-700:hover {

@@ -4,29 +4,34 @@ import React from "react";
 // ends, a crescent revealed through the follicular days, the bare outline at
 // ovulation, and half revealed through the luteal weeks.
 //
-// The four drawings were each cropped differently, so every one is sized and
-// nudged so its fruit sits at exactly the same circle within the same frame.
+// Each drawing is used as a mask, so it is painted in the app's ink rather than
+// shown as an image. They were each cropped differently, so every one is sized
+// and nudged so its fruit sits at exactly the same circle within the frame.
 const IMAGES = {
   period: {
-    src: "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/fda5e4c25_9031e872e_generated-image.png",
+    src: "/pomi/outline.png",
+    ratio: "1 / 1",
     width: "98.1%",
     left: "1.7%",
     top: "-6.2%",
   },
   follicular: {
-    src: "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/f577ccd7a_c7263a300_pomegranate-crescent-reveal.png",
+    src: "/pomi/phase-follicular.png",
+    ratio: "3 / 4",
     width: "81.1%",
     left: "8.7%",
     top: "-7.3%",
   },
   ovulation: {
-    src: "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/665aa5535_6b87442d0_generated-image-2.png",
+    src: "/pomi/phase-ovulation.png",
+    ratio: "1 / 1",
     width: "97.8%",
     left: "1.9%",
     top: "-6.3%",
   },
   luteal: {
-    src: "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/f39b35260_62908c11c_pomegranate-half-reveal.png",
+    src: "/pomi/phase-luteal.png",
+    ratio: "3 / 4",
     width: "80.2%",
     left: "12.6%",
     top: "-6.9%",
@@ -36,7 +41,8 @@ const IMAGES = {
 // Before any history exists there is no phase to draw, so the plain whole-fruit
 // outline stands in and keeps the corner of the page from feeling empty.
 const FALLBACK = {
-  src: "https://base44.app/api/apps/6afc241cb31d2d0419b1358b/files/mp/public/6afc241cb31d2d0419b1358b/ac76784d0_pomegranate-outline.png",
+  src: "/pomi/outline.png",
+  ratio: "1 / 1",
   width: "100%",
   left: "0%",
   top: "0%",
@@ -50,11 +56,16 @@ export default function PhasePomegranate({ phase, className = "" }) {
       aria-hidden="true"
       className={`relative h-[76px] w-[76px] shrink-0 sm:h-[100px] sm:w-[100px] ${className}`}
     >
-      <img
-        src={image.src}
-        alt=""
-        className="pom-cream-inverted absolute max-w-none object-contain mix-blend-multiply"
-        style={{ width: image.width, left: image.left, top: image.top }}
+      <div
+        className="pom-mark absolute"
+        style={{
+          width: image.width,
+          aspectRatio: image.ratio,
+          left: image.left,
+          top: image.top,
+          WebkitMaskImage: `url(${image.src})`,
+          maskImage: `url(${image.src})`,
+        }}
       />
     </div>
   );

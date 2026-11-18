@@ -1,17 +1,21 @@
 import React from "react";
-const pomiLogo = "/pomi-logo.png";
+
+// The line drawing is used as a mask, so the mark is painted in the app's ink:
+// burgundy on paper, the day-headline light on ink.
+const pomiMark = "/pomi/outline.png";
 
 // Pomi's mark: the crimson pomegranate, shown wherever the app signs itself.
 export default function Pomegranate({ size = 96, className = "" }) {
   return (
-    <img
-      src={pomiLogo}
-      alt=""
-      width={size}
-      height={size}
-      style={{ width: size, height: "auto" }}
-      className={`pom-cream shrink-0 object-contain ${className}`}
+    <div
       aria-hidden="true"
+      className={`pom-mark shrink-0 ${className}`}
+      style={{
+        width: size,
+        height: size,
+        WebkitMaskImage: `url(${pomiMark})`,
+        maskImage: `url(${pomiMark})`,
+      }}
     />
   );
 }
