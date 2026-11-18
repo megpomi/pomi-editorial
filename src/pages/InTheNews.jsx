@@ -6,6 +6,7 @@ import Masthead from "@/components/alm/Masthead";
 import AlmTabs from "@/components/alm/AlmTabs";
 import { AlmButton, Rule } from "@/components/alm/Primitives";
 import NewsStoryCard from "@/components/news/NewsStoryCard";
+import FreeUserAd from "@/components/ads/FreeUserAd";
 import { charityLabel } from "@/lib/charities";
 
 // The paper's news desk: a daily digest of research milestones and press
@@ -116,6 +117,8 @@ export default function InTheNews() {
             </p>
           </>
         )}
+
+        <FreeUserAd />
       </div>
 
       <AlmTabs />

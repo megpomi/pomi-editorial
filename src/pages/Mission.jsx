@@ -2,6 +2,7 @@ import React from "react";
 import Masthead from "@/components/alm/Masthead";
 import AlmTabs from "@/components/alm/AlmTabs";
 import MissionContent from "@/components/mission/MissionContent";
+import FreeUserAd from "@/components/ads/FreeUserAd";
 
 export default function Mission() {
   return (
@@ -12,6 +13,8 @@ export default function Mission() {
         <div className="px-6">
           <MissionContent />
         </div>
+
+        <FreeUserAd />
       </div>
 
       <AlmTabs />

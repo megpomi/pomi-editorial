@@ -5,6 +5,7 @@ import AlmTabs from "@/components/alm/AlmTabs";
 import { Rule } from "@/components/alm/Primitives";
 import DonationTracker from "@/components/DonationTracker";
 import CharityImpact from "@/components/CharityImpact";
+import FreeUserAd from "@/components/ads/FreeUserAd";
 
 // The donation page: the pot built from the user's activity, split across the
 // causes they chose, and the mission it feeds.
@@ -38,6 +39,8 @@ export default function Donations() {
         <div className="px-6">
           <DonationTracker user={user} />
         </div>
+
+        <FreeUserAd />
 
         <p className="px-6 pt-8 text-center text-[12px] leading-relaxed text-muted-foreground">
           Distributions to our partner organisations are made periodically.

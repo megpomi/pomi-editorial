@@ -8,6 +8,7 @@ import { Eyebrow, Rule } from "@/components/alm/Primitives";
 import CalendarPanel from "@/components/calendar/CalendarPanel";
 import CycleStats from "@/components/dashboard/CycleStats";
 import CyclePatterns from "@/components/patterns/CyclePatterns";
+import FreeUserAd from "@/components/ads/FreeUserAd";
 
 // The calendar page reads the cycle back to you: any date opens what was
 // logged that day, and the statistics and patterns sit underneath. Writing
@@ -121,6 +122,8 @@ export default function CycleCalendar() {
             </section>
           </>
         )}
+
+        <FreeUserAd />
       </div>
 
       <AlmTabs />

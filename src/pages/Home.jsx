@@ -13,7 +13,7 @@ import FertileWindow from "@/components/dashboard/FertileWindow";
 import JournalPrompt from "@/components/journal/JournalPrompt";
 import ReminderBanner from "@/components/reminders/ReminderBanner";
 import FeaturedCauses from "@/components/donations/FeaturedCauses";
-import AdBanner from "@/components/ads/AdBanner";
+import FreeUserAd from "@/components/ads/FreeUserAd";
 import { useReminders } from "@/hooks/use-reminders";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
 import { getCurrentPhase } from "@/lib/cycle";
@@ -278,11 +278,7 @@ export default function Home() {
           <FeaturedCauses />
         </div>
 
-        {subscriber === false && (
-          <div className="mt-7 px-6">
-            <AdBanner />
-          </div>
-        )}
+        <FreeUserAd />
 
         <p className="px-6 pt-6 text-center text-[12px] leading-relaxed text-muted-foreground">
           Pomi is not a medical device. For health concerns, please consult a
