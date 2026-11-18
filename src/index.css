@@ -251,6 +251,21 @@
   fill: hsl(348 42% 74%);
 }
 
+/* The account pages still use the cool grey text scale, which all but vanishes
+   on ink: it becomes the same light tone as the rest of the dark theme, held
+   back a little for the quieter lines. */
+.dark .text-slate-800,
+.dark .text-slate-700 {
+  color: hsl(var(--foreground));
+}
+.dark .text-slate-600,
+.dark .text-slate-500 {
+  color: hsl(var(--foreground) / 0.82);
+}
+.dark .text-slate-400 {
+  color: hsl(var(--foreground) / 0.66);
+}
+
 /* The drawn marks are line art, so they are painted rather than shown: the
    drawing is the mask, the colour is the ink. Burgundy on paper, and on ink the
    same light tone as the day headline. */
