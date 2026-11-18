@@ -9,6 +9,7 @@ import { Rule } from "@/components/alm/Primitives";
 import TodayCycleBlock from "@/components/dashboard/TodayCycleBlock";
 import TodaysEntry from "@/components/dashboard/TodaysEntry";
 import HistoricalDaysPrompt from "@/components/dashboard/HistoricalDaysPrompt";
+import FertileWindow from "@/components/dashboard/FertileWindow";
 import ReminderBanner from "@/components/reminders/ReminderBanner";
 import FeaturedCauses from "@/components/donations/FeaturedCauses";
 import { useReminders } from "@/hooks/use-reminders";
@@ -234,6 +235,15 @@ export default function Home() {
           status={showCycle && hasCycle ? status : null}
           phase={showCycle && hasCycle ? status.phase : null}
         />
+
+        {tracksConception && showCycle && hasCycle && (
+          <>
+            <div className="px-6">
+              <FertileWindow logs={logs} dailyLogs={recentDaily} />
+            </div>
+            <Rule className="my-7" />
+          </>
+        )}
 
         {showBanner && (
           <div className="px-6">
