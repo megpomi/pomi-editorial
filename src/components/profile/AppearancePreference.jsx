@@ -20,7 +20,7 @@ export default function AppearancePreference() {
 
   return (
     <section className="border border-border bg-card p-6">
-      <h2 className="font-heading text-[19px] text-foreground">Appearance</h2>
+      <h2 className="font-heading text-[19px] text-foreground">Theme</h2>
       <p className="mt-1 text-sm text-slate-500">
         Light or dark, for this device.
       </p>
@@ -30,7 +30,7 @@ export default function AppearancePreference() {
           htmlFor="dark-appearance"
           className="font-heading text-[15px] text-foreground"
         >
-          Dark appearance
+          Turn on dark theme
         </label>
         <Switch id="dark-appearance" checked={dark} onCheckedChange={toggle} />
       </div>
