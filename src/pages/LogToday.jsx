@@ -19,6 +19,7 @@ import SymptomPicker from "@/components/daily-log/SymptomPicker";
 import LifestylePicker from "@/components/daily-log/LifestylePicker";
 import DischargePicker from "@/components/daily-log/DischargePicker";
 import ConceptionFields from "@/components/daily-log/ConceptionFields";
+import SleepQualityField from "@/components/daily-log/SleepQualityField";
 import JournalEntryBox from "@/components/journal/JournalEntryBox";
 import {
   addPeriodDays,
@@ -29,6 +30,7 @@ import {
 const EMPTY = {
   flow_intensity: "none",
   mood: "",
+  sleep_quality: null,
   symptoms: [],
   discharge: false,
   discharge_types: [],
@@ -85,6 +87,10 @@ export default function LogToday() {
         setForm({
           flow_intensity: entry?.flow_intensity || "none",
           mood: entry?.mood || "",
+          sleep_quality:
+            typeof entry?.sleep_quality === "number"
+              ? entry.sleep_quality
+              : null,
           symptoms: entry?.symptoms || [],
           discharge: entry?.discharge || false,
           discharge_types: entry?.discharge_types || [],
@@ -173,6 +179,8 @@ export default function LogToday() {
       const payload = {
         date,
         flow_intensity: form.flow_intensity,
+        sleep_quality:
+          typeof form.sleep_quality === "number" ? form.sleep_quality : null,
         symptoms: form.symptoms,
         discharge: form.discharge,
         discharge_types: form.discharge_types,
@@ -290,12 +298,16 @@ export default function LogToday() {
             {shows("mood") && (
             <section className="border-b border-border px-6 py-6">
               <p className="text-[13.5px] leading-relaxed text-muted-foreground">
-                Log your mood and lifestyle choices for today
+                Log your mood, sleep score and lifestyle choices for today.
               </p>
               <div className="mt-5 space-y-6">
                 <MoodPicker
                   value={form.mood}
                   onChange={(value) => set({ mood: value })}
+                />
+                <SleepQualityField
+                  value={form.sleep_quality}
+                  onChange={(value) => set({ sleep_quality: value })}
                 />
                 <div className="space-y-3">
                   <Label className="eyebrow text-muted-foreground">

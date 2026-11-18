@@ -30,6 +30,13 @@
       ],
       "title": "Mood"
     },
+    "sleep_quality": {
+      "type": "number",
+      "title": "Sleep quality",
+      "description": "Self-rated sleep quality, 0 to 100.",
+      "minimum": 0,
+      "maximum": 100
+    },
     "symptoms": {
       "type": "array",
       "items": {
