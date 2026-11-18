@@ -181,7 +181,7 @@ export default function Home() {
   const options = [];
   options.push({
     title: "Mood & lifestyle",
-    desc: "Daily mood, sex, exercise, food and drink intake.",
+    desc: "Mood, sleep, sex, exercise, food and drink intake.",
     to: "/log-today?section=mood",
   });
   if (showCycle) {
