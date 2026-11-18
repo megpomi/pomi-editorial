@@ -20,7 +20,7 @@ export default function PublicHeader() {
             to="/about"
             className="hidden text-muted-foreground transition-colors hover:text-primary sm:block"
           >
-            About us
+            Our mission
           </Link>
           <Link
             to="/contact"

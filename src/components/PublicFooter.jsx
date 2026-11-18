@@ -10,7 +10,7 @@ export default function PublicFooter() {
         <p>© {new Date().getFullYear()} Pomi · Not a medical device</p>
         <nav className="flex items-center gap-6">
           <Link to="/about" className="transition-colors hover:text-primary">
-            About us
+            Our mission
           </Link>
           <Link to="/contact" className="transition-colors hover:text-primary">
             Contact us
