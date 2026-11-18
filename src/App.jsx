@@ -7,6 +7,7 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
+import { applyThemePreference, readThemePreference } from '@/lib/theme';
 import ConsentBanner from '@/components/consent/ConsentBanner';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Login from '@/pages/Login';
@@ -87,13 +88,12 @@ const AuthenticatedApp = () => {
 };
 
 
-// Follow the phone's own light or dark setting, so the webview matches the
-// system the way a native app does.
+// Follow the phone's own light or dark setting until a choice is made in the
+// profile, which is then kept on the device.
 const useSystemTheme = () => {
   useEffect(() => {
     const query = window.matchMedia("(prefers-color-scheme: dark)");
-    const apply = () =>
-      document.documentElement.classList.toggle("dark", query.matches);
+    const apply = () => applyThemePreference(readThemePreference());
     apply();
     query.addEventListener("change", apply);
     return () => query.removeEventListener("change", apply);

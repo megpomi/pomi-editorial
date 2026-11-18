@@ -12,6 +12,7 @@ import PasswordForm from "@/components/profile/PasswordForm";
 import CausePreferences from "@/components/profile/CausePreferences";
 import CurrencyPreference from "@/components/profile/CurrencyPreference";
 import NotificationPreferences from "@/components/profile/NotificationPreferences";
+import AppearancePreference from "@/components/profile/AppearancePreference";
 import { DEFAULT_CURRENCY, currencyOf } from "@/lib/currency";
 import { openConsentSettings } from "@/lib/consent";
 import {
@@ -124,6 +125,7 @@ export default function Profile() {
           <TrackingPreferences selected={tracking} onChange={setTracking} />
           <CausePreferences selected={causes} onChange={setCauses} />
           <CurrencyPreference value={currency} onChange={setCurrency} />
+          <AppearancePreference />
           <NotificationPreferences
             preferences={notifications}
             onChange={setNotifications}
