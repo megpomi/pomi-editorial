@@ -12,6 +12,77 @@ export default function About() {
         <div className="px-5 sm:px-8">
           <MissionContent />
         </div>
+
+        <section className="mt-8 grid gap-4 sm:grid-cols-3">
+          {PILLARS.map((pillar) => (
+            <div
+              key={pillar.title}
+              className="border border-border bg-card p-5"
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-pomegranate-100 text-pomegranate-600">
+                <pillar.icon className="h-5 w-5" />
+              </span>
+              <h2 className="mt-3 font-heading text-[17px] text-foreground">
+                {pillar.title}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                {pillar.body}
+              </p>
+            </div>
+          ))}
+        </section>
+
+        <section className="mt-8 border border-border bg-card p-6 sm:p-8">
+          <h2 className="font-heading text-[19px] text-foreground">
+            What Pomi tracks
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            You choose what you want to track when you sign up, and you can change
+            it at any time from your profile. Menstrual cycle tracking covers
+            period days, flow, predicted fertile windows and symptoms. General
+            wellbeing tracking gives you a daily check-in, a journalling prompt and
+            a place to note how you feel, with or without a cycle. Everything you
+            log stays in one place, so you can look back over time and spot
+            patterns.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-slate-600">
+            Pomi is not a medical device and does not provide medical advice.
+            Predictions are estimates based on what you log, and they should never
+            replace a conversation with a healthcare professional.
+          </p>
+        </section>
+
+        <section className="mt-8 border border-border bg-card p-6 sm:p-8">
+          <h2 className="font-heading text-[19px] text-foreground">
+            The causes we support
+          </h2>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Donations are spread across {CHARITY_OPTIONS.length} areas of women's
+            health, each delivered through charities we have chosen for their work:
+          </p>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {CHARITY_OPTIONS.map((cause) => (
+              <li
+                key={cause.value}
+                className="rounded-full bg-pomegranate-50 px-3 py-1.5 text-xs font-medium text-pomegranate-700"
+              >
+                {cause.label}
+              </li>
+            ))}
+          </ul>
+          <Link
+            to="/contact"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-pomegranate-600 hover:text-pomegranate-700"
+          >
+            Questions about how it works? Contact us
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </section>
+
+        <p className="mt-8 text-center text-xs text-slate-400">
+          Pomi is an independent app. Your data is used to provide the app and to
+          calculate donations, and nothing else.
+        </p>
       </main>
 
       <PublicFooter />

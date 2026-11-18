@@ -39,8 +39,15 @@ export const TRACKING_OPTIONS = [
   },
   {
     value: "perimenopause_menopause",
-    label: "Perimenopausal or menopausal",
-    desc: "Track hot flashes, sleep, and mood shifts.",
+    label: "Perimenopause or menopause",
+    desc: "Track symptoms specificly for perimenopause pattern detection and progress.",
+    icon: Flame,
+    comingSoon: true,
+  },
+  {
+    value: "gender_transitioning",
+    label: "Gender affirming journey",
+    desc: "Track symptoms throughout your care.",
     icon: Flame,
     comingSoon: true,
   },
@@ -73,11 +80,11 @@ export const TRACKING_OPTIONS = [
   },
   {
     value: "general_wellbeing",
-    label: "General wellbeing",
+    label: "Mental wellbeing",
     desc: "Track your thoughts and feelings with daily journalling prompts and voice recordings.",
     icon: LotusIcon,
     removal: {
-      title: "Stop tracking general wellbeing?",
+      title: "Stop tracking mental wellbeing?",
       items: [
         "Daily journal prompts, reflections and voice notes",
         "The wellbeing prompt on your dashboard",

@@ -450,7 +450,7 @@ export default function LogToday() {
             {tracksWellbeing && shows("journal") && (
               <section className="border-b border-border px-6 py-6">
                 <h2 className="font-heading text-[19px] leading-snug">
-                  General wellbeing
+                  Mental wellbeing
                 </h2>
                 <p className="mt-2 text-[13.5px] leading-relaxed text-muted-foreground">
                   Take a quiet moment to reflect on today, maybe using today's
