@@ -2,7 +2,7 @@
 // Paste your own values from your AdSense account to start serving real ads.
 // Until both are filled in, ad slots render a quiet placeholder instead.
 export const ADSENSE_CLIENT = "ca-pub-4214672773373438";
-export const ADSENSE_SLOT = ""; // the ad unit's data-ad-slot
+export const ADSENSE_SLOT = "2957025654"; // the ad unit's data-ad-slot
 
 export const adsConfigured = () => Boolean(ADSENSE_CLIENT && ADSENSE_SLOT);
 
