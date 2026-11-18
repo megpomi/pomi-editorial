@@ -5,7 +5,10 @@ import Masthead from "@/components/alm/Masthead";
 // the same one line as everywhere else.
 export default function AppHeader({ maxWidth = "max-w-3xl" }) {
   return (
-    <header className="sticky top-0 z-30 bg-background/95 backdrop-blur">
+    <header
+      className="sticky top-0 z-30 bg-background/95 backdrop-blur"
+      style={{ paddingTop: "env(safe-area-inset-top)" }}
+    >
       <div className={`mx-auto ${maxWidth}`}>
         <Masthead />
       </div>

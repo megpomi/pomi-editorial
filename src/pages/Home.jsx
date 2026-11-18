@@ -14,6 +14,7 @@ import JournalPrompt from "@/components/journal/JournalPrompt";
 import ReminderBanner from "@/components/reminders/ReminderBanner";
 import FeaturedCauses from "@/components/donations/FeaturedCauses";
 import FreeUserAd from "@/components/ads/FreeUserAd";
+import PullToRefresh from "@/components/mobile/PullToRefresh";
 import { useReminders } from "@/hooks/use-reminders";
 import useIsSubscriber from "@/hooks/use-is-subscriber";
 import { getCurrentPhase } from "@/lib/cycle";
@@ -68,8 +69,8 @@ export default function Home() {
       PERIOD_REMINDERS.includes(reminder?.id) ? "/log-period" : "/log-today"
     );
 
-  const load = useCallback(async () => {
-    setLoading(true);
+  const load = useCallback(async ({ silent = false } = {}) => {
+    if (!silent) setLoading(true);
     try {
       // Only the signed-in person's own records: admins can read every user's,
       // and another account's entry would put the wrong day at the top.
@@ -102,22 +103,30 @@ export default function Home() {
     load();
   }, [load]);
 
+  const loadRecentDaily = useCallback(async (ownerId) => {
+    const since = format(subDays(new Date(), 70), "yyyy-MM-dd");
+    const page = await base44.entities.DailyLog.filter(
+      { created_by_id: ownerId, date: { $gte: since } },
+      { sort: "-date", limit: 120 }
+    );
+    setRecentDaily(page.items);
+  }, []);
+
   // The fertile window reads the last couple of months of check-ins: a positive
   // ovulation test moves it, and temperatures confirm it after the fact.
   useEffect(() => {
-    if (!user?.id || !tracksConception) return undefined;
-    let active = true;
-    const since = format(subDays(new Date(), 70), "yyyy-MM-dd");
-    base44.entities.DailyLog.filter(
-      { created_by_id: user.id, date: { $gte: since } },
-      { sort: "-date", limit: 120 }
-    )
-      .then((page) => active && setRecentDaily(page.items))
-      .catch(() => active && setRecentDaily([]));
-    return () => {
-      active = false;
-    };
-  }, [user?.id, tracksConception]);
+    if (!user?.id || !tracksConception) return;
+    loadRecentDaily(user.id).catch(() => setRecentDaily([]));
+  }, [user?.id, tracksConception, loadRecentDaily]);
+
+  // A pull down on the phone re-reads today, the cycle history and the
+  // fertile-window check-ins without taking the page away.
+  const refresh = useCallback(async () => {
+    await load({ silent: true });
+    if (user?.id && tracksConception) {
+      await loadRecentDaily(user.id).catch(() => {});
+    }
+  }, [load, loadRecentDaily, user?.id, tracksConception]);
 
   const subscriber = useIsSubscriber();
 
@@ -229,62 +238,64 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-3xl pb-28">
-        <Masthead />
+      <PullToRefresh onRefresh={refresh}>
+        <div className="mx-auto max-w-3xl pb-28">
+          <Masthead />
 
-        <TodayCycleBlock
-          {...block}
-          status={showCycle && hasCycle ? status : null}
-          phase={showCycle && hasCycle ? status.phase : null}
-        />
+          <TodayCycleBlock
+            {...block}
+            status={showCycle && hasCycle ? status : null}
+            phase={showCycle && hasCycle ? status.phase : null}
+          />
 
-        {tracksConception && showCycle && hasCycle && (
-          <>
+          {tracksConception && showCycle && hasCycle && (
+            <>
+              <div className="px-6">
+                <FertileWindow logs={logs} dailyLogs={recentDaily} />
+              </div>
+              <Rule className="my-7" />
+            </>
+          )}
+
+          {tracksWellbeing && (
+            <>
+              <JournalPrompt dateKey={todayKey} />
+              <Rule className="my-7" />
+            </>
+          )}
+
+          {showBanner && (
             <div className="px-6">
-              <FertileWindow logs={logs} dailyLogs={recentDaily} />
+              <ReminderBanner
+                reminder={reminders[0]}
+                onDismiss={dismiss}
+                onLogPeriod={openFromReminder}
+              />
             </div>
-            <Rule className="my-7" />
-          </>
-        )}
+          )}
 
-        {tracksWellbeing && (
-          <>
-            <JournalPrompt dateKey={todayKey} />
-            <Rule className="my-7" />
-          </>
-        )}
+          {showCycle && !hasCycle && (
+            <div className={showBanner ? "mt-7 px-6" : "px-6"}>
+              <HistoricalDaysPrompt />
+            </div>
+          )}
 
-        {showBanner && (
-          <div className="px-6">
-            <ReminderBanner
-              reminder={reminders[0]}
-              onDismiss={dismiss}
-              onLogPeriod={openFromReminder}
-            />
+          {(showBanner || (showCycle && !hasCycle)) && <Rule className="my-7" />}
+
+          <TodaysEntry options={options} logged={logged} />
+
+          <div className="mt-8">
+            <FeaturedCauses />
           </div>
-        )}
 
-        {showCycle && !hasCycle && (
-          <div className={showBanner ? "mt-7 px-6" : "px-6"}>
-            <HistoricalDaysPrompt />
-          </div>
-        )}
+          <FreeUserAd />
 
-        {(showBanner || (showCycle && !hasCycle)) && <Rule className="my-7" />}
-
-        <TodaysEntry options={options} logged={logged} />
-
-        <div className="mt-8">
-          <FeaturedCauses />
+          <p className="px-6 pt-6 text-center text-[12px] leading-relaxed text-muted-foreground">
+            Pomi is not a medical device. For health concerns, please consult a
+            healthcare professional.
+          </p>
         </div>
-
-        <FreeUserAd />
-
-        <p className="px-6 pt-6 text-center text-[12px] leading-relaxed text-muted-foreground">
-          Pomi is not a medical device. For health concerns, please consult a
-          healthcare professional.
-        </p>
-      </div>
+      </PullToRefresh>
 
       <AlmTabs />
     </div>

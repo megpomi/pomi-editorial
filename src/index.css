@@ -95,10 +95,27 @@
     @apply border-border outline-ring/50;
   }
 
+  html,
+  body {
+    /* No rubber-band bounce behind the page in the mobile webview. */
+    overscroll-behavior-y: none;
+  }
+
   body {
     @apply bg-background text-foreground font-body;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Controls and headings are for tapping, not for selecting. */
+  button,
+  a,
+  nav,
+  header,
+  [role="tab"] {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
   ::selection {

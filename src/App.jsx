@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
@@ -86,7 +87,21 @@ const AuthenticatedApp = () => {
 };
 
 
+// Follow the phone's own light or dark setting, so the webview matches the
+// system the way a native app does.
+const useSystemTheme = () => {
+  useEffect(() => {
+    const query = window.matchMedia("(prefers-color-scheme: dark)");
+    const apply = () =>
+      document.documentElement.classList.toggle("dark", query.matches);
+    apply();
+    query.addEventListener("change", apply);
+    return () => query.removeEventListener("change", apply);
+  }, []);
+};
+
 function App() {
+  useSystemTheme();
 
   return (
     <AuthProvider>
