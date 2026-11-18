@@ -257,6 +257,14 @@
   filter: brightness(0) invert(95%) sepia(16%);
 }
 
+/* Three of the phase drawings were exported on a white card rather than on
+   transparency: inverting turns that card black, and screen blending drops it,
+   so only the drawn lines remain, in cream. */
+.dark .pom-cream-inverted {
+  filter: invert(1) sepia(1) saturate(0.6) brightness(1.05);
+  mix-blend-mode: screen;
+}
+
 .dark .hover\:bg-pomegranate-700:hover {
   background-color: hsl(348 42% 56%);
 }
