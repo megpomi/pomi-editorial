@@ -50,8 +50,24 @@ export default function CalendarPanel({
   const [selected, setSelected] = useState(new Date());
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  // Days toggled but not yet confirmed by the server: true marks a day as a
+  // period day, false clears it. The calendar paints these straight away so the
+  // colour lands under the thumb instead of after the round trip.
+  const [pending, setPending] = useState({});
 
   const loggedDays = useMemo(() => logs.flatMap(expandLog), [logs]);
+
+  // The stored period days with the pending changes laid over them.
+  const periodDays = useMemo(() => {
+    const cleared = new Set(
+      Object.keys(pending).filter((key) => pending[key] === false)
+    );
+    const days = loggedDays.filter((day) => !cleared.has(dayKey(day)));
+    Object.keys(pending).forEach((key) => {
+      if (pending[key] === true) days.push(parseDayKey(key));
+    });
+    return days;
+  }, [loggedDays, pending]);
 
   // Every day the daily check-in saved something on. Without cycle tracking
   // there is no period to mark, so the day itself carries the pomegranate dot.
@@ -136,16 +152,26 @@ export default function CalendarPanel({
   // Marks the selected day as a period day, or clears it when it already is one.
   const togglePeriodDay = async () => {
     if (!selected || saving) return;
+    const key = dayKey(selected);
+    const marking = !selectedLog;
     setSaving(true);
     setError("");
+    // Paint the change before the request leaves.
+    setPending((current) => ({ ...current, [key]: marking }));
     try {
-      const key = dayKey(selected);
       if (selectedLog) await deletePeriodDays(logs, [key]);
       else await addPeriodDays(logs, [key]);
       if (onChanged) await onChanged();
     } catch (e) {
       setError(e?.message || "Couldn't update this day. Please try again.");
     } finally {
+      // Either the stored days now say the same thing, or the change failed and
+      // the stored days are the truth again.
+      setPending((current) => {
+        const next = { ...current };
+        delete next[key];
+        return next;
+      });
       setSaving(false);
     }
   };
@@ -167,7 +193,7 @@ export default function CalendarPanel({
           selected={selected}
           onSelect={(value) => value && setSelected(value)}
           modifiers={{
-            logged: showCycle ? loggedDays : checkedInDays,
+            logged: showCycle ? periodDays : checkedInDays,
             symptom: showCycle ? symptomDays : [],
             journal: journalDays,
             fertile: fertileDays,
@@ -234,7 +260,11 @@ export default function CalendarPanel({
             dailyLog={selectedDailyLog}
             journal={showJournal ? selectedDailyLog : null}
             cycleDay={cycleDay}
-            isPeriodDay={Boolean(selectedLog)}
+            isPeriodDay={
+              selected && pending[dayKey(selected)] !== undefined
+                ? pending[dayKey(selected)]
+                : Boolean(selectedLog)
+            }
             onTogglePeriod={showCycle ? togglePeriodDay : undefined}
             periodSaving={saving}
             periodError={error}

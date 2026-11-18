@@ -3,7 +3,11 @@ import Pomegranate from "@/components/alm/Pomegranate";
 
 export default function AuthLayout({ title, subtitle, footer, children }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-5 py-12">
+    <div
+      className="flex min-h-screen items-center justify-center bg-background px-5 py-12"
+      // Clears the phone's status bar and notch.
+      style={{ paddingTop: "calc(3rem + env(safe-area-inset-top))" }}
+    >
       <div className="w-full max-w-md">
         <div className="mb-8">
           <div className="flex items-baseline justify-between">

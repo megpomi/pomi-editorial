@@ -1,4 +1,5 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 
 // Almanac's section tabs, kept at the foot of the page the way a printed
@@ -19,7 +20,9 @@ const TABS = [
 export default function AlmTabs() {
   const { pathname } = useLocation();
 
-  return (
+  // Rendered straight into the page body, so a route transition can slide the
+  // page along without dragging the tab bar with it.
+  return createPortal(
     <nav
       className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-background/95 backdrop-blur"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
@@ -72,6 +75,7 @@ export default function AlmTabs() {
           );
         })}
       </div>
-    </nav>
+    </nav>,
+    document.body
   );
 }

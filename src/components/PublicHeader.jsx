@@ -7,7 +7,11 @@ import Pomegranate from "@/components/alm/Pomegranate";
 // small screens so the row never crowds.
 export default function PublicHeader() {
   return (
-    <header className="border-b border-border">
+    <header
+      className="border-b border-border"
+      // Clears the phone's status bar and notch.
+      style={{ paddingTop: "env(safe-area-inset-top)" }}
+    >
       <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-5 py-3.5 sm:px-6 sm:py-4">
         <Link to="/" className="flex items-center gap-2">
           <Pomegranate size={24} />

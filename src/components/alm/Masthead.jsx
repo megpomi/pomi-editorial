@@ -10,7 +10,11 @@ export default function Masthead() {
   const now = new Date();
 
   return (
-    <div className="px-5 pt-4 pb-3 sm:px-6">
+    <div
+      className="px-5 pt-4 pb-3 sm:px-6"
+      // Clears the phone's status bar and notch.
+      style={{ paddingTop: "calc(1rem + env(safe-area-inset-top))" }}
+    >
       <div className="flex items-center gap-2 sm:gap-3">
         <div className="flex flex-1 items-center justify-start">
           <Link to="/" className="flex shrink-0 items-center gap-2">

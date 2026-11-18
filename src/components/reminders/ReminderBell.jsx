@@ -17,7 +17,9 @@ export default function ReminderBell({ reminders, onDismiss, onLogPeriod }) {
           variant="ghost"
           size="icon"
           aria-label="Reminders"
-          className="relative h-8 w-8 shrink-0 rounded-[3px] border border-foreground/20 text-foreground hover:border-primary/50 hover:bg-transparent hover:text-primary"
+          // The drawn box stays 32px; the invisible after-padding lifts the touch
+          // target to 44px, the size a thumb can reliably hit.
+          className="relative h-8 w-8 shrink-0 rounded-[3px] border border-foreground/20 text-foreground after:absolute after:-inset-[6px] after:content-[''] hover:border-primary/50 hover:bg-transparent hover:text-primary"
         >
           <Bell className="h-4 w-4" strokeWidth={1.6} />
           {count > 0 && (

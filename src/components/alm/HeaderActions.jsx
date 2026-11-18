@@ -18,7 +18,9 @@ export default function HeaderActions() {
       <Link
         to="/profile"
         aria-label="Your profile"
-        className="grid h-8 w-8 shrink-0 place-items-center rounded-[3px] border border-foreground/20 text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+        // The drawn box stays 32px; the invisible after-padding lifts the touch
+        // target to 44px, the size a thumb can reliably hit.
+        className="relative grid h-8 w-8 shrink-0 place-items-center rounded-[3px] border border-foreground/20 text-foreground transition-colors after:absolute after:-inset-[6px] after:content-[''] hover:border-primary/50 hover:text-primary"
       >
         <User className="h-4 w-4" strokeWidth={1.6} />
       </Link>
