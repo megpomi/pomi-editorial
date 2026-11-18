@@ -13,6 +13,7 @@ import CausePreferences from "@/components/profile/CausePreferences";
 import CurrencyPreference from "@/components/profile/CurrencyPreference";
 import NotificationPreferences from "@/components/profile/NotificationPreferences";
 import { DEFAULT_CURRENCY, currencyOf } from "@/lib/currency";
+import { openConsentSettings } from "@/lib/consent";
 import {
   notificationUserFields,
   readNotificationPrefs,
@@ -155,6 +156,14 @@ export default function Profile() {
               <span className="font-heading">How we protect your data</span>
               <span className="text-muted-foreground">→</span>
             </Link>
+            <button
+              type="button"
+              onClick={openConsentSettings}
+              className="mb-3 flex w-full items-center justify-between border-b border-border pb-3 text-left text-[13px] text-foreground transition-colors hover:text-primary"
+            >
+              <span className="font-heading">Cookie settings</span>
+              <span className="text-muted-foreground">→</span>
+            </button>
             <button
               type="button"
               onClick={handleLogout}

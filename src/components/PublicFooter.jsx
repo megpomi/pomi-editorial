@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { openConsentSettings } from "@/lib/consent";
 
 // Footer shown on the public pages, so the About and Contact pages are always
 // one click away.
@@ -15,6 +16,13 @@ export default function PublicFooter() {
           <Link to="/contact" className="transition-colors hover:text-primary">
             Contact us
           </Link>
+          <button
+            type="button"
+            onClick={openConsentSettings}
+            className="uppercase tracking-[0.16em] transition-colors hover:text-primary"
+          >
+            Cookie settings
+          </button>
         </nav>
       </div>
     </footer>
