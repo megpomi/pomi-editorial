@@ -1,7 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Heart, ShieldCheck, Sparkles } from "lucide-react";
 import PublicHeader from "@/components/PublicHeader";
 import PublicFooter from "@/components/PublicFooter";
 import MissionContent from "@/components/mission/MissionContent";
+import { CHARITY_OPTIONS } from "@/lib/charities";
+
+const PILLARS = [
+  {
+    icon: Heart,
+    title: "Health data, given back",
+    body: "Every day you log adds to your personal donation pot, not a company's bottom line.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Private by default",
+    body: "Your cycle and your journal belong to you. Only you can see what you log.",
+  },
+  {
+    icon: Sparkles,
+    title: "Built for every body",
+    body: "Cycles, conception, wellbeing or a gender affirming journey — you choose what Pomi follows.",
+  },
+];
 
 export default function About() {
   return (

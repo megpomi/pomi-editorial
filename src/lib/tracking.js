@@ -1,5 +1,6 @@
 import { Droplet, Egg, Flame, HeartPulse, Sprout } from "lucide-react";
 import LotusIcon from "@/components/icons/LotusIcon";
+import ButterflyIcon from "@/components/icons/ButterflyIcon";
 
 export const CYCLE_FOCUS = "menstrual_cycles";
 export const CONCEPTION_FOCUS = "trying_to_conceive";
@@ -48,7 +49,7 @@ export const TRACKING_OPTIONS = [
     value: "gender_transitioning",
     label: "Gender affirming journey",
     desc: "Track symptoms throughout your care.",
-    icon: Flame,
+    icon: ButterflyIcon,
     comingSoon: true,
   },
   {
