@@ -248,9 +248,7 @@ export default function Home() {
 
         {tracksWellbeing && (
           <>
-            <div className="px-6">
-              <JournalPrompt dateKey={todayKey} />
-            </div>
+            <JournalPrompt dateKey={todayKey} />
             <Rule className="my-7" />
           </>
         )}
