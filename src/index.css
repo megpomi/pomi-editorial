@@ -283,6 +283,12 @@
   background-color: hsl(var(--foreground));
 }
 
+/* The mark that opens the landing page stays cream on ink, held to the literal
+   tone so it can never fall back to the burgundy ink of the light theme. */
+.dark .hero-mark {
+  background-color: hsl(38 40% 92%);
+}
+
 .dark .hover\:bg-pomegranate-700:hover {
   background-color: hsl(348 42% 56%);
 }

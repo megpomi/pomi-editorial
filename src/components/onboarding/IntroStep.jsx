@@ -27,8 +27,11 @@ export default function IntroStep({ onStart }) {
         <div className="w-full max-w-xl">
           <motion.div layout className="flex flex-col items-start">
             <motion.div layout transition={{ duration: 0.6, ease: "easeInOut" }}>
+              {/* Sized in viewport units only: a percentage here would resolve
+                  against a shrink-to-fit parent and collapse the mark. */}
               <Pomegranate
-                size={revealed ? "min(26vh, 100%)" : "min(36vh, 100%)"}
+                className="hero-mark"
+                size={revealed ? "min(26vh, 240px)" : "min(36vh, 320px)"}
               />
             </motion.div>
           </motion.div>
