@@ -22,8 +22,12 @@ import TrackingDependencyNote from "@/components/tracking/TrackingDependencyNote
 // turned off again. Conception tracking always travels with it.
 const ALWAYS_TRACKED = CYCLE_FOCUS;
 
-export default function OnboardingQuestionnaire({ draft, onComplete }) {
-  const [step, setStep] = useState(0);
+export default function OnboardingQuestionnaire({
+  draft,
+  onComplete,
+  startAtQuestionnaire = false,
+}) {
+  const [step, setStep] = useState(startAtQuestionnaire ? 1 : 0);
   const [trackingFocus, setTrackingFocus] = useState(() => {
     const saved = draft?.tracking_focus || [];
     return saved.includes(ALWAYS_TRACKED)

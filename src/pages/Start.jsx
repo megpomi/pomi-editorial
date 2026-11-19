@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { base44 } from "@/api/base44Client";
 import Home from "@/pages/Home";
 import OnboardingQuestionnaire from "@/components/OnboardingQuestionnaire";
@@ -10,9 +11,11 @@ import {
 // Entry point: new visitors answer the setup questions and sign in with Google
 // or Apple, people who already have an account land straight on their dashboard.
 export default function Start() {
+  const [searchParams] = useSearchParams();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [draft, setDraft] = useState(null);
+  const startAtQuestionnaire = searchParams.get("start") === "questionnaire";
 
   useEffect(() => {
     let active = true;
@@ -54,6 +57,7 @@ export default function Start() {
   return (
     <OnboardingQuestionnaire
       draft={draft}
+      startAtQuestionnaire={startAtQuestionnaire}
       onComplete={(focus) => {
         clearOnboardingDraft();
         setUser((prev) => ({ ...prev, tracking_focus: focus }));
