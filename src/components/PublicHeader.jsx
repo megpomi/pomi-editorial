@@ -38,12 +38,6 @@ export default function PublicHeader() {
           >
             Sign in
           </Link>
-          <Link
-            to="/"
-            className="whitespace-nowrap rounded-[3px] bg-primary px-3 py-2 font-heading text-[12.5px] text-primary-foreground transition-colors hover:bg-pomegranate-700 sm:px-4 sm:text-[13px]"
-          >
-            Start with Pomi
-          </Link>
         </nav>
       </div>
     </header>
